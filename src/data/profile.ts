@@ -77,14 +77,15 @@ export const projects: Project[] = [
     slug: 'fantasy-league-lab',
     name: 'Fantasy League Lab',
     url: 'https://fantasyleaguelab.com',
-    tagline: 'League analytics measured against expert consensus',
+    tagline: 'Advice that knows your league',
     description:
-      'AI-powered fantasy basketball analytics on the Yahoo Fantasy API. Imports your league across seasons and profiles every manager: drafting personality, power rankings, category dominance, and Reach Rate — how far ahead of expert consensus each pick was made. Built on a hardened Yahoo OAuth client with Redis caching, rate limiting, and a cross-source player ID mapping pipeline.',
+      'Built on a gap every fantasy player hits: analyst advice only goes so far, because it doesn’t know your league — its settings, its managers, its roster construction. Lab imports your league’s full multi-season Yahoo history and studies how it actually behaves: manager drafting personalities, head-to-head records, category strengths, and Reach Rate — how far ahead of expert consensus each pick was made. Rankings tell you who’s good; Lab tells you how to win the league you’re in.',
     stack: ['Next.js', 'TypeScript', 'Yahoo Fantasy API', 'MongoDB', 'Redis', 'Recharts', 'Auth0', 'Stripe'],
     highlights: [
-      'Reach Rate: an original metric scoring draft picks against expert consensus rankings',
+      'The gap it closes: generic advice ignores league settings, managers, and roster construction',
+      'Multi-season league history: manager behaviour profiles, head-to-head records, category dominance',
+      'Reach Rate: an original metric scoring every draft pick against expert consensus rankings',
       'Cross-season manager identity resolution on a notoriously inconsistent API',
-      'Player ID mapping pipeline joining Yahoo data with scraped expert rankings',
     ],
     role: 'Solo experiment — product, data, engineering',
     period: '2025',
@@ -92,7 +93,7 @@ export const projects: Project[] = [
     pos: 'RB',
     posLabel: 'Data workhorse',
     tier: 2,
-    statLine: 'Yahoo API · Reach Rate metric',
+    statLine: 'League-specific win intel · Yahoo API',
     status: 'OFFSEASON',
   },
   {
