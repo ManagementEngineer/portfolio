@@ -150,18 +150,17 @@ export type Experience = {
   bullets: string[]
 }
 
-// TODO(RJ): resume on file is from mid-2023 — verify current role and add
-// anything since (miassistant.ai / aiapplied-ca work?).
 export const experience: Experience[] = [
   {
-    role: 'AI Engineer',
-    company: 'AI Applied',
+    role: 'Founding Engineer — AI & Product',
+    company: 'Kuvai (AI Applied)',
     location: 'Toronto, ON',
     start: '2024',
     end: 'Present',
     bullets: [
-      'Built an LLM document-extraction and bank-reconciliation pipeline for insurance back-office operations: structured outputs with typed schemas, ground-truth evaluation sets, production databases.',
-      'Measured extraction accuracy against committed ground-truth data instead of vibes.',
+      'Founding team on an AI-teammates platform: agents grounded in company documents, connected to the tools businesses already use, with human approval on every action.',
+      'The glue guy — chose the tech stack, own UX and UI, define and ship MVPs.',
+      'Built LLM document-extraction and reconciliation pipelines for insurance operations: typed structured outputs, measured against ground-truth evaluation sets.',
     ],
   },
   {
