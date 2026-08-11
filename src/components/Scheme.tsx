@@ -5,19 +5,19 @@ import { motion, useReducedMotion } from 'motion/react'
 const plays = [
   {
     title: 'Prototype, don’t spec',
-    body: 'An idea becomes working software the same afternoon. I decide from the real thing, not a ticket estimate. Sprints answered "what can we afford to build?" — the question now is "which of these working things deserves to live?"',
+    body: 'A working prototype is the highest-bandwidth way to judge an idea — you touch it instead of reading about it. Ideas become software the same afternoon, and "which of these working things deserves to live?" replaces the estimate meeting.',
   },
   {
     title: 'Agents are the team',
-    body: 'My products are staffed by rosters of specialized AI agents with written guardrails — growth analyst, SEO lead, copywriter, fantasy expert. I run them like a manager: clear briefs, review everything, own every call.',
+    body: 'Rosters of specialized AI agents with written guardrails — growth analyst, SEO lead, copywriter, fantasy expert. Briefs and guardrails mean their work comes back decision-ready, so my attention goes to the call, not the redo.',
   },
   {
-    title: 'Validation is the new bottleneck',
-    body: 'So it gets the engineering. Gate-reason instrumentation, cohort retention, checkout funnels, ground-truth evals for every AI feature. Ship-or-kill decisions come from data, not ceremony.',
+    title: 'Compress reality into signal',
+    body: 'Gate-reason instrumentation, cohort retention, checkout funnels, ground-truth evals for every AI feature — thousands of sessions distilled into a handful of numbers a human can act on daily. Ship-or-kill comes from signal, not ceremony.',
   },
   {
     title: 'Decision logs, not roadmap theater',
-    body: 'Dated decisions with the reversed ones struck through, unit economics and kill-gates written before a dollar is spent. The plan is a living record of judgment — anyone can audit why the product is the way it is.',
+    body: 'Dated decisions with the reversed ones struck through, unit economics and kill-gates written before a dollar is spent. Written judgment never needs re-digesting — nothing gets re-litigated from scratch.',
   },
 ]
 
@@ -31,7 +31,8 @@ export default function Scheme() {
         <h2 className="section-title">How one person ships four products</h2>
         <p className="section-sub">
           Scrum and sprints were built to ration scarce engineering time. AI ended that scarcity — coding isn’t the
-          bottleneck anymore, judgment is. I run product for that era.
+          bottleneck anymore. The real limit is how much information one person can digest in a day, so that’s what I
+          engineer: a system that turns four products into one human’s daily read.
         </p>
 
         <div className="scheme">
