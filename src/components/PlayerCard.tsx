@@ -42,7 +42,7 @@ export default function PlayerCard() {
         <div className="player-card__jersey num">01</div>
 
         <div className="player-card__name">
-          RJ
+          Ramuel
           <br />
           Batuigas
         </div>
@@ -54,8 +54,8 @@ export default function PlayerCard() {
             <dd className="num">4</dd>
           </div>
           <div>
-            <dt>Draft seasons</dt>
-            <dd className="num">4</dd>
+            <dt>Yrs as commish</dt>
+            <dd className="num">15</dd>
           </div>
           <div>
             <dt>Bye week</dt>

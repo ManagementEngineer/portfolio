@@ -2,8 +2,8 @@
 // Edit this file to update the site — no component changes needed.
 
 export const profile = {
-  name: 'Ramuel "RJ" Batuigas',
-  shortName: 'RJ Batuigas',
+  name: 'Ramuel Batuigas',
+  shortName: 'Ramuel Batuigas',
   location: 'Toronto, ON',
   email: 'rjbatuigas@gmail.com',
   links: {
@@ -217,6 +217,7 @@ export const skills = {
     'LLM structured extraction & evals',
   ],
   fantasy: [
+    '15 years as a league commissioner',
     'Drafts, waivers, trades, start/sit',
     'Sleeper & Yahoo Fantasy APIs',
     'Expert consensus ranking data',

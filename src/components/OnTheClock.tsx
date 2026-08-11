@@ -21,14 +21,14 @@ export default function OnTheClock() {
           {mm}:{ss}
         </p>
         <p className="clock__pitch">
-          Still available: a PM who has lived inside rankings, start/sit, and draft-day products for four seasons — as
-          the builder <em>and</em> the user.
+          Still available: a PM who has lived inside rankings, start/sit, and draft-day products for four seasons as
+          the builder — and fifteen as a commissioner.
         </p>
         <a
           className="btn-gold"
           href={`mailto:${profile.email}?subject=${encodeURIComponent('With the 1st overall pick…')}`}
         >
-          Draft RJ
+          Draft Ramuel
         </a>
 
         <nav className="clock__links" aria-label="Profiles">
@@ -42,7 +42,7 @@ export default function OnTheClock() {
         </nav>
 
         <p className="clock__fineprint">
-          Built by RJ with React, Three.js, Motion, and Claude Code. Position colors lovingly borrowed — not affiliated
+          Built by Ramuel with React, Three.js, Motion, and Claude Code. Position colors lovingly borrowed — not affiliated
           with FantasyPros. Yet.
         </p>
       </div>

@@ -4,6 +4,7 @@ import { motion, useReducedMotion } from 'motion/react'
 // A working "Who Should You Hire?" — the Who Should I Start pattern, one joke deep.
 const rows = [
   { label: 'Ships product solo, concept to launch', rj: true, rep: false },
+  { label: 'League commissioner for 15 years', rj: true, rep: false },
   { label: 'Fantasy domain: drafts, waivers, start/sit', rj: true, rep: 'Reads about it' },
   { label: 'AI agents in the daily workflow', rj: true, rep: 'Has opinions' },
   { label: 'Runs pricing tests on real customers', rj: true, rep: false },
@@ -24,7 +25,7 @@ export default function StartSit() {
         <div className="startsit">
           <div className="startsit__matchup">
             <div className="startsit__player startsit__player--rj">
-              <span className="startsit__player-name">RJ Batuigas</span>
+              <span className="startsit__player-name">Ramuel Batuigas</span>
               <span className="startsit__player-meta">SPM · Free agent</span>
             </div>
             <span className="startsit__vs">VS</span>
@@ -66,7 +67,7 @@ export default function StartSit() {
                 />
               </div>
               <p className="startsit__verdict-line">
-                <strong className="num">100%</strong> of experts would start RJ
+                <strong className="num">100%</strong> of experts would start Ramuel
               </p>
               <p className="startsit__fineprint">Comparing 3+ candidates is a premium feature.</p>
             </motion.div>

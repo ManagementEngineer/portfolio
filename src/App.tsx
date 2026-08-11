@@ -12,7 +12,7 @@ const tabs = [
   { href: '#startsit', label: 'Start/Sit' },
   { href: '#gamelog', label: 'Game Log' },
   { href: '#eligibility', label: 'Eligibility' },
-  { href: '#contact', label: 'Draft RJ' },
+  { href: '#contact', label: 'Draft Ramuel' },
 ]
 
 function App() {
@@ -21,7 +21,7 @@ function App() {
       <nav className="tabs" aria-label="Sections">
         <div className="wrap tabs__inner">
           <a className="tabs__brand" href="#overall">
-            RJ<span>.01</span>
+            RAMUEL<span>.01</span>
           </a>
           <div className="tabs__list">
             {tabs.map((t) => (

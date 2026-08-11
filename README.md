@@ -1,4 +1,4 @@
-# ramuel.ca — RJ Batuigas
+# ramuel.ca — Ramuel Batuigas
 
 Personal site, built as a FantasyPros-style player page: Expert-Consensus-Rankings hero, a tiered draft board of shipped products, a Who Should You Hire head-to-head, and a draft-clock CTA.
 
