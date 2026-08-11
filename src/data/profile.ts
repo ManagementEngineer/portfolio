@@ -210,11 +210,11 @@ export const skills = {
     'Funnel & cohort analysis',
     'Fantasy calendar planning',
   ],
-  build: ['React / Next.js', 'TypeScript', 'Three.js', 'Firebase', 'Python', 'SQL'],
+  build: ['React / Next.js', 'TypeScript', 'Vercel AI SDK', 'MongoDB · Firebase', 'Auth0 · AWS S3', 'Three.js'],
   ai: [
-    'Claude API features in production',
-    'Agent-driven workflows (Claude Code)',
-    'LLM structured extraction & evals',
+    'Claude & OpenAI APIs in production',
+    'Claude Code agents & skills, daily',
+    'LLM extraction, evals & PII redaction (Presidio)',
   ],
   fantasy: [
     '15 years as a league commissioner',
