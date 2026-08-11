@@ -179,7 +179,30 @@
   transform-style: preserve-3d;
 }
 
+.player-card__photo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: saturate(0.92) contrast(1.05);
+}
+
+.player-card__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(8, 18, 38, 0.62) 0%,
+    rgba(8, 18, 38, 0.12) 24%,
+    rgba(8, 18, 38, 0.05) 44%,
+    rgba(8, 18, 38, 0.68) 68%,
+    rgba(7, 14, 30, 0.95) 100%
+  );
+}
+
 .player-card__top {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -201,10 +224,11 @@
   font-weight: 800;
   font-size: 120px;
   line-height: 1;
-  color: rgba(255, 255, 255, 0.07);
+  color: rgba(255, 255, 255, 0.12);
 }
 
 .player-card__name {
+  position: relative;
   font-family: var(--font-display);
   font-weight: 800;
   text-transform: uppercase;
@@ -212,18 +236,21 @@
   line-height: 0.95;
   margin-top: auto;
   color: #fff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.5);
 }
 
 .player-card__team {
+  position: relative;
   font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: 0.14em;
   font-size: 13px;
-  color: rgba(255, 255, 255, 0.6);
+  color: rgba(255, 255, 255, 0.7);
   margin-top: 8px;
 }
 
 .player-card__stats {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;

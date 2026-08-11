@@ -1,6 +1,7 @@
 import { useRef } from 'react'
 import { motion, useMotionValue, useSpring, useTransform, useReducedMotion } from 'motion/react'
 import PositionBadge from './PositionBadge'
+import photo from '../assets/card-photo.jpg'
 
 // The signature element: a holographic "1st overall" player card that tilts
 // toward the pointer, with a foil sheen that tracks the light.
@@ -34,6 +35,8 @@ export default function PlayerCard() {
   return (
     <div className="card-scene" ref={ref} onPointerMove={onPointerMove} onPointerLeave={onPointerLeave}>
       <motion.div className="player-card" style={reduced ? undefined : { rotateX, rotateY }}>
+        <img className="player-card__photo" src={photo} alt="Ramuel Batuigas, with the league's unofficial mascot" />
+        <div className="player-card__scrim" aria-hidden />
         <div className="player-card__top">
           <span className="player-card__pick">1ST OVERALL</span>
           <PositionBadge pos="QB" text="SPM" />
