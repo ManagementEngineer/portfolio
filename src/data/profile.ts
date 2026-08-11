@@ -13,7 +13,7 @@ export const profile = {
   },
   headline: 'I build fantasy sports products people pay for.',
   summary:
-    'Founding engineer (AI & Product) at Kuvai by day. Creator of Fantasy League Lottery the rest of the time — a live, revenue-generating fantasy product I have run solo since 2022: PM, design, engineering, and growth, with AI agents as my team.',
+    'Founding engineer (AI & Product) at Kuvai by day. Creator of Fantasy League Lottery the rest of the time — a live, revenue-generating fantasy product I\'ve run solo since 2022: PM, design, engineering, and growth, with AI agents as my team.',
 } as const
 
 export type Stat = { value: string; label: string; note?: string }

@@ -32,6 +32,9 @@ export default function OnTheClock() {
         </a>
 
         <nav className="clock__links" aria-label="Profiles">
+          <a href="/resume.pdf" target="_blank" rel="noreferrer">
+            Resume
+          </a>
           <a href={profile.links.github} target="_blank" rel="noreferrer">
             GitHub
           </a>

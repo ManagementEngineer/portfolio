@@ -8,7 +8,7 @@ export default function GameLog() {
         <p className="section-kicker">Career game log</p>
         <h2 className="section-title">Previous seasons</h2>
         <p className="section-sub">
-          Before building fantasy products full-tilt: operations and analytics roles where the job was finding the
+          The day job and the seasons before it — engineering and operations roles where the work was finding the
           number that changes the decision.
         </p>
 

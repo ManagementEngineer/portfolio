@@ -13,7 +13,7 @@ export default function Board() {
         <h2 className="section-title">The board</h2>
         <p className="section-sub">
           Fantasy League Lottery is the flagship — live, revenue-generating, run solo for four draft seasons. Below it,
-          experiments from the same lab. Tap a row for the scouting report.
+          experiments from the same lab. Open a row for the scouting report.
         </p>
 
         <div className="board">
