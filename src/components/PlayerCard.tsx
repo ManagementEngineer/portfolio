@@ -53,7 +53,7 @@ export default function PlayerCard() {
 
         <dl className="player-card__stats">
           <div>
-            <dt>Products live</dt>
+            <dt>Draft seasons</dt>
             <dd className="num">4</dd>
           </div>
           <div>

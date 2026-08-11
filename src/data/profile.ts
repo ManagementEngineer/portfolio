@@ -13,7 +13,7 @@ export const profile = {
   },
   headline: 'I build fantasy sports products people pay for.',
   summary:
-    'Management engineer turned solo product builder. Since 2022 I have designed, shipped, and grown a portfolio of live fantasy sports products — draft lotteries, league analytics, group pools — doing the PM, design, engineering, and growth work myself, with AI agents as my team.',
+    'Founding engineer (AI & Product) at Kuvai by day. Creator of Fantasy League Lottery the rest of the time — a live, revenue-generating fantasy product I have run solo since 2022: PM, design, engineering, and growth, with AI agents as my team.',
 } as const
 
 export type Stat = { value: string; label: string; note?: string }
@@ -22,7 +22,7 @@ export type Stat = { value: string; label: string; note?: string }
 // peak month Aug 2024 = 8,921 users / 14,415 sessions / 32,132 page views.
 // TODO(RJ): 10.7% conversion is from the FLL roadmap — confirm before publishing.
 export const heroStats: Stat[] = [
-  { value: '4', label: 'live products shipped solo' },
+  { value: '4', label: 'draft seasons shipped solo' },
   { value: '14,000+', label: 'visits in a peak draft month' },
   { value: '977', label: 'commits on one product since 2022' },
   { value: '10.7%', label: 'free-to-Pro conversion' },
@@ -64,7 +64,7 @@ export const projects: Project[] = [
       'Breathes with the fantasy calendar: traffic 10x’s every August — peak month, 8,900 players and 32,000 page views — with reveal scheduling and lifecycle emails to match',
       'AI features in production: constitution Q&A, unbiased dispute rulings, schedule recommendations',
     ],
-    role: 'Founder — product, design, engineering, growth',
+    role: 'Creator — product, design, engineering, growth',
     period: '2022 – present',
     featured: true,
     pos: 'QB',
@@ -86,7 +86,7 @@ export const projects: Project[] = [
       'Cross-season manager identity resolution on a notoriously inconsistent API',
       'Player ID mapping pipeline joining Yahoo data with scraped expert rankings',
     ],
-    role: 'Founder — product, data, engineering',
+    role: 'Solo experiment — product, data, engineering',
     period: '2025',
     featured: true,
     pos: 'RB',
@@ -108,7 +108,7 @@ export const projects: Project[] = [
       'Deliberate free/Pro packaging: every pool type free, depth features paid',
       'Design system in oklch with mandatory light + dark themes',
     ],
-    role: 'Founder — product, design, engineering',
+    role: 'Solo experiment — product, design, engineering',
     period: '2026',
     featured: true,
     pos: 'WR',
@@ -130,7 +130,7 @@ export const projects: Project[] = [
       'Ten specialized AI agents run merchandising, copy, SEO, and growth',
       'Privacy governance: a documented consent wall between businesses',
     ],
-    role: 'Founder — strategy, ops',
+    role: 'Solo experiment — strategy, ops',
     period: '2026',
     featured: true,
     pos: 'K',

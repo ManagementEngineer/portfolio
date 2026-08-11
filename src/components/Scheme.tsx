@@ -28,11 +28,11 @@ export default function Scheme() {
     <section className="section scheme-section" id="scheme">
       <div className="wrap">
         <p className="section-kicker">The scheme</p>
-        <h2 className="section-title">How one person ships four products</h2>
+        <h2 className="section-title">How a team of one ships like ten</h2>
         <p className="section-sub">
           Scrum and sprints were built to ration scarce engineering time. AI ended that scarcity — coding isn’t the
           bottleneck anymore. The real limit is how much information one person can digest in a day, so that’s what I
-          engineer: a system that turns four products into one human’s daily read.
+          engineer: a system that fits a whole product business into one human’s daily read.
         </p>
 
         <div className="scheme">
