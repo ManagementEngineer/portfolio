@@ -18,11 +18,12 @@ export const profile = {
 
 export type Stat = { value: string; label: string; note?: string }
 
-// Headline numbers for the hero. TODO(RJ): sanity-check before publishing —
-// these come from the FLL strategic roadmap and 2023 resume.
+// Headline numbers for the hero. Traffic verified against GA4 (Aug 2026):
+// peak month Aug 2024 = 8,921 users / 14,415 sessions / 32,132 page views.
+// TODO(RJ): 10.7% conversion is from the FLL roadmap — confirm before publishing.
 export const heroStats: Stat[] = [
   { value: '4', label: 'live products shipped solo' },
-  { value: '6,000+', label: 'monthly visits at peak season' },
+  { value: '14,000+', label: 'visits in a peak draft month' },
   { value: '977', label: 'commits on one product since 2022' },
   { value: '10.7%', label: 'free-to-Pro conversion' },
 ]
@@ -60,7 +61,7 @@ export const projects: Project[] = [
     highlights: [
       'Live since 2022 · 977 commits · shipped and iterated through four draft seasons',
       'Paid Pro tier with 10.7% conversion and lotteries up 79–98% YoY',
-      'Runs on the fantasy calendar: reveal scheduling, lifecycle emails, seasonal landing pages',
+      'Breathes with the fantasy calendar: traffic 10x’s every August — peak month, 8,900 players and 32,000 page views — with reveal scheduling and lifecycle emails to match',
       'AI features in production: constitution Q&A, unbiased dispute rulings, schedule recommendations',
     ],
     role: 'Founder — product, design, engineering, growth',
