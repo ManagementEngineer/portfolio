@@ -1,21 +1,133 @@
-html {
-  font-size: 62.5%;
+/* ---- Design tokens: FantasyPros-native light system ---- */
+:root {
+  --ink: #16191d;
+  --ink-soft: #4a5361;
+  --bg: #ebeef4;
+  --surface: #ffffff;
+  --surface-alt: #f3f5f9;
+  --line: #e2e7ee;
+  --navy: #081d3f;
+  --navy-2: #13284a;
+  --blue: #0769de;
+  --blue-hover: #0370e3;
+  --green: #3bca62;
+  --gold: #facd39;
+
+  /* FantasyPros position colors (badge / tint) */
+  --pos-qb: #c8a1ff;
+  --pos-qb-tint: #e6d4ff;
+  --pos-rb: #83dcef;
+  --pos-rb-tint: #c7eff8;
+  --pos-wr: #85de9e;
+  --pos-wr-tint: #c8f0d3;
+  --pos-te: #ff8aa2;
+  --pos-te-tint: #ffcad5;
+  --pos-k: #fdb97c;
+  --pos-k-tint: #fedfc4;
+  --pos-dst: #f6e5ab;
+  --pos-dst-tint: #fbf3d9;
+
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-body: 'Inter Variable', system-ui, sans-serif;
+
+  --maxw: 1080px;
+  --radius: 10px;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
 
 body {
   margin: 0;
-  font-family: 300 11px/1.4 'Helvetica Neue', 'sans-serif';
-  color: #444;
-  background: #022c43;
-  overflow: hidden;
-  display: block;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  line-height: 1.05;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--blue-hover);
+  text-decoration: underline;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+}
+
+:focus-visible {
+  outline: 3px solid var(--blue);
+  outline-offset: 2px;
+}
+
+.wrap {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.section {
+  padding: 72px 0;
+}
+
+/* Section headers mimic FP's utilitarian labels */
+.section-kicker {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.14em;
+  color: var(--blue);
+  margin-bottom: 4px;
+}
+
+.section-title {
+  font-size: clamp(28px, 4.5vw, 42px);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.section-sub {
+  color: var(--ink-soft);
+  max-width: 640px;
+  margin-bottom: 32px;
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum';
 }
