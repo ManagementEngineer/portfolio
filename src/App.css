@@ -485,6 +485,32 @@
   font-weight: 600;
 }
 
+/* ================= Scheme ================= */
+.scheme {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.scheme__play {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 24px;
+  border-top: 3px solid var(--navy);
+}
+
+.scheme__title {
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.scheme__body {
+  font-size: 14.5px;
+  color: var(--ink-soft);
+}
+
 /* ================= Start/Sit ================= */
 .startsit-section {
   background: var(--surface);
@@ -844,6 +870,10 @@
   }
 
   .eligibility {
+    grid-template-columns: 1fr;
+  }
+
+  .scheme {
     grid-template-columns: 1fr;
   }
 

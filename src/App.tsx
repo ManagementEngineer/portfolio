@@ -1,6 +1,7 @@
 import './App.css'
 import Hero from './components/Hero'
 import Board from './components/Board'
+import Scheme from './components/Scheme'
 import StartSit from './components/StartSit'
 import GameLog from './components/GameLog'
 import Eligibility from './components/Eligibility'
@@ -9,6 +10,7 @@ import OnTheClock from './components/OnTheClock'
 const tabs = [
   { href: '#overall', label: 'Overall' },
   { href: '#board', label: 'The Board' },
+  { href: '#scheme', label: 'Scheme' },
   { href: '#startsit', label: 'Start/Sit' },
   { href: '#gamelog', label: 'Game Log' },
   { href: '#eligibility', label: 'Eligibility' },
@@ -35,6 +37,7 @@ function App() {
       <main>
         <Hero />
         <Board />
+        <Scheme />
         <StartSit />
         <GameLog />
         <Eligibility />
