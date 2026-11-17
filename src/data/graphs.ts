@@ -268,6 +268,7 @@ export const stationExplain = [
    reading, points it out, and says why it matters. Each line plays once. */
 export const wingman: Record<string, { sel: string; say: string }[]> = {
   top: [
+    { sel: '.hero__claim', say: 'Customer obsession and ownership. That is how he looks at his work. He learned both at Amazon.' },
     { sel: '.method', say: 'Toyota\'s eight steps, two to a tile. He runs them in order. I checked.' },
   ],
   work: [{ sel: '#kuvai', say: 'Line 01 is his job. The other four he does end to end, alone. Start with Kuvai.' }],
