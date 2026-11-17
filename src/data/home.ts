@@ -55,7 +55,7 @@ export const range: RangeRow[] = [
     role: 'AI engineer',
     years: '2024 – present',
     who: 'The CTO and the CEO',
-    text: "I report to both. I helped decide the tech stack and build the product, and I built the engineering team's AI development pipeline, from picking up a Jira ticket to a deploy on QA.",
+    text: "I report to both. I convinced the CTO to move the product from Streamlit to JavaScript, helped decide the rest of the stack, and built the engineering team's AI development pipeline, from Jira ticket to a deploy on QA.",
   },
   {
     place: 'Fantasy League Lottery',
@@ -109,12 +109,13 @@ export const projects: Project[] = [
     paras: [
       'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
       "I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA.",
+      'I started on GPT-3.5, when context management, prompt engineering and RAG were problems you felt every day and solved by hand. I was one of the first users of the AI SDK, and I convinced our CTO to move the product from Streamlit in Python to JavaScript.',
       'I have worked on agent setup, scheduled tasks, web monitoring, document extraction, masking of personal information before a model call, billing and credits, and the pipeline that ships it.',
     ],
     figs: [],
     stack: [
       { key: 'build', text: 'TypeScript, Next.js, React, Python, MongoDB' },
-      { key: 'AI', text: 'OpenAI, Anthropic, Google, one model layer across all three, Microsoft Presidio' },
+      { key: 'AI', text: 'AI SDK, OpenAI, Anthropic, Google, one model layer across all three, RAG, Microsoft Presidio' },
       { key: 'ship', text: 'Docker, AWS, GitHub Actions' },
     ],
     links: [{ label: 'kuvai.com', href: 'https://kuvai.com' }],
@@ -413,6 +414,16 @@ export const capabilities: { asked: string; where: string; link?: { label: strin
   {
     asked: 'Agents and tool use',
     where: 'Role-based agents with scheduled tasks, web monitoring and tool connectors, in production at',
+    link: { label: 'Kuvai', href: '#kuvai' },
+  },
+  {
+    asked: 'Context engineering, prompts and RAG',
+    where: 'Since GPT-3.5, when all three were daily pain. One of the first users of the AI SDK, at',
+    link: { label: 'Kuvai', href: '#kuvai' },
+  },
+  {
+    asked: 'Influence without authority',
+    where: 'Convinced the CTO to move the product from Streamlit in Python to JavaScript, at',
     link: { label: 'Kuvai', href: '#kuvai' },
   },
   {

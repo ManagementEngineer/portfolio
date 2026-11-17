@@ -228,7 +228,7 @@ export const tour = [
   { id: 'askpinoy', say: 'Line 04. It opens when 60 businesses are listed.', next: 'Line 05' },
   { id: 'rings', say: 'Line 05. Whatever costs money here is guarded twice.', next: 'Standard work' },
   { id: 'agents', say: 'Four rules. Each one came from a real incident.', next: 'Skills matrix' },
-  { id: 'capabilities', say: 'Seven things AI teams ask for. Each points at the work.', next: 'Shift log' },
+  { id: 'capabilities', say: 'Nine things AI teams ask for. Each points at the work.', next: 'Shift log' },
   { id: 'experience', say: 'The shift log. Jobs first, then school.', next: 'End of the line' },
   { id: 'end', say: 'End of the line. You passed inspection. He is happy to talk.', hideCat: true },
 ]
@@ -238,7 +238,7 @@ export const explain: Record<string, string> = {
   top: 'This is Ramuel\'s site. He is an AI engineer. I inspect his work. Scroll down, then tap me again.',
   range: 'Four places he has worked, from the plant floor to his own customers. The tote rides as you scroll.',
   work: 'Five things he runs. Each one shows the system and the agent team behind it.',
-  kuvai: 'His day job. He reports to the CTO and the CEO, and he built the team\'s AI development pipeline.',
+  kuvai: 'His day job. He started on GPT-3.5, was one of the first users of the AI SDK, and convinced the CTO to move from Streamlit to JavaScript.',
   fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. That is a lot of kibbles. Press "Walk me through it" to watch one draw.',
   immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
   askpinoy: 'A directory of Filipino-owned businesses. Nothing is listed until the owner confirms it.',
@@ -253,13 +253,13 @@ export const explain: Record<string, string> = {
 export const stationSay = [
   'Toyota. He built parts that fit every RAV4 on the road in Canada.',
   'Amazon. His script cut a manager\'s report from 2 hours to 5 minutes.',
-  'Kuvai. He reports to the CTO and the CEO.',
+  'Kuvai. He talked the CTO out of Streamlit and into JavaScript.',
   'His own product. He answers every support email himself.',
 ]
 
 export const stationExplain = [
   'At Toyota he built parts that accommodate every RAV4 you see on the road in Canada, and in parts of the US.',
   'At Amazon he ran Canada\'s top same-day station. He also wrote a script that cut a manager\'s report from 2 hours to 5 minutes. Area managers all over Canada used it.',
-  'At Kuvai he reports to the CTO and the CEO. He helped decide the tech stack and built the team\'s AI development pipeline.',
+  'At Kuvai he reports to the CTO and the CEO. He started on GPT-3.5, convinced the CTO to switch from Streamlit to JavaScript, and built the team\'s AI development pipeline.',
   'Fantasy League Lottery is his own product. He wrote the core by hand, and he answers every customer himself.',
 ]
