@@ -10,8 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource-variable/m-plus-1": "^5.3.1",
-    "@fontsource-variable/m-plus-1-code": "^5.3.1",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/figtree": "^5.3.0",
+    "@fontsource-variable/jetbrains-mono": "^5.3.0",
+    "@xyflow/react": "^13.0.1",
     "react": "^19.2.8",
     "react-dom": "^19.2.8"
   },

@@ -1,5 +1,4 @@
 import Header from './components/Header'
-import { MarkerSprite } from './components/SystemMap'
 import { cases } from './data/site'
 import Case from './pages/Case'
 import Home from './pages/Home'
@@ -14,7 +13,6 @@ function App() {
 
   return (
     <>
-      <MarkerSprite />
       <Header />
       {path === '/' ? (
         <Home />

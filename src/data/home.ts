@@ -197,7 +197,7 @@ export const projects: Project[] = [
         { id: 'S2', label: 'Replay verifier', sub: 'same engine', lane: 1, row: 1 },
         { id: 'D2', label: 'Content', sub: 'rosters, JSON', lane: 2, row: 1 },
         { id: 'D1', label: 'Postgres', sub: 'Supabase', lane: 2, row: 0 },
-        { id: 'S3', label: 'Daily seeds', sub: 'difficulty bound', lane: 1, row: 2 },
+        { id: 'S3', label: 'Daily seeds', sub: 'pins a fair seed', lane: 1, row: 2 },
         { id: 'S4', label: 'Cron', sub: 'daily, 05:05 UTC', lane: 1, row: 3 },
         { id: 'X1', label: 'Email and push', sub: 'Resend, Web Push', lane: 2, row: 3 },
       ],
@@ -208,7 +208,7 @@ export const projects: Project[] = [
         { from: 'S2', to: 'C2', kind: 'call', label: 'same code' },
         { from: 'S1', to: 'D1', kind: 'call', label: 'store' },
         { from: 'S2', to: 'D2', kind: 'call', label: 'rosters' },
-        { from: 'S3', to: 'D1', kind: 'call', label: 'pin seed' },
+        { from: 'S3', to: 'D1', kind: 'call', label: '' },
         { from: 'S4', to: 'X1', kind: 'message', label: 'reminders' },
       ],
     },
@@ -403,7 +403,7 @@ export const capabilities: { asked: string; where: string; link?: { label: strin
   {
     asked: 'Communicating from front-line users to executives',
     where: 'Front-line associates at Toyota and Amazon, the CTO and CEO at Kuvai, and paying customers on my own product. See',
-    link: { label: 'Range', href: '#range' },
+    link: { label: 'above', href: '#range' },
   },
   {
     asked: 'Working directly with customers',
@@ -428,7 +428,7 @@ export const capabilities: { asked: string; where: string; link?: { label: strin
   {
     asked: 'AI coding tools, used well',
     where: 'Subagents, hooks, skills and MCP servers every day, and an AI development pipeline for a whole team. See',
-    link: { label: 'Agents', href: '#agents' },
+    link: { label: 'how I keep agents honest', href: '#agents' },
   },
 ]
 
