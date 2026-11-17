@@ -232,3 +232,19 @@ export const tour = [
   { id: 'experience', say: 'The shift log. Jobs first, then school.', next: 'End of the line' },
   { id: 'end', say: 'End of the line. You passed inspection. He is happy to talk.', hideCat: true },
 ]
+
+/* What Popoy says when you tap him, by section. */
+export const explain: Record<string, string> = {
+  top: 'This is Ramuel\'s site. He is an AI engineer. I inspect his work. Scroll down, then tap me again.',
+  range: 'Four places he has worked, from the plant floor to his own customers. The tote rides as you scroll.',
+  work: 'Five things he runs. Each one shows the system and the agent team behind it.',
+  kuvai: 'His day job. He reports to the CTO and the CEO, and he built the team\'s AI development pipeline.',
+  fll: 'His own product. He wrote the core by hand. Press "Walk me through it" to watch one draw.',
+  immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
+  askpinoy: 'A directory of Filipino-owned businesses. Nothing is listed until the owner confirms it.',
+  rings: 'A store for fantasy leagues. Anything that costs money is guarded twice.',
+  agents: 'The rules his agents work under. Each one exists because something went wrong once.',
+  capabilities: 'What AI teams ask for, matched to where on this page he has done it.',
+  experience: 'His jobs, newest first, then school.',
+  end: 'That is the whole line. Email him. I am going back to sleep.',
+}
