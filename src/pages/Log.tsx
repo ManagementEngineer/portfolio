@@ -10,9 +10,9 @@ export default function Log() {
     return lanes.some((l) => l.id === wanted) ? [wanted as Lane] : []
   })
   return (
-    <main className="wrap">
+    <main className="wrap page" id="main">
       <p className="back">
-        <Link to="/">← Home</Link>
+        <Link to="/">Home</Link>
       </p>
       <h1 className="title">The full log</h1>
       <p className="lede">

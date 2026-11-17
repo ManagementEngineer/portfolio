@@ -10,9 +10,9 @@ export default function Case({ study }: { study: CaseStudy }) {
   const next = cases[(cases.indexOf(study) + 1) % cases.length]
 
   return (
-    <main className="wrap">
+    <main className="wrap page" id="main">
       <p className="back">
-        <Link to="/">← Home</Link>
+        <Link to="/">Home</Link>
       </p>
       <p className="case__product">{study.product}</p>
       <h1 className="title">{study.title}</h1>
@@ -53,7 +53,7 @@ export default function Case({ study }: { study: CaseStudy }) {
       <Chart entries={entries} filter={filter} onFilter={setFilter} showProduct={false} />
 
       <p className="more">
-        Next: <Link to={`/work/${next.slug}`}>{next.title} →</Link>
+        Next: <Link to={`/work/${next.slug}`}>{next.title}</Link>
       </p>
       <footer className="foot">
         <Contact />

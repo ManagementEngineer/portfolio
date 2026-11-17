@@ -29,29 +29,26 @@ export default function Header() {
     }
   }
 
+  const other = theme === 'dark' ? 'Light' : 'Dark'
+
   return (
-    <header className="head">
-      <div className="wrap head__inner">
-        <div className="head__id">
-          <Link to="/" className="head__name">
-            {person.name}
-          </Link>
-          <span className="head__meta">
-            AI engineer · {person.location}
-          </span>
-        </div>
-        <nav className="head__nav" aria-label="Sections">
-          <Link to="/#work">Work</Link>
-          <Link to="/#decisions">Decisions</Link>
-          <Link to="/#how">Agents</Link>
-          <Link to="/#stack">Stack</Link>
-          <Link to="/#history">Experience</Link>
-          <a href={person.resume}>Resume (PDF)</a>
-          <button type="button" className="head__theme" onClick={flip}>
-            {theme === 'dark' ? 'Light' : 'Dark'}
-          </button>
-        </nav>
-      </div>
+    <header className="head wrap">
+      <a className="skip" href="#main">
+        Skip to content
+      </a>
+      <Link to="/" className="head__name">
+        {person.name}
+      </Link>
+      <nav className="head__nav" aria-label="Sections">
+        <Link to="/#work">Work</Link>
+        <Link to="/#agents">Agents</Link>
+        <Link to="/#experience">Experience</Link>
+        <Link to="/log">Log</Link>
+        <a href={person.resume}>Resume</a>
+      </nav>
+      <button type="button" className="head__theme" onClick={flip} aria-label={`Switch to ${other.toLowerCase()} theme`}>
+        {other}
+      </button>
     </header>
   )
 }

@@ -1,4 +1,5 @@
 import Header from './components/Header'
+import { MarkerSprite } from './components/SystemMap'
 import { cases } from './data/site'
 import Case from './pages/Case'
 import Home from './pages/Home'
@@ -13,6 +14,7 @@ function App() {
 
   return (
     <>
+      <MarkerSprite />
       <Header />
       {path === '/' ? (
         <Home />
@@ -21,7 +23,7 @@ function App() {
       ) : study ? (
         <Case key={study.slug} study={study} />
       ) : (
-        <main className="wrap">
+        <main className="wrap" id="main">
           <h1 className="title">There is no page at this address.</h1>
           <p className="more">
             <Link to="/">Go to the home page →</Link>

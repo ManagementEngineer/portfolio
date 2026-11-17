@@ -11,59 +11,6 @@ export const person = {
   resume: '/resume.pdf',
 }
 
-export const opening = {
-  headline: 'AI engineer. I build agent products end to end and make them hold up with real users.',
-  ask: 'Founding engineer at Kuvai. Based in Toronto.',
-  letter: [
-    "I'm Ramuel. At Kuvai, where businesses build their own team of AI teammates, I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline, which takes a Jira ticket all the way to a deploy on our QA environment.",
-    "I care about making model output something people can rely on, and about noticing when AI is the wrong tool. On my own product, which grew from 238 to 3,835 registered accounts in its first paid season, I shipped ten LLM tools, measured them, and cut them when nobody used them.",
-  ],
-}
-
-export type FlowStep = { label: string; note: string }
-
-export const pipeline: { title: string; steps: FlowStep[]; caption: string } = {
-  title: 'The AI development pipeline I built at Kuvai',
-  steps: [
-    { label: 'Jira ticket', note: 'The pipeline picks up a ticket.' },
-    { label: 'Architect', note: 'Plans the change before any code is written.' },
-    { label: 'Security', note: 'Reviews the plan.' },
-    { label: 'Implementer', note: 'Writes the code and tests in its own git worktree.' },
-    { label: 'Reviewer', note: 'Checks the diff against the plan.' },
-    { label: 'QA', note: 'The build is deployed to the QA environment.' },
-  ],
-  caption: 'Simplified. Several tickets can run in parallel, each in its own worktree.',
-}
-
-export const architecture: { title: string; steps: FlowStep[]; caption: string } = {
-  title: 'How a request moves through the platform',
-  steps: [
-    { label: 'Web app', note: 'Next.js and TypeScript. Auth, credits and rate limits are checked here.' },
-    { label: 'Message queue', note: 'Decouples the web app from the AI engine.' },
-    { label: 'Python AI engine', note: 'Runs the agents, scheduled tasks and document extraction.' },
-    { label: 'PII masking', note: 'Personal information is masked before a document reaches a model.' },
-    { label: 'Model layer', note: 'OpenAI, Anthropic or Google behind one interface.' },
-    { label: 'WebSocket bridge', note: 'Streams results back to the browser.' },
-  ],
-  caption: 'Simplified.',
-}
-
-export const hookExample = `"permissions": {
-  "deny": ["Read(./.env)", "Read(./.env.*)", "Read(./secrets/**)"],
-  "ask":  ["Bash(supabase db push *)", "Bash(vercel --prod *)"]
-},
-"hooks": {
-  "PreToolUse": [{
-    "matcher": "Bash",
-    "hooks": [{
-      "type": "command",
-      "if": "Bash(git commit *)",
-      "command": "... (npm run -s typecheck && npm run -s check:content) 1>&2 || exit 2 ..."
-    }]
-  }]
-}`
-
-/* ---------- Work ---------- */
 
 export type Lane = 'shipped' | 'measured' | 'held' | 'killed' | 'reversed'
 
@@ -75,140 +22,6 @@ export const lanes: { id: Lane; label: string; means: string }[] = [
   { id: 'reversed', label: 'Reversed', means: 'changed position on an earlier call' },
 ]
 
-export type Source = 'my own reports' | 'git history' | 'repo docs' | 'live site'
-
-export type Fig = {
-  value: string
-  window: string
-  source: Source
-}
-
-export type Work = {
-  id: string
-  name: string
-  status: string
-  years: string
-  url: string
-  urlLabel: string
-  paras: string[]
-  built?: { label: string; text: string }[]
-  fig?: Fig
-  caseHref?: string
-  caseLabel?: string
-  shot: string
-  shotAlt: string
-}
-
-export const work: Work[] = [
-  {
-    id: 'kuvai',
-    name: 'Kuvai',
-    status: 'Founding engineer',
-    years: '2024 to now',
-    url: 'https://kuvai.com',
-    urlLabel: 'kuvai.com',
-    paras: [
-      'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
-      "My work there spans engineering and product. These are the parts of the platform I've worked on.",
-    ],
-    built: [
-      { label: 'AI dev pipeline', text: 'An end-to-end pipeline for the engineering team, from picking up a Jira ticket to deploying to QA. Work moves through architect, security, implementer and reviewer phases, with each ticket in its own git worktree so several can run in parallel.' },
-      { label: 'Agents', text: 'Teammates with a role, instructions, duties, conversation history and usage metering.' },
-      { label: 'Orchestration', text: 'A web app decoupled from a Python AI engine by a message queue, with a WebSocket bridge that streams results back to the browser.' },
-      { label: 'Model layer', text: 'Provider-agnostic, across OpenAI, Anthropic and Google, so no feature depends on one vendor.' },
-      { label: 'Automation', text: 'Scheduled and recurring tasks, and agents that monitor web sources and report changes.' },
-      { label: 'Documents', text: 'Extraction agents covered by snapshot tests, plus knowledge upload and vectorization for retrieval.' },
-      { label: 'Privacy', text: 'Detection and masking of personal information before any document reaches a model, with the masking status shown to the user. For customers in regulated work like insurance, that decides whether they can use the product at all.' },
-      { label: 'Platform', text: 'Third-party tool connectors, a credits ledger with Stripe billing, auth, rate limiting, and CI that ships Docker images to AWS.' },
-    ],
-    shot: '/shots/kuvai.jpg',
-    shotAlt: 'Kuvai home page showing a team of AI teammates',
-  },
-  {
-    id: 'fll',
-    name: 'Fantasy League Lottery',
-    status: 'Founder and sole operator',
-    years: '2022 to now',
-    url: 'https://www.fantasyleaguelottery.com',
-    urlLabel: 'fantasyleaguelottery.com',
-    paras: [
-      'Every fantasy league has to decide who drafts first, and it usually ends in an argument. Fantasy League Lottery lets a commissioner set the odds, seal the draw, and reveal it to the whole league as a live show. Every draw comes with a receipt anyone can check, so nobody can say it was rigged. More than 43,900 lotteries have been run on it.',
-      'I run all of it: product, design, engineering, pricing and support. In its first paid season it brought in $7,724, and August alone was $3,917 from 336 payments.',
-    ],
-    built: [
-      { label: 'LLM features', text: 'Answers grounded in a league\'s own rule book, dispute rulings and schedule recommendations on the Claude API, metered by a transactional credit ledger with rate limits and daily caps.' },
-      { label: 'Fairness proof', text: 'A SHA-256 commit-and-reveal on every draw: the hash is published before the reveal and the inputs after.' },
-      { label: 'Deterministic reveals', text: '3D shows rebuilt from a seed on each device, so a whole league sees the same thing without a stored script.' },
-      { label: 'Payments and quality', text: 'Stripe and PayPal with idempotent webhooks, more than 400 tests, and CI.' },
-    ],
-    fig: {
-      value: '14% paid',
-      window: '537 of 3,835 registered accounts, by Sep 4, 2026',
-      source: 'my own reports',
-    },
-    caseHref: '/work/what-sells',
-    caseLabel: 'How I found what people pay for',
-    shot: '/shots/fll.jpg',
-    shotAlt: 'Fantasy League Lottery home page',
-  },
-  {
-    id: 'immortal',
-    name: 'Immortal Drafts',
-    status: 'Solo project, live and free',
-    years: '2026',
-    url: 'https://immortaldrafts.com',
-    urlLabel: 'immortaldrafts.com',
-    paras: [
-      "A free browser game for esports fans who follow the pro scene more than they play. You draft a team from historic pro rosters across five titles and watch it play through the tournament. I built it to test how fast I could take an idea to real players: it went live two days after I wrote the spec.",
-    ],
-    built: [
-      { label: 'Simulation', text: 'Deterministic and identical in the browser and on the server, so the server can replay any draft and refuse a result the seed never produced.' },
-      { label: 'Evaluation', text: 'A pick-scoring model fitted on five years of tournament data, with the weights committed before a single test on a held-out year.' },
-    ],
-    fig: {
-      value: '2,398 players',
-      window: 'first four days, from Nov 1, 2026',
-      source: 'my own reports',
-    },
-    shot: '/shots/immortal.jpg',
-    shotAlt: 'Immortal Drafts home page with five esports titles',
-  },
-]
-
-export const alsoBuilding = [
-  {
-    name: 'League Rings',
-    url: 'https://leaguerings.com',
-    note: 'Championship rings and league merch for fantasy leagues, on Shopify. I wrote the unit economics and the go or no-go gates before spending anything.',
-  },
-  {
-    name: 'AskPinoy',
-    url: 'https://askpinoy.com',
-    note: 'A directory of Filipino-owned businesses in Toronto and the GTA, for the question people keep asking Facebook groups. Built and pre-launch: it opens once 60 businesses are listed.',
-  },
-]
-
-export const figuresNote =
-  'Numbers come from my own Stripe, PayPal, analytics and database reports, each with its date. Revenue is gross, in US dollars.'
-
-/* ---------- Decisions shown on the home page ---------- */
-
-export const decisions = [
-  {
-    title: 'I stopped trusting "done".',
-    saw: 'Three days before peak season I checked one email by looking for the actual send. Every scheduled email job had been silently failing, and the first fix was marked done when it was not.',
-    did: 'I fixed four stacked bugs, added a guard so stale records could never be emailed, and changed how I verify work: by the outcome, never by the deploy.',
-    result: 'The product sent its first 330 emails, and the rule now applies to everything I build with AI tools.',
-    href: '/work/fixed-was-false',
-  },
-  {
-    title: 'I cut ten AI tools nobody used.',
-    saw: 'I shipped ten tools in six weeks, most of them on the Claude API, and gave 418 users free credits. None were spent.',
-    did: 'I retired the plan, deleted the biggest tool, and put the time back into the core product before peak season.',
-    result: 'I now set the usage bar and the date before I build the second version of anything.',
-    href: '/work/ai-credits',
-  },
-]
 
 /* ---------- The log ---------- */
 
@@ -267,9 +80,9 @@ export const log: Entry[] = [
     date: '2024-10',
     lane: 'shipped',
     product: KV,
-    headline: 'Masked personal information before documents reach a model.',
+    headline: 'Masked personal information before it reaches a model.',
     detail:
-      'Added detection and masking of personal information with Microsoft Presidio, and showed users the masking status of each document.',
+      'Added detection and masking of personal information with Microsoft Presidio on chat, before the model call, and showed users the masking status.',
     source: 'git history',
   },
   {
@@ -634,90 +447,6 @@ export const log: Entry[] = [
     featured: true,
   },
 ]
-
-/* ---------- How I work ---------- */
-
-export const howIWork = {
-  intro: [
-    "I build with Claude Code every day and I treat it as a system to engineer, not a chat window. Each product has role subagents with scoped tools, and I route models by job: a stronger model for decisions and review, a cheaper one for narrow checks. Hooks block a commit until the type check and content check pass. Custom skills and slash commands run the repeatable work, and MCP servers give the agents read-only access to the database, deploys and error tracking.",
-    "When a model says a task is done, that is a claim and not yet a result. Every rule below exists to check an outcome, and each one came from a real incident.",
-  ],
-  rules: [
-    {
-      rule: 'Check that the email was sent. "The job is deployed" is not evidence.',
-      why: 'Every scheduled email job on one product had failed since launch, and the first fix was marked done when it was not.',
-    },
-    {
-      rule: 'A document may say a check exists only if there is a test that shows the check refusing.',
-      why: 'I found seven places where tool-written docs described a safeguard that had never run.',
-    },
-    {
-      rule: 'Only one role may write to the store, and it confirms which store it is connected to first.',
-      why: 'The connection once pointed at the wrong store.',
-    },
-    {
-      rule: 'The tools do not deploy, change production data, send email or spend money. I do those.',
-      why: 'Anything irreversible stays with a person.',
-    },
-    {
-      rule: 'Say "I don\'t know". Mark anything unverified.',
-      why: 'Models state guesses about prices, laws and vendor terms as facts.',
-    },
-  ],
-}
-
-export const stack = [
-  { label: 'AI', text: 'Claude API, OpenAI API, Vercel AI SDK, Claude Code (subagents, hooks, skills, MCP), Microsoft Presidio, document extraction, vector retrieval' },
-  { label: 'Build', text: 'TypeScript, Python, Next.js, React, Bun, Node' },
-  { label: 'Data', text: 'MongoDB, Postgres (Supabase), Firestore, MySQL' },
-  { label: 'Ship', text: 'AWS (ECR, S3), Docker, Vercel, GitHub Actions, message queues, WebSockets, Stripe, Auth0' },
-]
-
-/* ---------- Experience ---------- */
-
-export const history = [
-  {
-    years: '2024 to now',
-    role: 'Founding Engineer, AI & Product',
-    org: 'Kuvai, Toronto',
-    note: 'AI-teammates platform. Built the team\'s AI development pipeline, from Jira ticket to QA deploy.',
-  },
-  {
-    years: '2022 to now',
-    role: 'Founder and sole operator',
-    org: 'Fantasy League Lottery, Toronto',
-    note: '',
-  },
-  {
-    years: '2021 to 2023',
-    role: 'Business Data Analyst',
-    org: 'JC Electrofields Power System, Manila',
-    note: 'Reporting and cost analysis for a power systems company.',
-  },
-  {
-    years: '2020 to 2021',
-    role: 'Area Manager',
-    org: 'Amazon, Toronto',
-    note: "Ran Canada's top Prime same-day delivery station: 3,500 packages a day at 98.85% success. We cut the steps a package went through by half and raised capacity 21%, about 134,000 more same-day packages a year. I wrote a small tool that cut the daily report from 45 minutes to 3, and other Canadian stations adopted it.",
-  },
-  {
-    years: '2023',
-    role: 'Postgraduate certificate, Applied A.I. Solutions Development',
-    org: 'George Brown College',
-    note: '',
-  },
-  {
-    years: '2014 to 2019',
-    role: 'BASc, Management Engineering',
-    org: 'University of Waterloo',
-    note: '',
-  },
-]
-
-/* ---------- Dropped ---------- */
-
-export const madeNote =
-  'I built this site with Claude Code. If you find a number that looks wrong, tell me and I will correct it.'
 
 /* ---------- Case studies ---------- */
 

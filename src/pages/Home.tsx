@@ -1,234 +1,251 @@
+import { useState } from 'react'
 import {
-  alsoBuilding,
-  architecture,
-  hookExample,
-  pipeline,
-  type FlowStep,
-  cases,
-  decisions,
+  agents,
+  capabilities,
+  closing,
+  experience,
   figuresNote,
-  history,
-  howIWork,
-  log,
-  madeNote,
   opening,
-  person,
-  stack,
-  work,
-} from '../data/site'
+  projects,
+  range,
+  type Project,
+} from '../data/home'
+import { person } from '../data/site'
+import Arrow from '../components/Arrow'
 import Figure from '../components/Figure'
+import FlowLine from '../components/FlowLine'
+import SystemMap from '../components/SystemMap'
 import { Link } from '../router'
 
 export function SectionHead({ id, title, count }: { id?: string; title: string; count?: string }) {
   return (
-    <div className="shead">
-      <h2 id={id}>{title}</h2>
-      <span className="shead__rule" aria-hidden="true" />
-      {count && <span className="shead__count">{count}</span>}
-    </div>
-  )
-}
-
-export function Flow({ flow }: { flow: { title: string; steps: FlowStep[]; caption: string } }) {
-  return (
-    <figure className="flow">
-      <figcaption className="flow__title">{flow.title}</figcaption>
-      <ol>
-        {flow.steps.map((st) => (
-          <li key={st.label}>
-            <span className="flow__label">{st.label}</span>
-            <span className="flow__note">{st.note}</span>
-          </li>
-        ))}
-      </ol>
-      <p className="flow__caption">{flow.caption}</p>
-    </figure>
+    <h2 className="h2" id={id}>
+      {title}
+      {count && <span className="h2__count">{count}</span>}
+    </h2>
   )
 }
 
 export function Contact() {
   return (
     <p className="contact">
-      <a href={`mailto:${person.email}`}>{person.email}</a>
-      <a href={person.linkedin}>LinkedIn</a>
-      <a href={person.github}>GitHub</a>
+      <a href={`mailto:${person.email}`}>Email</a>
+      <a href={person.linkedin}>
+        LinkedIn
+        <Arrow kind="out" />
+      </a>
+      <a href={person.github}>
+        GitHub
+        <Arrow kind="out" />
+      </a>
       <a href={person.resume}>Resume (PDF)</a>
     </p>
   )
 }
 
-export default function Home() {
+function ProjectBlock({ p }: { p: Project }) {
+  const [step, setStep] = useState<number | null>(null)
+  const active = new Set(step !== null && p.flow ? p.flow.steps[step].nodes : [])
   return (
-    <main className="wrap">
-      <section className="open">
-        <div className="open__letter">
-          <h1>{opening.headline}</h1>
-          <p className="open__ask">{opening.ask}</p>
-          {opening.letter.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
-          <Contact />
+    <article className="project" id={p.id}>
+      <div className="g3">
+        <div className="kcol">
+          <span>{p.role}</span>
+          <span className="mono">{p.years}</span>
         </div>
-
-        <Flow flow={pipeline} />
-      </section>
-
-      <section>
-        <SectionHead id="work" title="What I've built" />
-        <ul className="work">
-          {work.map((w) => (
-            <li key={w.id} className="work__row">
-              <div className="work__main">
-                <h3>{w.name}</h3>
-                <p className="work__status">
-                  {w.status} · {w.years}
-                </p>
-                {w.paras.map((p) => (
-                  <p key={p} className="work__summary">
-                    {p}
-                  </p>
-                ))}
-                {w.built && (
-                  <dl className="built">
-                    {w.built.map((b) => (
-                      <div key={b.label}>
-                        <dt>{b.label}</dt>
-                        <dd>{b.text}</dd>
-                      </div>
-                    ))}
-                  </dl>
-                )}
-                {w.fig && <Figure fig={w.fig} />}
-                <p className="work__links">
-                  {w.caseHref && <Link to={w.caseHref}>{w.caseLabel} →</Link>}
-                  <a href={w.url}>{w.urlLabel} →</a>
-                </p>
-              </div>
-              <div className="work__side">
-                {w.id === 'kuvai' && <Flow flow={architecture} />}
-                <a className="work__shot" href={w.url} tabIndex={-1} aria-hidden="true">
-                  <img src={w.shot} alt={w.shotAlt} width={960} height={435} loading="lazy" />
-                </a>
-              </div>
-            </li>
-          ))}
-        </ul>
-        <ul className="also">
-          {alsoBuilding.map((a) => (
-            <li key={a.name}>
-              <a href={a.url}>{a.name}</a>
-              <span>{a.note}</span>
-            </li>
-          ))}
-        </ul>
-        <p className="fine">{figuresNote}</p>
-      </section>
-
-      <section>
-        <SectionHead id="decisions" title="Two decisions I'd point to" />
-        <ul className="decisions">
-          {decisions.map((d) => (
-            <li key={d.title}>
-              <h3>{d.title}</h3>
-              <dl>
-                <div>
-                  <dt>What I saw</dt>
-                  <dd>{d.saw}</dd>
-                </div>
-                <div>
-                  <dt>What I did</dt>
-                  <dd>{d.did}</dd>
-                </div>
-                <div>
-                  <dt>What happened</dt>
-                  <dd>{d.result}</dd>
-                </div>
-              </dl>
-              <p className="decisions__more">
-                <Link to={d.href}>Read the full story →</Link>
-              </p>
-            </li>
-          ))}
-        </ul>
-        <p className="more">
-          <Link to="/work/what-sells">How I found what customers actually pay for →</Link>
-        </p>
-        <p className="more">
-          I keep a dated log of every real product decision, including the ones I reversed.{' '}
-          <Link to="/log">Open the log, {log.length} entries →</Link>
-        </p>
-      </section>
-
-      <section>
-        <SectionHead id="how" title="How I run coding agents" />
-        <div className="prose">
-          {howIWork.intro.map((p) => (
-            <p key={p}>{p}</p>
+        <div className="body">
+          <h3 className="project__name">{p.name}</h3>
+          {p.paras.map((t) => (
+            <p key={t}>{t}</p>
           ))}
         </div>
-        <table className="rules">
-          <thead>
-            <tr>
-              <th scope="col">Rule</th>
-              <th scope="col">Why it exists</th>
-            </tr>
-          </thead>
-          <tbody>
-            {howIWork.rules.map((r) => (
-              <tr key={r.rule}>
-                <td>{r.rule}</td>
-                <td>{r.why}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-        <figure className="code">
-          <figcaption>
-            One rule that is enforced, not just written down: from the settings of one of my projects. Secrets cannot
-            be read, production pushes need my approval, and a commit is blocked until the type check and content check
-            pass.
-          </figcaption>
-          <pre>
-            <code>{hookExample}</code>
-          </pre>
-        </figure>
-        <p className="more">
-          <Link to="/work/fixed-was-false">{cases[2].title} →</Link>
-        </p>
-      </section>
+        <div className="evidence">
+          {p.figs.map((f) => (
+            <Figure key={f.value} fig={f} />
+          ))}
+        </div>
+      </div>
 
-      <section>
-        <SectionHead id="stack" title="Stack" />
-        <dl className="built built--stack">
-          {stack.map((b) => (
-            <div key={b.label}>
-              <dt>{b.label}</dt>
-              <dd>{b.text}</dd>
+      {p.system && <SystemMap sys={p.system} active={active} id={p.id} />}
+      {p.flow && <FlowLine flow={p.flow} step={step} onStep={setStep} />}
+
+      <div className="g3 project__foot">
+        <div className="kcol" />
+        <dl className="stack body">
+          {p.stack.map((s) => (
+            <div key={s.key}>
+              <dt>{s.key}</dt>
+              <dd>{s.text}</dd>
             </div>
           ))}
         </dl>
+        <ul className="evidence links">
+          {p.links.map((l) => (
+            <li key={l.href}>
+              {l.internal ? (
+                <Link to={l.href}>
+                  {l.label}
+                  <Arrow kind="on" />
+                </Link>
+              ) : (
+                <a href={l.href}>
+                  {l.label}
+                  <Arrow kind="out" />
+                </a>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </article>
+  )
+}
+
+export default function Home() {
+  return (
+    <main className="wrap" id="main">
+      <section className="opening g3">
+        <div className="kcol">
+          {opening.keys.map((k) => (
+            <span key={k}>{k}</span>
+          ))}
+        </div>
+        <div className="opening__main">
+          <h1>{opening.statement}</h1>
+          <div className="body">
+            {opening.paras.map((t) => (
+              <p key={t}>{t}</p>
+            ))}
+            <Contact />
+          </div>
+        </div>
       </section>
 
       <section>
-        <SectionHead id="history" title="Experience" />
-        <ul className="history">
-          {history.map((h) => (
-            <li key={h.role}>
-              <span className="history__years">{h.years}</span>
-              <div>
-                <h3>{h.role}</h3>
-                <p className="history__org">{h.org}</p>
-                {h.note && <p>{h.note}</p>}
+        <SectionHead id="range" title="Range" />
+        <ul className="range">
+          {range.map((r) => (
+            <li key={r.place} className="g3">
+              <div className="kcol">
+                <strong>{r.place}</strong>
+                <span>{r.role}</span>
+                <span className="mono">{r.years}</span>
+              </div>
+              <div className="body">
+                <p className="lead">{r.who}</p>
+                <p>{r.text}</p>
+              </div>
+              <div className="evidence">{r.fig && <Figure fig={r.fig} />}</div>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <SectionHead id="work" title="Work" />
+        {projects.map((p) => (
+          <ProjectBlock key={p.id} p={p} />
+        ))}
+      </section>
+
+      <section>
+        <div className="g3">
+          <div className="kcol">
+            <SectionHead id="agents" title="Agents" />
+          </div>
+          <div className="body">
+            {agents.intro.map((t) => (
+              <p key={t}>{t}</p>
+            ))}
+          </div>
+        </div>
+        <div className="g3 rules-row">
+          <div className="kcol" />
+          <ul className="rules body">
+            {agents.rules.map((r) => (
+              <li key={r.rule}>
+                <p className="rules__rule">{r.rule}</p>
+                <p className="rules__why">{r.why}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="evidence links">
+            <Link to={agents.link.href}>
+              {agents.link.label}
+              <Arrow kind="on" />
+            </Link>
+          </div>
+        </div>
+        <div className="g3 code-row">
+          <div className="kcol" />
+          <div className="body">
+            <p className="code__path">{agents.code.path}</p>
+            <pre className="code" tabIndex={0} role="region" aria-label="Claude Code settings excerpt">
+              <code>
+                {agents.code.lines.map((line, i) => (
+                  <span key={i} className={agents.code.highlight.includes(i + 1) ? 'code__line is-hl' : 'code__line'}>
+                    {line}
+                    {'\n'}
+                  </span>
+                ))}
+              </code>
+            </pre>
+          </div>
+          <p className="evidence code__note">{agents.code.note}</p>
+        </div>
+      </section>
+
+      <section>
+        <div className="g3">
+          <div className="kcol">
+            <SectionHead id="capabilities" title="Capabilities" />
+          </div>
+          <table className="caps">
+            <thead>
+              <tr>
+                <th scope="col">What AI teams ask for</th>
+                <th scope="col">Where I have done it</th>
+              </tr>
+            </thead>
+            <tbody>
+              {capabilities.map((c) => (
+                <tr key={c.asked}>
+                  <th scope="row">{c.asked}</th>
+                  <td>
+                    {c.where} {c.link && <a href={c.link.href}>{c.link.label}</a>}.
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section>
+        <SectionHead id="experience" title="Experience" />
+        <ul className="xp">
+          {experience.map((x) => (
+            <li key={x.role + x.org} className="g3">
+              <div className="kcol">
+                <span className="mono">{x.years}</span>
+              </div>
+              <div className="body">
+                <p className="xp__role">{x.role}</p>
+                <p className="xp__org">{x.org}</p>
+                {x.note && <p className="xp__note">{x.note}</p>}
               </div>
             </li>
           ))}
         </ul>
       </section>
 
-      <footer className="foot">
-        <p className="foot__ask">Happy to talk about agents, AI products, or anything on this page.</p>
-        <Contact />
-        <p className="fine">{madeNote}</p>
+      <footer className="g3 closing">
+        <div className="kcol" />
+        <div className="body">
+          <p className="lead">{closing}</p>
+          <Contact />
+          <p className="fine">{figuresNote}</p>
+        </div>
       </footer>
     </main>
   )
