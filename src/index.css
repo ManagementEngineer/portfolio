@@ -1032,6 +1032,11 @@ main > section.hero {
   touch-action: none;
 }
 
+/* anything he has more to say about shows it is hoverable */
+[data-popoy] {
+  cursor: help;
+}
+
 .cat canvas:active {
   cursor: grabbing;
 }

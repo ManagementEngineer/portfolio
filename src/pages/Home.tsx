@@ -11,7 +11,14 @@ import {
   type Fig,
   type Project,
 } from '../data/home'
-import { agentTeams, flowSay, tour, type GKind, type Graph as GraphData } from '../data/graphs'
+import {
+  agentTeams,
+  flowSay,
+  stationExplain,
+  tour,
+  type GKind,
+  type Graph as GraphData,
+} from '../data/graphs'
 import { person } from '../data/site'
 import Arrow from '../components/Arrow'
 import Belt from '../components/Belt'
@@ -55,7 +62,7 @@ export function Contact() {
 
 function Sticker({ fig }: { fig: Fig }) {
   return (
-    <figure className="sticker">
+    <figure className="sticker" data-popoy={fig.popoy}>
       <p className="sticker__value">
         <CountUp value={fig.value} />
       </p>
@@ -358,7 +365,7 @@ export default function Home() {
           ))}
           <ol className="method">
             {opening.method.map((m, i) => (
-              <li key={m.verb}>
+              <li key={m.verb} data-popoy={m.more}>
                 <span className="method__n">{i + 1}</span>
                 <strong>{m.verb}</strong>
                 <span>{m.text}</span>
@@ -388,7 +395,7 @@ export default function Home() {
         </p>
         <Belt label="Career line">
           {range.map((r, i) => (
-            <li key={r.place} className="station" data-station>
+            <li key={r.place} className="station" data-station data-popoy={stationExplain[i]}>
               <p className="station__no">
                 <span className="andon" />
                 Station {String(i + 1).padStart(2, '0')}
@@ -468,7 +475,7 @@ export default function Home() {
         <SectionHead id="capabilities" title="Skills matrix: what AI teams ask for" />
         <ul className="caps">
           {capabilities.map((c) => (
-            <li key={c.asked}>
+            <li key={c.asked} data-popoy={c.more}>
               <h3>{c.asked}</h3>
               <p>
                 {c.where} {c.link && <a href={c.link.href}>{c.link.label}</a>}.
@@ -482,7 +489,7 @@ export default function Home() {
         <SectionHead id="experience" title="Shift log" />
         <ul className="xp">
           {experience.map((x) => (
-            <li key={x.role + x.org}>
+            <li key={x.role + x.org} data-popoy={x.more}>
               <span className="xp__years">{x.years}</span>
               <div>
                 <p className="xp__role">{x.role}</p>

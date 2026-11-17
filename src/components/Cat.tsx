@@ -34,6 +34,7 @@ type State =
   | 'hop'
   | 'held'
   | 'gag'
+  | 'trick'
 
 const cache = new Map<string, HTMLCanvasElement>()
 function sprite(key: string): HTMLCanvasElement {
@@ -220,6 +221,31 @@ export default function Cat() {
       el.appendChild(h)
       window.setTimeout(() => h.remove(), 1100)
     }
+
+    // ---- tricks, one per tap once he has explained the section ----
+    const TRICKS = [
+      { id: 'flip', ms: 720, say: 'Backflip. Inspected, approved.' },
+      { id: 'spin', ms: 900, say: 'Tail. Still attached.' },
+      { id: 'jump', ms: 680, say: 'I can also reach the top shelf.' },
+      { id: 'roll', ms: 800, say: 'That one is for the customers.' },
+      { id: 'dance', ms: 1300, say: 'Fine. One dance. Then back to work.' },
+    ]
+    let trick = 0
+    let tricksDone = 0
+    const explained = new Set<string>()
+
+    // ---- hovering a tile: he goes over and says more about it ----
+    let hoverEl: HTMLElement | null = null
+    let hoverAt = 0
+    let toldEl: HTMLElement | null = null
+    const onOver = (e: PointerEvent) => {
+      const hit = (e.target as Element | null)?.closest?.('[data-popoy]') as HTMLElement | null
+      if (hit === hoverEl) return
+      hoverEl = hit
+      hoverAt = performance.now()
+      if (!hit) toldEl = null
+    }
+    document.addEventListener('pointerover', onOver)
 
     // ---- the mouse: now and then one hops onto his ledge and he gives chase ----
     const ms = mouse.current!
@@ -523,6 +549,8 @@ export default function Cat() {
       let key = 'front:open:sit'
       let lift = 0
       let squash = 0
+      let rise = 0 // how far off the ledge he is, in screen pixels
+      let turn = 0 // rotation in degrees, for flips and rolls
       const near = pointer && now - pointer.at < 2500 ? pointer : null
       const px = near ? near.x + window.scrollX : 0
       const py = near ? near.y + window.scrollY : 0
@@ -594,6 +622,21 @@ export default function Cat() {
             set('look')
             took = true
           }
+        }
+        if (!took && hoverEl && hoverEl !== toldEl && now - hoverAt > 420 && !bubbleOpen.current && hoverEl.dataset.popoy) {
+          toldEl = hoverEl
+          const text = hoverEl.dataset.popoy
+          const wide = hoverEl.getBoundingClientRect().width >= 170
+          if (wide && visible(hoverEl) && perch !== hoverEl && perch !== belt) {
+            pitch = { el: hoverEl, text }
+            next = hoverEl
+            set('look')
+          } else {
+            speak(text)
+            spotlight(hoverEl)
+            set('talk')
+          }
+          took = true
         }
         // his pitch for this part of the page: go and point at the next thing worth reading
         if (!took && perch !== belt && !bubbleOpen.current && now - scrolledAt > 900 && now - pitchAt > 2600) {
@@ -713,7 +756,7 @@ export default function Cat() {
         settle()
         const u = Math.min(1, since / 300)
         x += dir * 26 * u
-        lift = Math.round(18 * 4 * u * (1 - u))
+        rise = 72 * u * (1 - u)
         key = 'side:air:0'
         if (u >= 1) {
           if (perch) {
@@ -761,9 +804,39 @@ export default function Cat() {
         else {
           const o = stepGag(gag, dt, tail)
           key = o.key
-          lift = o.lift
+          lift = o.lift > 3 ? 0 : o.lift
+          rise = o.lift > 3 ? o.lift : 0
           squash = o.squash
         }
+      } else if (state === 'trick') {
+        // a trick, on request
+        settle()
+        const tr = TRICKS[trick]
+        const u = Math.min(1, since / tr.ms)
+        idle = 0
+        if (tr.id === 'flip') {
+          rise = 4 * 84 * u * (1 - u)
+          turn = -360 * u * dir
+          key = 'side:air:1'
+        } else if (tr.id === 'spin') {
+          dir = Math.floor(since / 110) % 2 ? 1 : -1
+          key = `side:${['a', 'p', 'c', 'p'][Math.floor(since / 60) % 4]}:${Math.floor(since / 110) % 3}`
+        } else if (tr.id === 'jump') {
+          rise = 4 * 120 * u * (1 - u)
+          key = u < 0.5 ? 'side:air:0' : 'side:air:2'
+        } else if (tr.id === 'roll') {
+          turn = 360 * u * dir
+          rise = 10
+          key = 'front:shut:loaf'
+        } else {
+          rise = Math.floor(since / 120) % 2 ? 12 : 0
+          key = `front:happy:${Math.floor(since / 120) % 2 ? 'flick' : 'sit'}`
+          if (now - heartAt > 260) {
+            heartAt = now
+            heart()
+          }
+        }
+        if (u >= 1) set('land')
       } else if (state === 'held') {
         // picked up: he dangles and kicks until you let go
         key = `side:${Math.floor(since / 130) % 2 ? 'air' : 'c'}:${t}`
@@ -772,7 +845,7 @@ export default function Cat() {
       } else if (state === 'startle') {
         settle()
         key = 'front:open:sit'
-        lift = since < 120 ? 5 : since < 220 ? 2 : 0
+        rise = since < 120 ? 16 : since < 220 ? 6 : 0
         if (since > 300) set('sit')
       }
 
@@ -791,7 +864,8 @@ export default function Cat() {
       ctx.drawImage(s, 0, 0, s.width, s.height, ox, H - sh - lift, s.width, sh)
       ctx.restore()
       const tx = Math.round(x / PX) * PX - (W * PX) / 2
-      const ty = Math.round(y / PX) * PX - H * PX + PX
+      const ty = Math.round(y / PX) * PX - H * PX + PX - Math.round(rise)
+      cv.style.rotate = turn ? `${Math.round(turn)}deg` : ''
       el.style.transform = `translate(${tx}px, ${ty}px)`
       // the mouse lives inside his wrapper, so place it relative to him
       if (gag) {
@@ -899,6 +973,18 @@ export default function Cat() {
       if (!live) return
       if (gag) endGag()
       const id = currentStop()
+      if (explained.has(id) && (state === 'sit' || state === 'talk' || state === 'pet')) {
+        // he has said his piece here: now he does tricks
+        trick = tricksDone % TRICKS.length
+        tricksDone += 1
+        setBubble(null)
+        const text = TRICKS[trick].say
+        say(text)
+        window.setTimeout(() => say(null), 2600)
+        set('trick')
+        return
+      }
+      explained.add(id)
       const i = tour.findIndex((s) => s.id === id)
       const after = tour[i + 1]
       const st = perch === beltTrack() ? station : -1
@@ -945,6 +1031,7 @@ export default function Cat() {
       window.removeEventListener('popoy:hold', hold)
       window.removeEventListener('popoy:quiet', onQuiet)
       document.removeEventListener('visibilitychange', onVisibility)
+      document.removeEventListener('pointerover', onOver)
       ms.removeEventListener('click', tapMouse)
       cv.removeEventListener('click', onKeyClick)
       cv.removeEventListener('pointerdown', onDown)

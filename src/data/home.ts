@@ -11,10 +11,10 @@ export const opening = {
     'I solve real-life problems, and I bring the same habit to AI every time.',
   ],
   method: [
-    { verb: 'Ask', text: 'I gather ideas by asking people.' },
-    { verb: 'Measure', text: 'I validate ideas by looking at data.' },
-    { verb: 'Find the gap', text: 'I find the gaps.' },
-    { verb: 'Fix it', text: 'I find the solution and build it.' },
+    { verb: 'Ask', text: 'I gather ideas by asking people.', more: 'He asks first. His product has an ideas board where customers vote.' },
+    { verb: 'Measure', text: 'I validate ideas by looking at data.', more: 'He measures. One product of his tracks 133 different events.' },
+    { verb: 'Find the gap', text: 'I find the gaps.', more: 'He found that buyers pay to get past a limit, not for the 3D show.' },
+    { verb: 'Fix it', text: 'I find the solution and build it.', more: 'He rewrote the pitch around those limits. August brought in $3,917.' },
   ],
 }
 
@@ -48,7 +48,13 @@ export const range: RangeRow[] = [
     years: '2020 – 2021',
     who: 'Front-line associates',
     text: "I ran Canada's top Prime same-day delivery station. I also wrote an automation script that cut the time managers spent on a report from 2 hours to 5 minutes. Area managers all over Canada used it.",
-    fig: { value: '3,500', what: 'packages a day, at 98.85% success', window: '2020 – 2021', source: 'station record' },
+    fig: {
+      value: '3,500',
+      what: 'packages a day, at 98.85% success',
+      window: '2020 – 2021',
+      source: 'station record',
+      popoy: '3,500 packages a day. Top same-day station in Canada.',
+    },
   },
   {
     place: 'Kuvai',
@@ -157,12 +163,19 @@ export const projects: Project[] = [
       'I wrote the core of it by hand, before AI coding tools existed. Leagues kept using it for years with nobody touching it. In 2026 I added a paid tier and brought in an agent team to help me build on top of that core. I still run all of it: product, engineering, pricing and support.',
     ],
     figs: [
-      { value: '14%', what: 'paid, 537 of 3,835 registered accounts', window: '27 Feb – 4 Sep 2026', source: 'own reports' },
+      {
+        value: '14%',
+        what: 'paid, 537 of 3,835 registered accounts',
+        window: '27 Feb – 4 Sep 2026',
+        source: 'own reports',
+        popoy: '537 people paid. Nobody made them.',
+      },
       {
         value: '526,800',
         what: 'draft spots decided: 43,900 lotteries at a standard 12 teams each',
         window: 'to Nov 2026',
         source: 'site count × 12',
+        popoy: 'Half a million draft spots decided. On something he wrote by hand.',
       },
       {
         value: 'CA$11,000',
@@ -234,8 +247,20 @@ export const projects: Project[] = [
       'The simulation gives the same result in the browser and on the server, so the server can replay any run and keep its own record. It went live two days after I wrote the spec.',
     ],
     figs: [
-      { value: '2,398', what: 'players in the first four days', window: '1 – 4 Nov 2026', source: 'own reports' },
-      { value: '1,443', what: 'unit test cases, plus 384 end-to-end', window: 'on 14 Nov 2026', source: 'repo count' },
+      {
+        value: '2,398',
+        what: 'players in the first four days',
+        window: '1 – 4 Nov 2026',
+        source: 'own reports',
+        popoy: 'Two posts on Reddit. No ads. 2,398 players.',
+      },
+      {
+        value: '1,443',
+        what: 'unit test cases, plus 384 end-to-end',
+        window: 'on 14 Nov 2026',
+        source: 'repo count',
+        popoy: 'He tests more than he talks.',
+      },
     ],
     system: {
       title: 'Immortal Drafts',
@@ -292,7 +317,15 @@ export const projects: Project[] = [
       'People ask Facebook groups for a Filipino plumber in Mississauga or a caterer in Scarborough. AskPinoy is the answer you can link: a directory of Filipino-owned businesses in Toronto and the GTA, built around trust.',
       'It is built and deployed, and opens once 60 businesses are listed. No business appears unless its owner has confirmed the details, and the database enforces that.',
     ],
-    figs: [{ value: '3,297', what: 'database test assertions', window: 'on 31 Oct 2026', source: 'repo count' }],
+    figs: [
+      {
+        value: '3,297',
+        what: 'database test assertions',
+        window: 'on 31 Oct 2026',
+        source: 'repo count',
+        popoy: '3,297 checks before a single listing went live. He is careful.',
+      },
+    ],
     system: {
       title: 'AskPinoy',
       nodes: [
@@ -443,49 +476,58 @@ export const agents = {
 
 /* ---------- Capabilities ---------- */
 
-export const capabilities: { asked: string; where: string; link?: { label: string; href: string } }[] = [
+export const capabilities: { asked: string; where: string; more?: string; link?: { label: string; href: string } }[] = [
   {
     asked: 'Agents and tool use',
+    more: "He built a scheduler the model runs through tool calls. It became the product's agents.",
     where: 'Role-based agents with scheduled tasks, web monitoring and tool connectors, in production at',
     link: { label: 'Kuvai', href: '#kuvai' },
   },
   {
     asked: 'Context engineering, prompts and RAG',
+    more: 'On the AI SDK since version 3, in July 2024.',
     where: 'Since GPT-3.5, when all three were daily pain. One of the first users of the AI SDK, at',
     link: { label: 'Kuvai', href: '#kuvai' },
   },
   {
     asked: 'Influence without authority',
+    more: 'He convinced a CTO to change the stack. Ask him for the argument.',
     where: 'Convinced the CTO to move the product from Streamlit in Python to JavaScript, at',
     link: { label: 'Kuvai', href: '#kuvai' },
   },
   {
     asked: 'Communicating from front-line users to executives',
+    more: 'Plant floor, executives, customers. He has worked with all three.',
     where: 'Front-line associates at Toyota and Amazon, the CTO and CEO at Kuvai, and paying customers on my own product. See',
     link: { label: 'above', href: '#range' },
   },
   {
     asked: 'Working directly with customers',
+    more: 'He answers every support email. One refund became a tested rule.',
     where: 'Support, refunds and pricing for 537 paying accounts on',
     link: { label: 'Fantasy League Lottery', href: '#fll' },
   },
   {
     asked: 'End-to-end ownership',
+    more: 'Four products, alone. From the idea to the support inbox.',
     where: 'Every side project is mine end to end: idea, design, code, pricing, launch and support. Spec to live in two days on',
     link: { label: 'Immortal Drafts', href: '#immortal' },
   },
   {
     asked: 'Privacy and sensitive data',
+    more: 'Personal data is masked before a model ever sees it.',
     where: 'Personal information masked before a model call at Kuvai. Private rows and owner consent enforced by the database on',
     link: { label: 'AskPinoy', href: '#askpinoy' },
   },
   {
     asked: 'Testing and evaluation',
+    more: '1,443 unit tests on one game, and a test that bans Math.random.',
     where: 'Deterministic replay, a purity test on the engine, and a scoring model tested once on a held-out year, on',
     link: { label: 'Immortal Drafts', href: '#immortal' },
   },
   {
     asked: 'AI coding tools, used well',
+    more: 'Seventeen agents on one product. A hook blocks bad commits.',
     where: 'Subagents, hooks, skills and MCP servers every day, and an AI development pipeline for a whole team. See',
     link: { label: 'how I keep agents honest', href: '#agents' },
   },
@@ -493,25 +535,58 @@ export const capabilities: { asked: string; where: string; link?: { label: strin
 
 /* ---------- Experience ---------- */
 
-export const experience: { years: string; role: string; org: string; note?: string }[] = [
-  { years: '2024 – present', role: 'AI Engineer', org: 'Kuvai, Toronto' },
-  { years: '2022 – present', role: 'Founder', org: 'Fantasy League Lottery, Toronto' },
-  { years: '2023', role: 'IT Analyst, internship', org: 'York Region', note: 'Built a document question-and-answer chatbot for IT support.' },
-  { years: '2021 – 2023', role: 'Business Data Analyst', org: 'JC Electrofields Power System, Manila' },
+export const experience: { years: string; role: string; org: string; note?: string; more?: string }[] = [
+  {
+    years: '2024 – present',
+    role: 'AI Engineer',
+    org: 'Kuvai, Toronto',
+    more: 'Joined pre-seed. Moved the product off Streamlit. Led the Mac and iPhone apps through App Store approval.',
+  },
+  {
+    years: '2022 – present',
+    role: 'Founder',
+    org: 'Fantasy League Lottery, Toronto',
+    more: '43,900 lotteries run. CA$11,000 earned. He wrote the core by hand and does everything himself.',
+  },
+  {
+    years: '2023',
+    role: 'IT Analyst, internship',
+    org: 'York Region',
+    note: 'Built a document question-and-answer chatbot for IT support.',
+    more: 'An early one. Staff asked it IT questions and it answered from the documents.',
+  },
+  {
+    years: '2021 – 2023',
+    role: 'Business Data Analyst',
+    org: 'JC Electrofields Power System, Manila',
+    more: 'More than ten Excel and Power BI reports. His analysis cut costs by 5%.',
+  },
   {
     years: '2020 – 2021',
     role: 'Area Manager',
     org: 'Amazon, Toronto',
     note: 'Wrote an automation script that cut a manager\'s report from 2 hours to 5 minutes, used by area managers across Canada.',
+    more: 'He ran Canada\'s top same-day station: 3,500 packages a day. Then he automated the paperwork.',
   },
   {
     years: '2016 – 2018',
     role: 'Engineering internships',
     org: 'Toyota Motor Manufacturing Canada, TTC, York Region, Loblaw, Clearbridge Mobile',
     note: 'At Toyota, designed parts that made it possible to manufacture every RAV4 built in Canada, working with Toyota engineers across North America. Also subway reliability, fleet analysis, supply chain and mobile QA.',
+    more: 'Five co-op terms. At the TTC he ended a recurring subway-door failure. At Loblaw he cut manual orders 17%.',
   },
-  { years: '2023', role: 'Postgraduate certificate, Applied A.I. Solutions Development', org: 'George Brown College' },
-  { years: '2014 – 2019', role: 'BASc, Management Engineering', org: 'University of Waterloo' },
+  {
+    years: '2023',
+    role: 'Postgraduate certificate, Applied A.I. Solutions Development',
+    org: 'George Brown College',
+    more: 'Dean\'s List. He went back to school for AI before it was the obvious move.',
+  },
+  {
+    years: '2014 – 2019',
+    role: 'BASc, Management Engineering',
+    org: 'University of Waterloo',
+    more: 'Industrial engineering by another name. He looks for the bottleneck first.',
+  },
 ]
 
 export const closing = 'Happy to talk about agents, AI products, or anything on this page.'
