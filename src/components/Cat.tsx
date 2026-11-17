@@ -32,6 +32,7 @@ type State =
   | 'talk'
   | 'wiggle'
   | 'hop'
+  | 'held'
 
 const cache = new Map<string, HTMLCanvasElement>()
 function sprite(key: string): HTMLCanvasElement {
@@ -67,7 +68,7 @@ export default function Cat() {
   const wrap = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
   const zzz = useRef<HTMLSpanElement>(null)
-  const [bubble, setBubble] = useState<{ text: string; next: string | null; below: boolean } | null>(null)
+  const [bubble, setBubble] = useState<{ text: string; next: string | null; below: boolean; shift: number } | null>(null)
   const bubbleOpen = useRef(false)
   const [px, setPx] = useState(4)
 
@@ -127,8 +128,16 @@ export default function Cat() {
     let lastP = 0
     let pitchAt = 0
 
+    // keep the bubble on screen: slide it sideways when he is near an edge
+    const place = () => {
+      const r = cv.getBoundingClientRect()
+      const w = Math.min(300, window.innerWidth * 0.78)
+      const want = r.left + r.width / 2 - w / 2
+      const ok = Math.min(window.innerWidth - w - 10, Math.max(10, want))
+      return { below: r.top < 250, shift: Math.round(ok - want) }
+    }
     const speak = (text: string, ms = 5200) => {
-      setBubble({ text, next: null, below: cv.getBoundingClientRect().top < 250 })
+      setBubble({ text, next: null, ...place() })
       window.setTimeout(() => setBubble((b) => (b && b.text === text ? null : b)), ms)
     }
     const spotlight = (target: Element | null) => {
@@ -137,7 +146,10 @@ export default function Cat() {
       target?.classList.add('popoy-spot')
       if (target) window.setTimeout(() => target.classList.remove('popoy-spot'), 5200)
     }
-    const beltTrack = () => document.querySelector('.belt__track')
+    const beltTrack = () => {
+      const b = document.querySelector<HTMLElement>('.belt__track')
+      return b && b.offsetParent !== null ? b : null
+    }
 
     const set = (s: State) => {
       state = s
@@ -178,8 +190,8 @@ export default function Cat() {
       return { x: r.left + 50 + Math.max(1, r.right - r.left - 100) * at, y: r.top }
     }
 
-    const leapTo = (to: Element) => {
-      const at = 0.15 + Math.random() * 0.7
+    const leapTo = (to: Element, where?: number) => {
+      const at = where ?? 0.15 + Math.random() * 0.7
       const s = spot(to, at)
       const dist = Math.hypot(s.x - x, s.y - y)
       jump = { x0: x, y0: y, ms: Math.min(820, Math.max(400, dist * 0.9)), to, at }
@@ -270,6 +282,17 @@ export default function Cat() {
             speak(stationSay[at], 4600)
             spotlight(document.querySelectorAll('.station')[at] ?? null)
             set('talk')
+            took = true
+          }
+        }
+        if (!belt && !took && !bubbleOpen.current && now - scrolledAt > 350) {
+          const stations = Array.from(document.querySelectorAll('.station'))
+          const at = stations.findIndex((n) => n.classList.contains('is-at'))
+          if (at >= 0 && at !== station && visible(stations[at])) {
+            station = at
+            pitch = { el: stations[at], text: stationSay[at] }
+            next = stations[at]
+            set('look')
             took = true
           }
         }
@@ -434,6 +457,11 @@ export default function Cat() {
         key = 'front:shut:loaf'
         lift = Math.floor(since / 900) % 2
         if (hovering) set('pet')
+      } else if (state === 'held') {
+        // picked up: he dangles and kicks until you let go
+        key = `side:${Math.floor(since / 130) % 2 ? 'air' : 'c'}:${t}`
+        lift = Math.floor(since / 260) % 2
+        idle = 0
       } else if (state === 'startle') {
         settle()
         key = 'front:open:sit'
@@ -506,6 +534,49 @@ export default function Cat() {
       hidden = (e as CustomEvent<boolean>).detail
       el.style.display = hidden ? 'none' : ''
     }
+    // pick him up and carry him; let go and he jumps to the nearest ledge
+    let grab: { x: number; y: number; moved: boolean } | null = null
+    const onDown = (e: PointerEvent) => {
+      if (!live) return
+      grab = { x: e.clientX, y: e.clientY, moved: false }
+      cv.setPointerCapture(e.pointerId)
+    }
+    const onDrag = (e: PointerEvent) => {
+      if (!grab) return
+      if (!grab.moved && Math.hypot(e.clientX - grab.x, e.clientY - grab.y) > 7) {
+        grab.moved = true
+        perch = null
+        jump = null
+        setBubble(null)
+        speak('Fine. Carry me.', 2200)
+        set('held')
+      }
+      if (grab.moved) {
+        x = e.clientX + window.scrollX
+        y = e.clientY + window.scrollY + (H * PX) / 2
+      }
+    }
+    const onUp = (e: PointerEvent) => {
+      if (!grab) return
+      const moved = grab.moved
+      grab = null
+      if (cv.hasPointerCapture(e.pointerId)) cv.releasePointerCapture(e.pointerId)
+      if (!moved) return onTap()
+      // nearest ledge to where he was dropped
+      const best = Array.from(document.querySelectorAll(PERCHES))
+        .filter(visible)
+        .map((el2) => {
+          const r = rectOf(el2)
+          const cx = Math.min(r.right - 50, Math.max(r.left + 50, x))
+          return { el2, r, cx, d: Math.hypot(cx - x, r.top - y) }
+        })
+        .sort((a, b) => a.d - b.d)[0]
+      if (best) {
+        leapTo(best.el2, (best.cx - best.r.left - 50) / Math.max(1, best.r.right - best.r.left - 100))
+        set('air')
+      } else set('sit')
+    }
+
     // a tap: he explains the part of the page you are on
     const onTap = () => {
       if (!live) return
@@ -514,8 +585,7 @@ export default function Cat() {
       const after = tour[i + 1]
       const st = perch === beltTrack() ? station : -1
       const text = id === 'range' && st >= 0 ? stationExplain[st] : (explain[id] ?? tour[i].say)
-      const below = cv.getBoundingClientRect().top < 250
-      setBubble({ text, next: after ? after.id : null, below })
+      setBubble({ text, next: after ? after.id : null, ...place() })
       say(null)
       heart()
       set('talk')
@@ -530,7 +600,14 @@ export default function Cat() {
     window.addEventListener('popoy:hold', hold)
     window.addEventListener('popoy:quiet', onQuiet)
     document.addEventListener('visibilitychange', onVisibility)
-    cv.addEventListener('click', onTap)
+    const onKeyClick = (e: MouseEvent) => {
+      if (e.detail === 0) onTap() // keyboard activation only; pointers go through onUp
+    }
+    cv.addEventListener('click', onKeyClick)
+    cv.addEventListener('pointerdown', onDown)
+    cv.addEventListener('pointermove', onDrag)
+    cv.addEventListener('pointerup', onUp)
+    cv.addEventListener('pointercancel', onUp)
     cv.addEventListener('pointerenter', onEnter)
     cv.addEventListener('pointerleave', onLeave)
     try {
@@ -549,7 +626,11 @@ export default function Cat() {
       window.removeEventListener('popoy:hold', hold)
       window.removeEventListener('popoy:quiet', onQuiet)
       document.removeEventListener('visibilitychange', onVisibility)
-      cv.removeEventListener('click', onTap)
+      cv.removeEventListener('click', onKeyClick)
+      cv.removeEventListener('pointerdown', onDown)
+      cv.removeEventListener('pointermove', onDrag)
+      cv.removeEventListener('pointerup', onUp)
+      cv.removeEventListener('pointercancel', onUp)
       cv.removeEventListener('pointerenter', onEnter)
       cv.removeEventListener('pointerleave', onLeave)
       document.documentElement.classList.remove('popoy-loose')
@@ -562,7 +643,11 @@ export default function Cat() {
         z z z
       </span>
       {bubble && (
-        <div className={bubble.below ? 'cat__bubble cat__bubble--below' : 'cat__bubble'} role="status">
+        <div
+          className={bubble.below ? 'cat__bubble cat__bubble--below' : 'cat__bubble'}
+          style={{ '--shift': `${bubble.shift}px` } as React.CSSProperties}
+          role="status"
+        >
           <p>{bubble.text}</p>
           <div className="cat__actions">
             {bubble.next && (
@@ -583,7 +668,7 @@ export default function Cat() {
         style={{ width: W * px, height: H * px }}
         role="button"
         tabIndex={0}
-        aria-label="Popoy the cat. Stroke him, or press to hear what this part of the page is about"
+        aria-label="Popoy the cat. Stroke him, drag him somewhere, or press to hear what this part of the page is about"
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault()

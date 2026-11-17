@@ -1019,7 +1019,12 @@ main > section.hero {
   display: block;
   image-rendering: pixelated;
   pointer-events: auto;
-  cursor: pointer;
+  cursor: grab;
+  touch-action: none;
+}
+
+.cat canvas:active {
+  cursor: grabbing;
 }
 
 .cat__zzz {
@@ -1080,7 +1085,7 @@ main > section.hero {
   font-size: 15px;
   line-height: 1.4;
   pointer-events: auto;
-  transform: translateX(-50%);
+  transform: translateX(calc(-50% + var(--shift, 0px)));
   animation: pop 160ms ease-out;
 }
 
@@ -1088,7 +1093,7 @@ main > section.hero {
   content: '';
   position: absolute;
   top: 100%;
-  left: calc(50% - 8px);
+  left: calc(50% - 8px - var(--shift, 0px));
   border: 8px solid transparent;
   border-top-color: var(--ink);
 }
@@ -1132,7 +1137,6 @@ main > section.hero {
 
 @keyframes pop {
   from {
-    transform: translateX(-50%) translateY(6px) scale(0.92);
     opacity: 0;
   }
 }
@@ -2354,12 +2358,8 @@ main > section.hero {
   }
 }
 
-/* on a phone the line runs down the left edge */
+/* on a phone there is no belt: the stations stack and light up in turn */
 @media (max-width: 620px) {
-  .belt {
-    padding-left: 58px;
-  }
-
   .belt__stations {
     grid-template-columns: minmax(0, 1fr);
   }
@@ -2369,22 +2369,7 @@ main > section.hero {
   }
 
   .belt__track {
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 40px;
-    height: auto;
-    margin: 0;
-    background:
-      repeating-linear-gradient(180deg, #343a41 0 3px, transparent 3px 22px),
-      var(--steel);
-    animation-name: roll-down;
-  }
-
-  .belt__tote {
-    left: -13px;
-    top: calc(26px + var(--p) * (100% - 80px));
+    display: none;
   }
 }
 
