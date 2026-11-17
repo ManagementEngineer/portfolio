@@ -3,12 +3,12 @@
 
 export const opening = {
   keys: ['AI engineer', 'Kuvai', 'Toronto'],
-  claim: 'A developer with a product hat. I build it, I ship it, and I answer the customers who use it.',
+  claim: 'A developer with a product hat. Customer obsession and ownership: that is how I look at my work.',
   statement:
     "AI engineer who has worked at every level: the plant floor, the executive table, and the customer's inbox.",
   paras: [
     "I started in operations. At Toyota and at Amazon I worked beside front-line associates, where a change only counts if the person doing the job can use it. At Kuvai I report to the CTO and CEO and help decide what we build. On my own product I answer paying customers myself.",
-    "I believe in three things from those floors. Amazon's customer obsession: start with the customer and work backwards. Toyota Business Practices, the eight steps Toyota uses to solve a problem. And continuous improvement, even now that code is so easy to remake. I carry them into every problem I solve, AI included. This is how I run the eight steps:",
+    'I learned both at Amazon: start with the customer and work backwards, and never say "that is not my job". From Toyota I keep Toyota Business Practices, the eight steps Toyota uses to solve a problem, and continuous improvement, even now that code is so easy to remake. I carry them into every problem I solve, AI included. This is how I run the eight steps:',
   ],
   method: [
     { steps: 'Steps 1 – 2', verb: 'Clarify', text: 'Clarify the problem and break it down. I ask the people who have it.', more: 'He asks first. His product has an ideas board where customers vote.' },
