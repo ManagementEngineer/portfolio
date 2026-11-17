@@ -252,14 +252,14 @@ export const explain: Record<string, string> = {
 /* What Popoy says as the tote reaches each career station, and when tapped there. */
 export const stationSay = [
   'Toyota. The parts he designed let every RAV4 in Canada get built.',
-  'Amazon. Two hours of reporting, down to five minutes. Managers across Canada used it.',
+  'Amazon. A 45-minute daily report, down to three minutes. Managers at ten sites used it.',
   'Kuvai. He joined before the first investor. He talked the CTO out of Streamlit.',
   'His own product. Real customers pay for it, and he answers every one himself.',
 ]
 
 export const stationExplain = [
   'At Toyota the parts he designed made it possible to manufacture every RAV4 built in Canada. He worked with Toyota engineers across North America. He ran Toyota\'s eight steps on failed paint-line prototypes and cut install time from 6 hours to 2.',
-  'At Amazon he ran Canada\'s top same-day station. He also wrote a script that cut a manager\'s report from 2 hours to 5 minutes. Area managers all over Canada used it.',
+  'At Amazon he ran Canada\'s top same-day station. He also wrote a script that cut a manager\'s daily report from 45 minutes to 3. Area managers at 10 sites in the Canada East region used it.',
   'He joined Kuvai pre-seed, before its first investor, and reports to the CTO and the CEO. He started on GPT-3.5, convinced the CTO to switch from Streamlit to JavaScript, and built the team\'s AI development pipeline.',
   'Fantasy League Lottery is his own product. He wrote the core by hand, and he answers every customer himself.',
 ]

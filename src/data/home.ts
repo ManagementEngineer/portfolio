@@ -47,7 +47,7 @@ export const range: RangeRow[] = [
     role: 'Area manager',
     years: '2020 – 2021',
     who: 'Front-line associates',
-    text: "I ran Canada's top Prime same-day delivery station. I also wrote an automation script that cut the time managers spent on a report from 2 hours to 5 minutes. Area managers all over Canada used it.",
+    text: "I ran Canada's top Prime same-day delivery station. I also wrote an automation script that cut the time managers spent on a daily report from 45 minutes to 3. Area managers at 10 sites in the Canada East region used it.",
     fig: {
       value: '3,500',
       what: 'packages a day, at 98.85% success',
@@ -566,7 +566,7 @@ export const experience: { years: string; role: string; org: string; note?: stri
     years: '2020 – 2021',
     role: 'Area Manager',
     org: 'Amazon, Toronto',
-    note: 'Wrote an automation script that cut a manager\'s report from 2 hours to 5 minutes, used by area managers across Canada.',
+    note: 'Wrote an automation script that cut a manager\'s daily report from 45 minutes to 3, used by area managers at 10 sites in the Canada East region.',
     more: 'He ran Canada\'s top same-day station: 3,500 packages a day. He simplified the process, raised capacity 21%, and sent out 134,000 more same-day packages a year.',
   },
   {
@@ -584,7 +584,7 @@ export const experience: { years: string; role: string; org: string; note?: stri
   },
   {
     years: '2017',
-    role: 'Fleet Analyst, internship',
+    role: 'Transit Analyst, internship',
     org: 'York Region',
     more: 'He ran the bus fleet management system, designed the front end of its replacement, and trained more than 20 people to use it.',
   },
