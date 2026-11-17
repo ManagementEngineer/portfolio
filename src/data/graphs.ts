@@ -239,7 +239,7 @@ export const explain: Record<string, string> = {
   range: 'Four places he has worked, from the plant floor to his own customers. Scroll, and I will call out each one.',
   work: 'Five things he runs. Kuvai is his job. The other four he does end to end, by himself: idea, design, code, pricing, launch and support.',
   kuvai: 'His day job. He joined pre-seed, started on GPT-3.5, moved the CTO off Streamlit, and led the Mac and iPhone apps through App Store approval. His team pipeline runs Playwright tests, and pull requests carry screenshots, and videos when needed, as proof.',
-  fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. That is a lot of kibbles. Press "Walk me through it" to watch one draw.',
+  fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. Press "Walk me through it" to watch one draw.',
   immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
   askpinoy: 'A directory of Filipino-owned businesses. Nothing is listed until the owner confirms it.',
   rings: 'A store for fantasy leagues. Anything that costs money is guarded twice.',
@@ -268,7 +268,7 @@ export const stationExplain = [
    reading, points it out, and says why it matters. Each line plays once. */
 export const wingman: Record<string, { sel: string; say: string }[]> = {
   top: [
-    { sel: '.method', say: 'Ask, measure, find the gap, fix it. He does all four. Most people stop at two.' },
+    { sel: '.method', say: 'Ask, measure, find the gap, fix it. In that order. I checked.' },
   ],
   work: [{ sel: '#kuvai', say: 'Line 01 is his job. The other four he does end to end, alone. Start with Kuvai.' }],
   kuvai: [
@@ -289,15 +289,15 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
     { sel: '#immortal .board', say: 'A fake result gets refused here. Press play and watch.' },
   ],
   askpinoy: [{ sel: '#askpinoy .board', say: 'Nothing is listed until the owner says yes. The database enforces it.' }],
-  rings: [{ sel: '#rings .board', say: 'Anything that costs money here is guarded twice. He thinks like an owner.' }],
+  rings: [{ sel: '#rings .board', say: 'Anything that costs money here is guarded twice. I counted.' }],
   agents: [
     { sel: '.rules li:first-child', say: 'Every rule here came from something that broke. He writes the lesson down.' },
     { sel: '.code', say: 'This rule is enforced by code. Exit 2 blocks the commit.' },
   ],
-  capabilities: [{ sel: '.caps li:first-child', say: 'This is what AI teams ask for. He has done every row.' }],
-  experience: [{ sel: '.xp li:first-child', say: 'Plant floor to AI engineer. That range is hard to hire.' }],
+  capabilities: [{ sel: '.caps li:first-child', say: 'This is what AI teams ask for. Each row points at the work above.' }],
+  experience: [{ sel: '.xp li:first-child', say: 'Plant floor first, AI engineer now. Newest job on top.' }],
   end: [
-    { sel: '.closing h2', say: 'You read this far. Email him before someone else does.' },
+    { sel: '.closing h2', say: 'You read this far. The email button is right there.' },
     { sel: '.supervisor', say: 'That is me. I look better in pixels.' },
   ],
 }
