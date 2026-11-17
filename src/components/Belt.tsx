@@ -1,4 +1,5 @@
 import { useEffect, useRef, type ReactNode } from 'react'
+import Popoy from './Popoy'
 
 /* A conveyor. A tote rides it from the first station to the last as the
    section scrolls through the viewport. Horizontal on wide screens,
@@ -36,9 +37,10 @@ export default function Belt({ children, label }: { children: ReactNode; label: 
   return (
     <div className="belt" ref={ref} aria-label={label}>
       <ol className="belt__stations">{children}</ol>
-      <div className="belt__track" aria-hidden="true">
+      <div className="belt__track">
         <span className="belt__tote">
-          <span>RB</span>
+          <Popoy pose="head" px={3} className="popoy--box" />
+          <span className="belt__box">Popoy</span>
         </span>
       </div>
     </div>

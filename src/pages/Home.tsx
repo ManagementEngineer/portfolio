@@ -16,6 +16,7 @@ import { person } from '../data/site'
 import Arrow from '../components/Arrow'
 import Belt from '../components/Belt'
 import Graph from '../components/Graph'
+import Popoy from '../components/Popoy'
 import { Link } from '../router'
 
 export function SectionHead({ id, title, count }: { id?: string; title: string; count?: string }) {
@@ -244,6 +245,7 @@ export default function Home() {
           <Contact />
         </div>
         <div className="hero__graph">
+          <Popoy pose="sit" px={4} className="popoy--perch" />
           <p className="hero__graphtitle">
             <span className="andon" /> Cell 00 · how I work, on a loop
           </p>
@@ -262,7 +264,8 @@ export default function Home() {
       <section className="wrap">
         <SectionHead id="range" title="Every station I've worked" />
         <p className="lede-line">
-          Scroll, and the tote rides the line. Each station is a place I worked and the people I worked with there.
+          Scroll, and Popoy rides the line in his tote. Each station is a place I worked and the people I worked with
+          there.
         </p>
         <Belt label="Career line">
           {range.map((r, i) => (
@@ -362,8 +365,20 @@ export default function Home() {
       </section>
 
       <footer className="closing wrap">
-        <h2>{closing}</h2>
-        <Contact />
+        <div className="closing__row">
+          <div>
+            <h2>{closing}</h2>
+            <Contact />
+          </div>
+          <figure className="supervisor">
+            <Popoy pose="sit" px={8} />
+            <figcaption>
+              <strong>Popoy</strong>
+              <span>British Shorthair, golden shaded</span>
+              <span>Shift supervisor. Rides the line.</span>
+            </figcaption>
+          </figure>
+        </div>
         <p className="fine">{figuresNote}</p>
       </footer>
     </main>
