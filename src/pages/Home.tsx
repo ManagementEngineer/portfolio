@@ -410,6 +410,10 @@ export default function Home() {
 
       <section className="wrap">
         <SectionHead id="work" title="The lines I run" />
+        <p className="lede-line">
+          Line 01 is my job. Lines 02 to 05 are my own, and on those I do everything end to end: the idea, the design,
+          the code, the pricing, the launch and the support.
+        </p>
         {projects.map((p, i) => (
           <ProjectBlock key={p.id} p={p} n={i + 1} />
         ))}

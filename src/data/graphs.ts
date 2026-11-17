@@ -237,7 +237,7 @@ export const tour = [
 export const explain: Record<string, string> = {
   top: 'This is Ramuel\'s site. He is a developer with a product hat, and the customer always comes first. I inspect his work. Scroll down, then tap me again.',
   range: 'Four places he has worked, from the plant floor to his own customers. The tote rides as you scroll.',
-  work: 'Five things he runs. Each one shows the system and the agent team behind it.',
+  work: 'Five things he runs. Kuvai is his job. The other four he does end to end, by himself: idea, design, code, pricing, launch and support.',
   kuvai: 'His day job. He joined pre-seed, started on GPT-3.5, moved the CTO off Streamlit, and led the Mac and iPhone apps through App Store approval.',
   fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. That is a lot of kibbles. Press "Walk me through it" to watch one draw.',
   immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
@@ -270,7 +270,7 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
   top: [
     { sel: '.method', say: 'Ask, measure, find the gap, fix it. He does all four. Most people stop at two.' },
   ],
-  work: [{ sel: '#kuvai', say: 'Start with Kuvai. He joined before the first investor.' }],
+  work: [{ sel: '#kuvai', say: 'Line 01 is his job. The other four he does end to end, alone. Start with Kuvai.' }],
   kuvai: [
     { sel: '#kuvai', say: 'Pre-seed. He bet on it before anyone had put money in.' },
     { sel: '#kuvai .project__image', say: 'He led the Mac and iPhone apps too. Built, submitted, approved.' },

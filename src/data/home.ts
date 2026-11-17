@@ -150,7 +150,7 @@ export const projects: Project[] = [
   {
     id: 'fll',
     name: 'Fantasy League Lottery',
-    role: 'Founder, sole operator',
+    role: 'Founder, solo, end to end',
     years: '2022 – present',
     paras: [
       'Every fantasy league has to decide who drafts first, and it usually ends in an argument. A commissioner sets the odds, the server seals the draw, and the whole league watches the reveal together. More than 43,900 lotteries have been run on it. At a standard 12 teams a league, that is over half a million draft spots decided.',
@@ -227,7 +227,7 @@ export const projects: Project[] = [
   {
     id: 'immortal',
     name: 'Immortal Drafts',
-    role: 'Solo project, live and free',
+    role: 'Solo, end to end, live and free',
     years: '2026',
     paras: [
       'A free browser game for esports fans who follow the pro scene more than they play. You draft a team from historic pro rosters across five titles and watch it play through the tournament.',
@@ -286,7 +286,7 @@ export const projects: Project[] = [
   {
     id: 'askpinoy',
     name: 'AskPinoy',
-    role: 'Solo project, pre-launch',
+    role: 'Solo, end to end, pre-launch',
     years: '2026',
     paras: [
       'People ask Facebook groups for a Filipino plumber in Mississauga or a caterer in Scarborough. AskPinoy is the answer you can link: a directory of Filipino-owned businesses in Toronto and the GTA, built around trust.',
@@ -338,7 +338,7 @@ export const projects: Project[] = [
   {
     id: 'rings',
     name: 'League Rings',
-    role: 'Solo project, live store',
+    role: 'Solo, end to end, live store',
     years: '2026',
     paras: [
       'Championship rings and league shirts for fantasy leagues. A shopper uploads a photo, sees their league artwork on a shirt, and orders it through Shopify.',
@@ -471,7 +471,7 @@ export const capabilities: { asked: string; where: string; link?: { label: strin
   },
   {
     asked: 'End-to-end ownership',
-    where: 'Spec to live in two days, alone, then measured with real players on',
+    where: 'Every side project is mine end to end: idea, design, code, pricing, launch and support. Spec to live in two days on',
     link: { label: 'Immortal Drafts', href: '#immortal' },
   },
   {
