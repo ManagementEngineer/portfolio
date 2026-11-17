@@ -94,6 +94,7 @@ export type Project = {
   role: string
   years: string
   paras: string[]
+  timeline?: { when: string; text: string }[]
   figs: Fig[]
   system?: System
   flow?: Flow
