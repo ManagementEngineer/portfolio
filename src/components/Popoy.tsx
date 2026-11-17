@@ -8,10 +8,10 @@ const PAL: Record<string, string> = {
   g: '#e2a455', // golden coat
   d: '#b9762f', // darker tipping
   l: '#f7dfb0', // pale chest and cheeks
-  w: '#fff3d6', // muzzle
-  e: '#3fae6b', // green eyes
+  w: '#fffdf6', // muzzle
+  e: '#86a83f', // green eyes
   p: '#14171a', // pupils
-  n: '#c8553d', // nose
+  n: '#e8959b', // nose
   k: '#e8a08a', // inner ear
 }
 

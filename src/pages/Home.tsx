@@ -20,7 +20,6 @@ import CountUp from '../components/CountUp'
 import Guide from '../components/Guide'
 import HeroLine from '../components/HeroLine'
 import Graph from '../components/Graph'
-import Popoy from '../components/Popoy'
 import { say } from '../guide'
 import { Link } from '../router'
 
@@ -502,10 +501,16 @@ export default function Home() {
             <Contact />
           </div>
           <figure className="supervisor">
-            <Popoy pose="sit" px={8} />
+            <img
+              src="/popoy.jpg"
+              alt="Popoy, a golden British Shorthair with big green eyes, looking up at the camera"
+              width={640}
+              height={691}
+              loading="lazy"
+            />
             <figcaption>
               <strong>Popoy</strong>
-              <span>British Shorthair, golden shaded</span>
+              <span>The real one. British Shorthair, golden shaded.</span>
               <span>Final inspection. Can refuse.</span>
             </figcaption>
           </figure>

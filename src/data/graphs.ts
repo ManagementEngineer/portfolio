@@ -295,5 +295,8 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
   ],
   capabilities: [{ sel: '.caps li:first-child', say: 'This is what AI teams ask for. He has done every row.' }],
   experience: [{ sel: '.xp li:first-child', say: 'Plant floor to AI engineer. That range is hard to hire.' }],
-  end: [{ sel: '.closing h2', say: 'You read this far. Email him before someone else does.' }],
+  end: [
+    { sel: '.closing h2', say: 'You read this far. Email him before someone else does.' },
+    { sel: '.supervisor', say: 'That is me. I look better in pixels.' },
+  ],
 }

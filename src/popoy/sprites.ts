@@ -6,10 +6,10 @@ export const PAL: Record<string, string> = {
   g: '#e2a455',
   d: '#b9762f',
   l: '#f7dfb0',
-  w: '#fff3d6',
-  e: '#3fae6b',
+  w: '#fffdf6',
+  e: '#86a83f',
   p: '#14171a',
-  n: '#c8553d',
+  n: '#e8959b',
   k: '#e8a08a',
 }
 

@@ -618,6 +618,15 @@ main > section.hero {
   gap: 16px;
 }
 
+.supervisor img {
+  display: block;
+  width: 220px;
+  height: auto;
+  border: 2px solid var(--ink);
+  border-bottom-width: 8px;
+  transform: rotate(-2deg);
+}
+
 .supervisor figcaption {
   display: flex;
   flex-direction: column;
