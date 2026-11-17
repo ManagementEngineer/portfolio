@@ -219,7 +219,7 @@ export const log: Entry[] = [
     product: KV,
     headline: 'Started the second-generation platform with a small team.',
     detail:
-      'I have written a bit over half of its commits through June 2026: scheduling, document extraction, billing and credits, web monitoring, and the pipeline that ships it.',
+      'I wrote a bit over half of its commits in the first 19 months, and I am still on it: scheduling, document extraction, billing and credits, web monitoring, and the pipeline that ships it.',
     source: 'git history',
   },
   {
