@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, useSyncExternalStore } from 'react'
 import Popoy from './Popoy'
+import { stationSay } from '../data/graphs'
 import { currentLine, subscribe } from '../guide'
 
 /* Popoy on the floor rail. He walks along the bottom of the screen as you
@@ -12,6 +13,7 @@ export default function Guide({ stops }: { stops: Stop[] }) {
   const narration = useSyncExternalStore(subscribe, currentLine)
   const [at, setAt] = useState(0)
   const [walking, setWalking] = useState(false)
+  const [station, setStation] = useState(-1)
   const [quiet, setQuiet] = useState(() => {
     try {
       return localStorage.getItem('popoy') === 'quiet'
@@ -36,6 +38,7 @@ export default function Guide({ stops }: { stops: Stop[] }) {
         if (top < mid) current = i
       })
       setAt(current)
+      setStation(Array.from(document.querySelectorAll('.station')).findIndex((el) => el.classList.contains('is-at')))
 
       // progress through the current section drives where he stands
       const start = t[current]
@@ -50,8 +53,12 @@ export default function Guide({ stops }: { stops: Stop[] }) {
       }
       last.current = y
     }
+    let late = 0
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(update)
+      // read once more after the conveyor has moved its tote, so the station line is current
+      window.clearTimeout(late)
+      late = window.setTimeout(update, 90)
     }
     update()
     window.addEventListener('scroll', onScroll, { passive: true })
@@ -60,6 +67,7 @@ export default function Guide({ stops }: { stops: Stop[] }) {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
       cancelAnimationFrame(frame)
+      window.clearTimeout(late)
       window.clearTimeout(idle.current)
     }
   }, [stops])
@@ -77,7 +85,7 @@ export default function Guide({ stops }: { stops: Stop[] }) {
 
   const stop = stops[at]
   const nextStop = stops[at + 1]
-  const text = narration ?? stop.say
+  const text = narration ?? (stop.id === 'range' && station >= 0 ? stationSay[station] : stop.say)
 
   if (quiet) {
     return (

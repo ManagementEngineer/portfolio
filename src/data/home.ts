@@ -19,12 +19,13 @@ export const opening = {
 
 /* ---------- Figures ---------- */
 
-export type Fig = { value: string; what: string; window: string; source: string }
+export type Fig = { value: string; what: string; window: string; source: string; popoy?: string }
 
 /* ---------- Range ---------- */
 
 export type RangeRow = {
   place: string
+  url?: string
   role: string
   years: string
   who: string
@@ -50,15 +51,17 @@ export const range: RangeRow[] = [
   },
   {
     place: 'Kuvai',
+    url: 'https://kuvai.com',
     role: 'AI engineer',
-    years: '2024 –',
+    years: '2024 – present',
     who: 'The CTO and the CEO',
     text: "I report to both. I helped decide the tech stack and build the product, and I built the engineering team's AI development pipeline, from picking up a Jira ticket to a deploy on QA.",
   },
   {
     place: 'Fantasy League Lottery',
+    url: 'https://www.fantasyleaguelottery.com',
     role: 'Founder',
-    years: '2022 –',
+    years: '2022 – present',
     who: 'Paying customers',
     text: 'I answer every support email and refund request myself. One refund became a product rule with a test behind it.',
     fig: { value: '537', what: 'paying accounts, of 3,835 registered', window: '27 Feb – 4 Sep 2026', source: 'own reports' },
@@ -102,7 +105,7 @@ export const projects: Project[] = [
     id: 'kuvai',
     name: 'Kuvai',
     role: 'AI engineer',
-    years: '2024 –',
+    years: '2024 – present',
     paras: [
       'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
       "I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA.",
@@ -120,14 +123,20 @@ export const projects: Project[] = [
     id: 'fll',
     name: 'Fantasy League Lottery',
     role: 'Founder, sole operator',
-    years: '2022 –',
+    years: '2022 – present',
     paras: [
       'Every fantasy league has to decide who drafts first, and it usually ends in an argument. A commissioner sets the odds, the server seals the draw, and the whole league watches the reveal together. More than 43,900 lotteries have been run on it.',
       'I wrote the core of it by hand, before AI coding tools existed. Leagues kept using it for years with nobody touching it. In 2026 I added a paid tier and brought in an agent team to help me build on top of that core. I still run all of it: product, engineering, pricing and support.',
     ],
     figs: [
       { value: '14%', what: 'paid, 537 of 3,835 registered accounts', window: '27 Feb – 4 Sep 2026', source: 'own reports' },
-      { value: 'CA$11,000', what: 'earned from the product', window: 'to Nov 2026', source: 'own records' },
+      {
+        value: 'CA$11,000',
+        what: 'earned from the product',
+        window: 'to Nov 2026',
+        source: 'own records',
+        popoy: "CA$11,000. That's a lot of kibbles.",
+      },
     ],
     system: {
       title: 'Fantasy League Lottery',
@@ -441,8 +450,8 @@ export const capabilities: { asked: string; where: string; link?: { label: strin
 /* ---------- Experience ---------- */
 
 export const experience: { years: string; role: string; org: string; note?: string }[] = [
-  { years: '2024 –', role: 'AI Engineer', org: 'Kuvai, Toronto' },
-  { years: '2022 –', role: 'Founder', org: 'Fantasy League Lottery, Toronto' },
+  { years: '2024 – present', role: 'AI Engineer', org: 'Kuvai, Toronto' },
+  { years: '2022 – present', role: 'Founder', org: 'Fantasy League Lottery, Toronto' },
   { years: '2023', role: 'IT Analyst, internship', org: 'York Region', note: 'Built a document question-and-answer chatbot for IT support.' },
   { years: '2021 – 2023', role: 'Business Data Analyst', org: 'JC Electrofields Power System, Manila' },
   {

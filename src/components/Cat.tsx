@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { PAL, rowsFor } from '../popoy/sprites'
-import { explain, tour } from '../data/graphs'
+import { explain, stationExplain, tour } from '../data/graphs'
 import { say } from '../guide'
 
 /* Popoy, the star of the page, loose on it.
@@ -14,7 +14,7 @@ import { say } from '../guide'
 const W = 33
 const H = 26
 const PERCHES =
-  '.hero__graph, .method, .h2, .station, .project__head h3, .board, .project__figs .sticker, .rules li, .code, .caps li:first-child, .xp li:first-child, .closing h2'
+  '.hero__graph, .method, .h2, .station, .project, .board, .project__figs .sticker, .rules li, .code, .caps li:first-child, .xp li:first-child, .closing h2'
 
 type State =
   | 'sit'
@@ -67,7 +67,7 @@ export default function Cat() {
   const wrap = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
   const zzz = useRef<HTMLSpanElement>(null)
-  const [bubble, setBubble] = useState<{ text: string; next: string | null } | null>(null)
+  const [bubble, setBubble] = useState<{ text: string; next: string | null; below: boolean } | null>(null)
   const bubbleOpen = useRef(false)
   const [px, setPx] = useState(4)
 
@@ -119,6 +119,7 @@ export default function Cat() {
     let scrolledAt = 0
     let lastT = performance.now()
     let raf = 0
+    const said = new Set<Element>()
 
     const set = (s: State) => {
       state = s
@@ -142,7 +143,19 @@ export default function Cat() {
       return r.top > 110 && r.top < window.innerHeight - 110 && r.width > 100
     }
 
+    const activeStation = () => {
+      const st = document.querySelector('.station.is-at')
+      return st && visible(st) ? st : null
+    }
+
     const pickPerch = (): Element | null => {
+      const st = activeStation()
+      if (st && st !== perch) return st
+      // a number he has something to say about comes first, once
+      const quip = Array.from(document.querySelectorAll<HTMLElement>('[data-popoy]')).find(
+        (q) => q !== perch && visible(q) && !said.has(q),
+      )
+      if (quip) return quip
       const mid = window.innerHeight * 0.45
       return (
         Array.from(document.querySelectorAll(PERCHES))
@@ -225,8 +238,13 @@ export default function Cat() {
         }
         const eyes = near ? (px < x - 60 ? 'l' : px > x + 60 ? 'r' : 'open') : glance
         key = `front:${shut ? 'shut' : eyes}:${tail >= 2 ? 'flick' : 'sit'}`
+        const st = activeStation()
         if (hovering) set('pet')
-        else if (perch && !visible(perch) && now - scrolledAt > 140) {
+        else if (st && st !== perch && since > 500 && !bubbleOpen.current) {
+          // the tote has moved on: follow it to the next station
+          next = st
+          set('look')
+        } else if (perch && !visible(perch) && now - scrolledAt > 140) {
           next = pickPerch()
           if (next) set('look')
         } else if (near && perch && since > 400 && Math.abs(py - y) < 280 && !bubbleOpen.current) {
@@ -302,7 +320,14 @@ export default function Cat() {
         squash = since < 90 ? 3 : 1
         if (since > 200) {
           idle = 0
-          set('sit')
+          const quip = (perch as HTMLElement | null)?.dataset.popoy
+          if (quip && perch && !said.has(perch)) {
+            // he has a remark about what he just landed on
+            said.add(perch)
+            setBubble({ text: quip, next: null, below: cv.getBoundingClientRect().top < 250 })
+            window.setTimeout(() => setBubble((b) => (b && b.text === quip ? null : b)), 4200)
+            set('talk')
+          } else set('sit')
         }
       } else if (state === 'wiggle') {
         // the wind-up before a pounce: low, rear end shifting
@@ -426,7 +451,10 @@ export default function Cat() {
       const id = currentStop()
       const i = tour.findIndex((s) => s.id === id)
       const after = tour[i + 1]
-      setBubble({ text: explain[id] ?? tour[i].say, next: after ? after.id : null })
+      const st = Array.from(document.querySelectorAll('.station')).findIndex((n) => n === perch)
+      const text = id === 'range' && st >= 0 ? stationExplain[st] : (explain[id] ?? tour[i].say)
+      const below = cv.getBoundingClientRect().top < 250
+      setBubble({ text, next: after ? after.id : null, below })
       say(null)
       heart()
       set('talk')
@@ -471,7 +499,7 @@ export default function Cat() {
         z z z
       </span>
       {bubble && (
-        <div className="cat__bubble" role="status">
+        <div className={bubble.below ? 'cat__bubble cat__bubble--below' : 'cat__bubble'} role="status">
           <p>{bubble.text}</p>
           <div className="cat__actions">
             {bubble.next && (

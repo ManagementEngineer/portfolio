@@ -239,7 +239,7 @@ export const explain: Record<string, string> = {
   range: 'Four places he has worked, from the plant floor to his own customers. The tote rides as you scroll.',
   work: 'Five things he runs. Each one shows the system and the agent team behind it.',
   kuvai: 'His day job. He reports to the CTO and the CEO, and he built the team\'s AI development pipeline.',
-  fll: 'His own product. He wrote the core by hand. Press "Walk me through it" to watch one draw.',
+  fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. That is a lot of kibbles. Press "Walk me through it" to watch one draw.',
   immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
   askpinoy: 'A directory of Filipino-owned businesses. Nothing is listed until the owner confirms it.',
   rings: 'A store for fantasy leagues. Anything that costs money is guarded twice.',
@@ -248,3 +248,18 @@ export const explain: Record<string, string> = {
   experience: 'His jobs, newest first, then school.',
   end: 'That is the whole line. Email him. I am going back to sleep.',
 }
+
+/* What Popoy says as the tote reaches each career station, and when tapped there. */
+export const stationSay = [
+  'Toyota. He built parts that fit every RAV4 on the road in Canada.',
+  'Amazon. His script cut a manager\'s report from 2 hours to 5 minutes.',
+  'Kuvai. He reports to the CTO and the CEO.',
+  'His own product. He answers every support email himself.',
+]
+
+export const stationExplain = [
+  'At Toyota he built parts that accommodate every RAV4 you see on the road in Canada, and in parts of the US.',
+  'At Amazon he ran Canada\'s top same-day station. He also wrote a script that cut a manager\'s report from 2 hours to 5 minutes. Area managers all over Canada used it.',
+  'At Kuvai he reports to the CTO and the CEO. He helped decide the tech stack and built the team\'s AI development pipeline.',
+  'Fantasy League Lottery is his own product. He wrote the core by hand, and he answers every customer himself.',
+]

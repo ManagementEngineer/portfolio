@@ -972,6 +972,17 @@ main > section.hero {
   }
 }
 
+.visit {
+  margin: -4px 0 16px;
+}
+
+.project__head h3 a,
+.station__place a {
+  text-decoration-color: var(--c, var(--orange));
+  text-decoration-thickness: 4px;
+  text-underline-offset: 6px;
+}
+
 /* what he says when you tap him */
 .cat__bubble {
   position: absolute;
@@ -996,6 +1007,18 @@ main > section.hero {
   left: calc(50% - 8px);
   border: 8px solid transparent;
   border-top-color: var(--ink);
+}
+
+.cat__bubble--below {
+  bottom: auto;
+  top: calc(100% + 10px);
+}
+
+.cat__bubble--below::after {
+  top: auto;
+  bottom: 100%;
+  border-top-color: transparent;
+  border-bottom-color: var(--yellow);
 }
 
 .cat__bubble p {

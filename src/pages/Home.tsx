@@ -56,7 +56,7 @@ export function Contact() {
 
 function Sticker({ fig }: { fig: Fig }) {
   return (
-    <figure className="sticker">
+    <figure className="sticker" data-popoy={fig.popoy}>
       <p className="sticker__value">
         <CountUp value={fig.value} />
       </p>
@@ -168,7 +168,17 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
             <span>{p.role}</span>
             <span>{p.years}</span>
           </p>
-          <h3>{p.name}</h3>
+          <h3>
+            <a href={p.links[0].href} target="_blank" rel="noopener noreferrer">
+              {p.name}
+            </a>
+          </h3>
+          <p className="visit">
+            <a className="btn" href={p.links[0].href} target="_blank" rel="noopener noreferrer">
+              Visit {p.links[0].label}
+              <Arrow kind="out" />
+            </a>
+          </p>
           {p.paras.map((t) => (
             <p key={t} className="project__p">
               {t}
@@ -291,7 +301,7 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
                   <Arrow kind="on" />
                 </Link>
               ) : (
-                <a href={l.href}>
+                <a href={l.href} target="_blank" rel="noopener noreferrer">
                   {l.label}
                   <Arrow kind="out" />
                 </a>
@@ -359,7 +369,14 @@ export default function Home() {
                 Station {String(i + 1).padStart(2, '0')}
               </p>
               <p className="station__place">
-                {r.place} <span>{r.years}</span>
+                {r.url ? (
+                  <a href={r.url} target="_blank" rel="noopener noreferrer">
+                    {r.place}
+                  </a>
+                ) : (
+                  r.place
+                )}{' '}
+                <span>{r.years}</span>
               </p>
               <h3>{r.who}</h3>
               <p className="station__role">{r.role}</p>
