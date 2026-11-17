@@ -245,7 +245,7 @@ export const explain: Record<string, string> = {
   rings: 'A store for fantasy leagues. Anything that costs money is guarded twice.',
   agents: 'The rules his agents work under. Each one exists because something went wrong once.',
   capabilities: 'What AI teams ask for, matched to where on this page he has done it.',
-  experience: 'His jobs, newest first, then school.',
+  experience: 'His jobs, newest first, then school. Point at any row and I will tell you what he did there.',
   end: 'That is the whole line. Email him. I am going back to sleep.',
 }
 
@@ -297,7 +297,7 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
     { sel: '.code', say: 'This rule is enforced by code. Exit 2 blocks the commit.' },
   ],
   capabilities: [{ sel: '.caps li:first-child', say: 'This is what AI teams ask for. Each row points at the work above.' }],
-  experience: [{ sel: '.xp li:first-child', say: 'Plant floor first, AI engineer now. Newest job on top.' }],
+  experience: [{ sel: '.xp li:first-child', say: 'Newest job on top. Point at any row and I will tell you what he did there.' }],
   end: [
     { sel: '.closing h2', say: 'You read this far. The email button is right there.' },
     { sel: '.supervisor', say: 'That is me. I look better in pixels.' },
