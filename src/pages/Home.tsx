@@ -1,24 +1,18 @@
-import { useState } from 'react'
 import {
-  dropped,
+  alsoBuilding,
+  cases,
+  decisions,
   figuresNote,
   history,
   howIWork,
-  kuvai,
-  lanes,
   log,
   madeNote,
   opening,
   person,
   work,
-  type Lane,
 } from '../data/site'
-import Chart from '../components/Chart'
 import Figure from '../components/Figure'
-import Sym from '../components/Sym'
-import { Link, navigate } from '../router'
-
-const featured = log.filter((e) => e.featured)
+import { Link } from '../router'
 
 export function SectionHead({ id, title, count }: { id?: string; title: string; count?: string }) {
   return (
@@ -42,73 +36,61 @@ export function Contact() {
 }
 
 export default function Home() {
-  const [filter, setFilter] = useState<Lane[]>([])
-
-  const pick = (lane: Lane) => navigate(`/log?lane=${lane}`)
-
   return (
     <main className="wrap">
       <section className="open">
         <div className="open__letter">
           <h1>{opening.headline}</h1>
+          <p className="open__ask">{opening.ask}</p>
           {opening.letter.map((p) => (
             <p key={p}>{p}</p>
           ))}
           <Contact />
         </div>
 
-        <aside className="tally" aria-label="The record so far">
-          <div className="tally__head">
-            <span>The record so far</span>
-            <span>{log.length} entries</span>
-          </div>
-          <ul>
-            {lanes.map((l) => (
-              <li key={l.id}>
-                <button type="button" onClick={() => pick(l.id)} title={`Open the full log showing ${l.label.toLowerCase()} entries`}>
-                  <Sym lane={l.id} on />
-                  <span className="tally__label">{l.label}</span>
-                  <span className="tally__means">{l.means}</span>
-                  <span className="tally__n">{log.filter((e) => e.lane === l.id).length}</span>
-                </button>
-              </li>
-            ))}
-          </ul>
-          <div className="tally__start">
-            <span>Start here</span>
-            <Link to={opening.startHere.href}>{opening.startHere.label} →</Link>
-          </div>
+        <aside className="proofs" aria-label="Three things I have done">
+          {opening.proofs.map((p) => (
+            <div key={p.value} className="proof">
+              <span className="proof__value">{p.value}</span>
+              <span className="figure__dim" aria-hidden="true" />
+              <span className="proof__label">{p.label}</span>
+            </div>
+          ))}
         </aside>
       </section>
 
-      <section className="thesis">
-        <p>{opening.thesis}</p>
-        <p>
-          {opening.ask} I'm in {person.location}. Everything below has a date and a source.
-        </p>
-      </section>
-
       <section>
-        <SectionHead id="work" title="Work" />
+        <SectionHead id="work" title="What I've built" />
         <ul className="work">
-          {work.map((w, i) => (
-            <li key={w.id} className={i === 0 ? 'work__row work__row--lead' : 'work__row'}>
-              <span className="work__sym" title={w.state === 'held' ? 'Held' : 'Shipped'}>
-                <Sym lane={w.state} on />
-              </span>
+          {work.map((w) => (
+            <li key={w.id} className="work__row">
               <div className="work__main">
                 <h3>{w.name}</h3>
                 <p className="work__status">
                   {w.status} · {w.years}
                 </p>
-                <p className="work__summary">{w.summary}</p>
-                {w.more && <p className="work__summary">{w.more}</p>}
+                {w.paras.map((p) => (
+                  <p key={p} className="work__summary">
+                    {p}
+                  </p>
+                ))}
+                {w.fig && <Figure fig={w.fig} />}
                 <p className="work__links">
-                  {w.caseHref && <Link to={w.caseHref}>Case study →</Link>}
-                  {w.url && <a href={w.url}>{w.urlLabel} →</a>}
+                  {w.caseHref && <Link to={w.caseHref}>{w.caseLabel} →</Link>}
+                  <a href={w.url}>{w.urlLabel} →</a>
                 </p>
               </div>
-              <Figure fig={w.fig} />
+              <a className="work__shot" href={w.url} tabIndex={-1} aria-hidden="true">
+                <img src={w.shot} alt={w.shotAlt} width={960} height={435} loading="lazy" />
+              </a>
+            </li>
+          ))}
+        </ul>
+        <ul className="also">
+          {alsoBuilding.map((a) => (
+            <li key={a.name}>
+              <a href={a.url}>{a.name}</a>
+              <span>{a.note}</span>
             </li>
           ))}
         </ul>
@@ -116,39 +98,39 @@ export default function Home() {
       </section>
 
       <section>
-        <SectionHead id="log" title="The log" count={`${featured.length} of ${log.length} shown`} />
-        <p className="lede">
-          Oldest first. Each entry sits in the lane for what kind of call it was. A reversed entry stays where it was,
-          struck through. Select a headline for the detail.
-        </p>
-        <Chart entries={featured} filter={filter} onFilter={setFilter} />
+        <SectionHead id="decisions" title="Four decisions I'd point to" />
+        <ul className="decisions">
+          {decisions.map((d) => (
+            <li key={d.title}>
+              <h3>{d.title}</h3>
+              <dl>
+                <div>
+                  <dt>What I saw</dt>
+                  <dd>{d.saw}</dd>
+                </div>
+                <div>
+                  <dt>What I did</dt>
+                  <dd>{d.did}</dd>
+                </div>
+                <div>
+                  <dt>What happened</dt>
+                  <dd>{d.result}</dd>
+                </div>
+              </dl>
+              <p className="decisions__more">
+                <Link to={d.href}>Read the full story →</Link>
+              </p>
+            </li>
+          ))}
+        </ul>
         <p className="more">
-          <Link to="/log">Open the full log, {log.length} entries →</Link>
+          I keep a dated log of every real product decision, including the ones I reversed.{' '}
+          <Link to="/log">Open the log, {log.length} entries →</Link>
         </p>
-      </section>
-
-      <section className="split">
-        <div>
-          <SectionHead title="Three write-ups" />
-          <ul className="cases">
-            <li>
-              <Link to="/work/ai-credits">I gave 418 people free AI credits. Nobody spent one.</Link>
-              <span>Killing an AI plan on one number.</span>
-            </li>
-            <li>
-              <Link to="/work/what-sells">The best thing I built does not sell.</Link>
-              <span>What commissioners actually pay for.</span>
-            </li>
-            <li>
-              <Link to="/work/fixed-was-false">&ldquo;Fixed&rdquo; was false twice.</Link>
-              <span>How I check work I did not write.</span>
-            </li>
-          </ul>
-        </div>
       </section>
 
       <section>
-        <SectionHead id="how" title="How I work" />
+        <SectionHead id="how" title="How I work with AI" />
         <div className="prose">
           {howIWork.intro.map((p) => (
             <p key={p}>{p}</p>
@@ -170,24 +152,13 @@ export default function Home() {
             ))}
           </tbody>
         </table>
-        <div className="prose">
-          {howIWork.limits.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
-        </div>
+        <p className="more">
+          <Link to="/work/fixed-was-false">{cases[2].title} →</Link>
+        </p>
       </section>
 
       <section>
-        <SectionHead id="kuvai" title="Kuvai" />
-        <div className="prose">
-          {kuvai.map((p) => (
-            <p key={p}>{p}</p>
-          ))}
-        </div>
-      </section>
-
-      <section>
-        <SectionHead id="history" title="History" />
+        <SectionHead id="history" title="Experience" />
         <ul className="history">
           {history.map((h) => (
             <li key={h.role}>
@@ -202,20 +173,8 @@ export default function Home() {
         </ul>
       </section>
 
-      <section>
-        <SectionHead title="Dropped" count={`${dropped.length} things`} />
-        <ul className="dropped">
-          {dropped.map((d) => (
-            <li key={d.name}>
-              <Sym lane="killed" on />
-              <span className="dropped__name">{d.name}</span>
-              <span className="dropped__note">{d.note}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
-
       <footer className="foot">
+        <p className="foot__ask">{opening.ask}</p>
         <Contact />
         <p className="fine">{madeNote}</p>
       </footer>

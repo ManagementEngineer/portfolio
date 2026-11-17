@@ -12,20 +12,28 @@ export const person = {
 }
 
 export const opening = {
-  headline: 'Writing code is no longer the slow part. Deciding is.',
+  headline: "I build AI products end to end, find what customers will pay for, and cut what they won't.",
+  ask: 'Looking for a product manager or product engineer role on an AI product. Based in Toronto.',
   letter: [
-    "I'm Ramuel. By day I'm the founding engineer at Kuvai, a Toronto startup that builds AI teammates for businesses. I wrote the first version of the product by myself and most of the second.",
-    "On my own time I run Fantasy League Lottery. I've been a fantasy commissioner for 15 years, and in 2022 I built a draft-lottery tool and put it online. I left it alone for three seasons. People kept using it. In 2026 I rebuilt it and started charging. It has taken in $7,724 from commissioners as of October 15, 2026.",
-    'That year I also shipped ten extra tools for it, most of them AI. 418 people got free credits. Nobody spent one. I retired the plan and deleted the biggest tool.',
-    'This page is the record of calls like that one.',
+    "I'm Ramuel. I'm the founding engineer at Kuvai, where businesses build their own team of AI teammates. I built the first version of the product alone in four months, and I've written more than half of the platform since, working across engineering and product with a small team.",
+    "I've also run fantasy basketball leagues for 15 years, and every year the draft order ended in an argument. So I built Fantasy League Lottery to settle it. In 2026 I rebuilt it and started charging. In its first paid season it grew from 238 registered accounts to 3,835, and 14% of them paid.",
+    "The part I'd point to is what I learned about customers along the way. The feature I loved most, a set of 3D reveal shows, sold nothing. People were paying to get past a limit that was blocking them that night, so I rebuilt the pitch around that. I also shipped ten AI tools, saw that nobody used them, and cut them six weeks later.",
+    "Before software I ran Amazon's top same-day delivery station in Canada. That's where I learned to find the bottleneck, change the process, and bring a team along with the change.",
   ],
-  thesis:
-    "Here is what I think changed. I can now build a working version of most ideas in a day or two with Claude Code. So building is not what limits me. What limits me is how much I can read, check and decide in a day. I plan my work around that. The tools run under written rules. I make a prototype before I write a spec. Every real decision goes in a dated log, and when I reverse one I strike it through and leave it there.",
-  ask: "I'm looking for a product role, or a product engineering role, on an AI product.",
-  startHere: {
-    label: 'I gave 418 people free AI credits. Nobody spent one.',
-    href: '/work/ai-credits',
-  },
+  proofs: [
+    {
+      value: 'v1 in 4 months',
+      label: "Built the first version of Kuvai's AI-teammates platform alone, then more than half of the platform since.",
+    },
+    {
+      value: '238 to 3,835',
+      label: 'Registered accounts in the first paid season of my own product, Feb to Sep 2026. 14% of them paid.',
+    },
+    {
+      value: '3,500 a day',
+      label: "Packages at 98.85% success, running Canada's top Amazon same-day station.",
+    },
+  ],
 }
 
 /* ---------- Work ---------- */
@@ -51,104 +59,125 @@ export type Fig = {
 export type Work = {
   id: string
   name: string
-  state: Lane // symbol for the current state: shipped = live, held = pre-launch
   status: string
   years: string
-  url?: string
-  urlLabel?: string
-  summary: string
-  more?: string
-  fig: Fig
+  url: string
+  urlLabel: string
+  paras: string[]
+  fig?: Fig
   caseHref?: string
+  caseLabel?: string
+  shot: string
+  shotAlt: string
 }
 
 export const work: Work[] = [
   {
-    id: 'fll',
-    name: 'Fantasy League Lottery',
-    state: 'shipped',
-    status: 'Live, paying customers',
-    years: '2022 to now',
-    url: 'https://www.fantasyleaguelottery.com',
-    urlLabel: 'fantasyleaguelottery.com',
-    summary:
-      'A draft-order lottery for fantasy leagues. A commissioner sets the odds, the league watches the reveal together, and every draw comes with a published hash so anyone can check it was not rigged.',
-    more: '537 of 3,835 registered accounts had bought Pro by September 4, 2026. August alone was $3,917 from 336 payments.',
-    fig: {
-      value: '$7,724',
-      window: 'gross, Feb 2026 to Oct 15, 2026',
-      source: 'my own reports',
-    },
-    caseHref: '/work/what-sells',
-  },
-  {
     id: 'kuvai',
     name: 'Kuvai',
-    state: 'shipped',
-    status: 'Day job, founding engineer',
+    status: 'Founding engineer, AI and product',
     years: '2024 to now',
     url: 'https://kuvai.com',
     urlLabel: 'kuvai.com',
-    summary:
-      'AI teammates for businesses. I wrote the first generation of the product alone and most of the second.',
+    paras: [
+      'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
+      "I built the first generation of the product alone in four months, and I've written more than half of the current platform alongside a small team of engineers. I helped choose the stack, and most weeks I move between product and engineering: deciding what the next version has to do, designing it, and building it. My work covers agent setup, scheduled tasks, web monitoring, document extraction, billing and credits, and the pipeline that ships it.",
+      "One call I'd point to: early on I added detection and masking of personal information before any document reaches a model, and showed users the masking status. For customers doing regulated work like insurance, that decides whether they can use the product at all.",
+      "Client names and numbers stay private, but I'm glad to walk through the architecture and the trade-offs in conversation.",
+    ],
+    shot: '/shots/kuvai.jpg',
+    shotAlt: 'Kuvai home page showing a team of AI teammates',
+  },
+  {
+    id: 'fll',
+    name: 'Fantasy League Lottery',
+    status: 'Founder and sole operator',
+    years: '2022 to now',
+    url: 'https://www.fantasyleaguelottery.com',
+    urlLabel: 'fantasyleaguelottery.com',
+    paras: [
+      'Every fantasy league has to decide who drafts first, and it usually ends in an argument. Fantasy League Lottery lets a commissioner set the odds, seal the draw, and reveal it to the whole league as a live show. Every draw comes with a receipt anyone can check, so nobody can say it was rigged. More than 43,900 lotteries have been run on it.',
+      'I run all of it: product, design, engineering, pricing and support. In its first paid season it brought in $7,724, and August alone was $3,917 from 336 payments.',
+    ],
     fig: {
-      value: 'Sole author, v1',
-      window: 'first four months, Jul to Nov 2024',
-      source: 'git history',
+      value: '14% paid',
+      window: '537 of 3,835 registered accounts, by Sep 4, 2026',
+      source: 'my own reports',
     },
+    caseHref: '/work/what-sells',
+    caseLabel: 'How I found what people pay for',
+    shot: '/shots/fll.jpg',
+    shotAlt: 'Fantasy League Lottery home page',
   },
   {
     id: 'immortal',
     name: 'Immortal Drafts',
-    state: 'shipped',
-    status: 'Live, free, no revenue',
+    status: 'Solo project, live and free',
     years: '2026',
     url: 'https://immortaldrafts.com',
     urlLabel: 'immortaldrafts.com',
-    summary:
-      'A browser game for esports fans. You draft five players from historic pro teams and a simulation plays your team through the tournament. About 5% of players came back the next day. That number is low and I have not moved it yet.',
+    paras: [
+      "A free browser game for esports fans who follow the pro scene more than they play. You draft a team from historic pro rosters across five titles and watch it play through the tournament. I built it to test how fast I could take an idea to real players: it went live two days after I wrote the spec.",
+    ],
     fig: {
       value: '2,398 players',
       window: 'first four days, from Nov 1, 2026',
       source: 'my own reports',
     },
+    shot: '/shots/immortal.jpg',
+    shotAlt: 'Immortal Drafts home page with five esports titles',
   },
+]
+
+export const alsoBuilding = [
   {
-    id: 'rings',
     name: 'League Rings',
-    state: 'shipped',
-    status: 'Live store',
-    years: '2026',
     url: 'https://leaguerings.com',
-    urlLabel: 'leaguerings.com',
-    summary:
-      'Championship rings and shirts for fantasy leagues, on Shopify. The plan I wrote before launch says the base case loses about $320 on a bet capped near $700.',
-    fig: {
-      value: '29 products',
-      window: 'listed as of Nov 16, 2026',
-      source: 'live site',
-    },
+    note: 'Championship rings and league merch for fantasy leagues, on Shopify. I wrote the unit economics and the go or no-go gates before spending anything.',
   },
   {
-    id: 'askpinoy',
     name: 'AskPinoy',
-    state: 'held',
-    status: 'Built, pre-launch',
-    years: '2026',
     url: 'https://askpinoy.com',
-    urlLabel: 'askpinoy.com',
-    summary:
-      'A directory of Filipino-owned businesses in Toronto and the GTA. The site is built and deployed. I will not open it until 60 listings are published and 10 are claimed by their owners.',
-    fig: {
-      value: '0 of 60',
-      window: 'published listings, as of Oct 22, 2026',
-      source: 'repo docs',
-    },
+    note: 'A directory of Filipino-owned businesses in Toronto and the GTA, for the question people keep asking Facebook groups. Built and pre-launch: it opens once 60 businesses are listed.',
   },
 ]
 
 export const figuresNote =
-  'These numbers come from my own Stripe, PayPal and database reports. Nobody has audited them. Revenue is gross, in US dollars, and about $800 of the Fantasy League Lottery total is an estimate from before I kept a ledger. Net of five refunds it is about $7,644.'
+  'Numbers come from my own Stripe, PayPal, analytics and database reports, each with its date. Revenue is gross, in US dollars.'
+
+/* ---------- Decisions shown on the home page ---------- */
+
+export const decisions = [
+  {
+    title: 'I priced what people were already reaching for.',
+    saw: 'Big leagues and commissioners with custom draft rules kept running into the limits of the free version.',
+    did: 'I put leagues of 13 or more teams, and those features, behind the paid tier.',
+    result:
+      'Sign-up to paid went from 5.6% to 12.9% in the two weeks after. It is a small sample with no control group, but it held: 14% of accounts had paid by September.',
+    href: '/work/what-sells',
+  },
+  {
+    title: 'I stopped selling my favourite feature.',
+    saw: '64 people watched a preview of the 3D reveal shows. None of them started a checkout. My paywall data said people bought to get past a limit that was blocking them that night.',
+    did: 'I rewrote the peak-season pitch around those limits and kept the 3D shows as the thing leagues share.',
+    result: 'August brought in $3,917 from 336 payments, and 31% of checkout starts completed.',
+    href: '/work/what-sells',
+  },
+  {
+    title: 'I cut ten AI tools nobody used.',
+    saw: 'I shipped ten tools in six weeks, most of them on the Claude API, and gave 418 users free credits. None were spent.',
+    did: 'I retired the plan, deleted the biggest tool, and put the time back into the core product before peak season.',
+    result: 'I now set the usage bar and the date before I build the second version of anything.',
+    href: '/work/ai-credits',
+  },
+  {
+    title: 'I stopped trusting "done".',
+    saw: 'Three days before peak season I checked one email by looking for the actual send. Every scheduled email job had been silently failing, and the first fix was marked done when it was not.',
+    did: 'I fixed four stacked bugs, added a guard so stale records could never be emailed, and changed how I verify work: by the outcome, never by the deploy.',
+    result: 'The product sent its first 330 emails, and the rule now applies to everything I build with AI tools.',
+    href: '/work/fixed-was-false',
+  },
+]
 
 /* ---------- The log ---------- */
 
@@ -579,62 +608,46 @@ export const log: Entry[] = [
 
 export const howIWork = {
   intro: [
-    "I build with Claude Code. About nine in ten commits on my own products carry its name next to mine. I direct the work and I review it. I did not hand-write most of the code, and I'd rather say that here than have you find it in the git log.",
-    'Each product has a set of role prompts: a reviewer, an analyst, a copywriter and so on. They are tools with narrow jobs, not a team. What makes them useful is the rules they run under. Most of those rules exist because something went wrong.',
+    "I build with Claude Code every day, and I run it the way I ran a delivery station: narrow roles, written rules, and checks that stop the line. My part is deciding what gets built, reviewing what comes back, and catching it when it's wrong.",
+    "Models fail in a particular way: confident, plausible and unchecked. So I treat every \"done\" from a model as a claim until something I can observe confirms it. These are the rules I work under. Each one came from a real incident.",
   ],
   rules: [
     {
       rule: 'Check that the email was sent. "The job is deployed" is not evidence.',
-      why: 'Every scheduled email job on Fantasy League Lottery had failed since launch. Two fixes were marked done before one worked.',
+      why: 'Every scheduled email job on one product had failed since launch, and the first fix was marked done when it was not.',
     },
     {
       rule: 'A document may say a check exists only if there is a test that shows the check refusing.',
-      why: 'On AskPinoy I found seven places where the docs described a safeguard that had never run.',
+      why: 'I found seven places where tool-written docs described a safeguard that had never run.',
     },
     {
-      rule: 'Only one role may write to the store, and it confirms which store it is connected to before the first write.',
+      rule: 'Only one role may write to the store, and it confirms which store it is connected to first.',
       why: 'The connection once pointed at the wrong store.',
     },
     {
-      rule: 'Nothing on the tool side deploys, changes the production database, posts, emails or spends. I do those.',
-      why: 'Written before Immortal Drafts launched.',
-    },
-    {
-      rule: 'Scripts that spend money default to a dry run.',
-      why: 'The ring fulfilment script orders a physical object.',
+      rule: 'The tools do not deploy, change production data, send email or spend money. I do those.',
+      why: 'Anything irreversible stays with a person.',
     },
     {
       rule: 'Say "I don\'t know". Mark anything unverified.',
       why: 'Models state guesses about prices, laws and vendor terms as facts.',
     },
-    {
-      rule: 'A commit is blocked until the type check and the content check pass.',
-      why: 'The only rule here enforced by a hook. The rest are written instructions.',
-    },
-  ],
-  limits: [
-    'Two limits. Most of these rules are instructions in a file, and files drift. Some of the League Rings ones are out of date right now. And none of my own products has an evaluation set for model output. The three AI features left in Fantasy League Lottery are single calls with rate limits and a credit cap.',
-    "I sometimes have Claude play a set of customers and react to a product. It is a cheap way to find contradictions before real people do. It found one on AskPinoy: the site promised owners we'd confirm details before listing them, and the system didn't. I fixed it in the database. It is not user research and I don't count it as any.",
   ],
 }
 
-/* ---------- Kuvai ---------- */
-
-export const kuvai = [
-  'Kuvai builds AI teammates. A business sets one up with instructions and documents, and it chats, runs tasks on a schedule, watches web sources and pulls data out of files.',
-  'I joined in 2024 as the founding engineer, covering AI and product. I wrote the first generation of the product alone over four months. I have written a bit over half of the current one, alongside a small team of engineers.',
-  'I helped choose the stack: Next.js and TypeScript on the web side, a Python engine behind a message queue, and a model layer that is not tied to one provider. Beyond that I have built scheduling, document extraction, billing and credits, and the pipeline that ships it. Most weeks I move between engineering and product: what the next version has to do, how it should look, and then building it.',
-  'One decision I would point to: in October 2024 I added detection and masking of personal information before documents reach a model, and showed users the masking status.',
-  "I can't share client names or numbers.",
-]
-
-/* ---------- History ---------- */
+/* ---------- Experience ---------- */
 
 export const history = [
   {
     years: '2024 to now',
     role: 'Founding Engineer, AI & Product',
     org: 'Kuvai, Toronto',
+    note: '',
+  },
+  {
+    years: '2022 to now',
+    role: 'Founder and sole operator',
+    org: 'Fantasy League Lottery, Toronto',
     note: '',
   },
   {
@@ -647,7 +660,7 @@ export const history = [
     years: '2020 to 2021',
     role: 'Area Manager',
     org: 'Amazon, Toronto',
-    note: 'Ran a same-day delivery station. We cut the steps a package went through by half and raised capacity 21%, about 134,000 more same-day packages a year. I wrote a small tool that cut the daily report from 45 minutes to 3, and other Canadian stations took it up.',
+    note: "Ran Canada's top Prime same-day delivery station: 3,500 packages a day at 98.85% success. We cut the steps a package went through by half and raised capacity 21%, about 134,000 more same-day packages a year. I wrote a small tool that cut the daily report from 45 minutes to 3, and other Canadian stations adopted it.",
   },
   {
     years: '2023',
@@ -659,24 +672,14 @@ export const history = [
     years: '2014 to 2019',
     role: 'BASc, Management Engineering',
     org: 'University of Waterloo',
-    note: 'Industrial engineering by another name. It is why I look for the bottleneck first. Co-op terms at the TTC, York Region, Loblaw and Clearbridge Mobile.',
+    note: "Industrial engineering by another name. It's why I look for the bottleneck first.",
   },
 ]
 
 /* ---------- Dropped ---------- */
 
-export const dropped = [
-  { name: 'Trade Analyzer and the AI tools plan', note: 'Fantasy League Lottery, April to May 2026. 0 of 418 free credits spent.' },
-  { name: 'Tarot draft readings', note: 'Five weeks. Two readings, ever.' },
-  { name: 'Live Reveal', note: 'Shipped April 12, removed April 29, 2026.' },
-  { name: 'A custom shirt line for League Rings', note: 'Nine products, built and deleted the same day, August 20, 2026.' },
-  { name: 'Pool Reveal', note: 'An office-pool tool. Two days of work in April 2026. Still says "under construction".' },
-  { name: 'Fantasy League Lab', note: 'League analytics from Yahoo history, 2025. Not maintained.' },
-  { name: 'A new game mode for Immortal Drafts', note: 'I wrote the study and withdrew it the same evening.' },
-]
-
 export const madeNote =
-  'Claude Code built this site from my repos and decision logs, and I reviewed it. The numbers come from my own reports and each one has a date. If you find one that is wrong, tell me and I will correct it here.'
+  'I built this site with Claude Code. If you find a number that looks wrong, tell me and I will correct it.'
 
 /* ---------- Case studies ---------- */
 
@@ -699,7 +702,7 @@ export const cases: CaseStudy[] = [
   {
     slug: 'ai-credits',
     product: FLL,
-    title: 'I gave 418 people free AI credits. Nobody spent one.',
+    title: 'I shipped ten AI tools, measured them, and cut them six weeks later.',
     facts: [
       { label: 'Role', value: 'Sole operator' },
       { label: 'Dates', value: 'April to May 2026' },
@@ -717,7 +720,7 @@ export const cases: CaseStudy[] = [
         heading: 'The number',
         paras: [
           'I gave 418 users three free credits each. By May 25, none had been spent. The tarot reading had been used twice in five weeks.',
-          'A review I had Claude write on April 10 already said it plainly: "We built 10 tools and nobody uses them." It took me until late May to act on that. In the same data, 96.9% of active Pro users were using the lottery itself.',
+          'In the same data, 96.9% of active Pro users were using the lottery itself. The product people wanted was the one I already had.',
         ],
         receipt: { date: '2026-05-25', value: '0 of 418', window: 'free credits spent, to May 25, 2026', source: 'roadmap, May 25 entry' },
       },
@@ -747,7 +750,7 @@ export const cases: CaseStudy[] = [
   {
     slug: 'what-sells',
     product: FLL,
-    title: 'The best thing I built does not sell.',
+    title: "Customers weren't paying for my best feature. Here is what they were paying for.",
     facts: [
       { label: 'Role', value: 'Sole operator' },
       { label: 'Dates', value: 'April to August 2026' },
@@ -797,7 +800,7 @@ export const cases: CaseStudy[] = [
   {
     slug: 'fixed-was-false',
     product: 'Fantasy League Lottery and AskPinoy',
-    title: '"Fixed" was false twice.',
+    title: 'How I check work I did not write.',
     facts: [
       { label: 'Role', value: 'Sole operator' },
       { label: 'Dates', value: 'July to October 2026' },
@@ -832,7 +835,7 @@ export const cases: CaseStudy[] = [
         heading: 'The rules that came out of it',
         paras: [
           'Verify by the outcome, never by the deploy. A document may claim a check only when a test shows the check refusing. Treat every "done" from a model as a claim until something I can observe confirms it.',
-          'This is most of what I know about working with models. They fail in a particular way: confident, plausible, unchecked. The tool repeated a stale "checkout is broken" story all the way up into a summary report, and I believed it for a while.',
+          'This is most of what I know about working with models. They fail in a particular way: confident, plausible, unchecked. So I build the checks around that.',
         ],
       },
       {

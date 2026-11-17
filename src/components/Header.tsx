@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
-import { log, person } from '../data/site'
+import { person } from '../data/site'
 import { Link } from '../router'
-
-const lastEntry = log.reduce((max, e) => (e.date > max ? e.date : max), '')
 
 function readTheme(): 'light' | 'dark' {
   try {
@@ -39,14 +37,14 @@ export default function Header() {
             {person.name}
           </Link>
           <span className="head__meta">
-            {person.location} · last entry {lastEntry}
+            Product and engineering, AI products · {person.location}
           </span>
         </div>
         <nav className="head__nav" aria-label="Sections">
           <Link to="/#work">Work</Link>
-          <Link to="/#log">Log</Link>
+          <Link to="/#decisions">Decisions</Link>
           <Link to="/#how">How I work</Link>
-          <Link to="/#history">History</Link>
+          <Link to="/#history">Experience</Link>
           <a href={person.resume}>Resume (PDF)</a>
           <button type="button" className="head__theme" onClick={flip}>
             {theme === 'dark' ? 'Light' : 'Dark'}
