@@ -1,48 +1,33 @@
-import './App.css'
-import Hero from './components/Hero'
-import Board from './components/Board'
-import Scheme from './components/Scheme'
-import StartSit from './components/StartSit'
-import GameLog from './components/GameLog'
-import Eligibility from './components/Eligibility'
-import OnTheClock from './components/OnTheClock'
-
-const tabs = [
-  { href: '#overall', label: 'Overall' },
-  { href: '#board', label: 'The Board' },
-  { href: '#scheme', label: 'Scheme' },
-  { href: '#startsit', label: 'Start/Sit' },
-  { href: '#gamelog', label: 'Game Log' },
-  { href: '#eligibility', label: 'Eligibility' },
-  { href: '#contact', label: 'Draft Ramuel' },
-]
+import Header from './components/Header'
+import { cases } from './data/site'
+import Case from './pages/Case'
+import Home from './pages/Home'
+import Log from './pages/Log'
+import { Link, usePath, useScrollOnRoute } from './router'
 
 function App() {
+  const path = usePath().replace(/\/+$/, '') || '/'
+  useScrollOnRoute(path)
+
+  const study = cases.find((c) => `/work/${c.slug}` === path)
+
   return (
     <>
-      <nav className="tabs" aria-label="Sections">
-        <div className="wrap tabs__inner">
-          <a className="tabs__brand" href="#overall">
-            RAMUEL<span>.01</span>
-          </a>
-          <div className="tabs__list">
-            {tabs.map((t) => (
-              <a key={t.href} href={t.href} className="tabs__tab">
-                {t.label}
-              </a>
-            ))}
-          </div>
-        </div>
-      </nav>
-      <main>
-        <Hero />
-        <Board />
-        <Scheme />
-        <StartSit />
-        <GameLog />
-        <Eligibility />
-      </main>
-      <OnTheClock />
+      <Header />
+      {path === '/' ? (
+        <Home />
+      ) : path === '/log' ? (
+        <Log />
+      ) : study ? (
+        <Case key={study.slug} study={study} />
+      ) : (
+        <main className="wrap">
+          <h1 className="title">There is no page at this address.</h1>
+          <p className="more">
+            <Link to="/">Go to the home page →</Link>
+          </p>
+        </main>
+      )}
     </>
   )
 }

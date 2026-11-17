@@ -1,14 +1,16 @@
 # ramuel.ca — Ramuel Batuigas
 
-Personal site, built as a FantasyPros-style player page: Expert-Consensus-Rankings hero, a tiered draft board of shipped products, a Who Should You Hire head-to-head, and a draft-clock CTA.
+Personal site. A short first-person letter, then a dated log of what I shipped, measured, held, killed and reversed, drawn as a flow process chart. Three case studies sit one click down.
 
 ## Stack
 
-Vite · React 19 · TypeScript · Three.js (react-three-fiber) · Motion
+Vite · React 19 · TypeScript. No backend, no animation library. Fonts are self-hosted (Besley, Commissioner, DM Mono).
 
 ## Editing content
 
-All copy, projects, experience, and stats live in `src/data/profile.ts`. Edit that file; no component changes needed.
+All copy, work entries, log entries and case studies live in `src/data/site.ts`. Every number carries its time window and its source; keep that true when you change one.
+
+Routes: `/`, `/log`, `/work/ai-credits`, `/work/what-sells`, `/work/fixed-was-false`.
 
 ## Commands
 
