@@ -357,7 +357,10 @@ export default function Home() {
             <span>{opening.keys[2]}</span>
           </p>
           <h1>
-            From the plant floor to <em>agent lines</em>.
+            <span>I build AI agents.</span> <span>And a product</span>{' '}
+            <span>
+              <em>people pay for</em>.
+            </span>
           </h1>
           <p className="hero__claim">{opening.claim}</p>
           {opening.paras.map((t) => (

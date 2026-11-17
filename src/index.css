@@ -300,10 +300,14 @@ main > section.hero {
 
 .hero h1 {
   margin-bottom: 24px;
-  font: 900 clamp(54px, 7.6vw, 112px) / 0.88 var(--display);
+  font: 900 clamp(40px, 4.9vw, 74px) / 0.92 var(--display);
   letter-spacing: -0.005em;
   text-transform: uppercase;
   text-wrap: balance;
+}
+
+.hero h1 span {
+  display: block;
 }
 
 .hero h1 em {
