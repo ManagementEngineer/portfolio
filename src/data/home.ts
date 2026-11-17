@@ -8,7 +8,7 @@ export const opening = {
     "AI engineer who has worked at every level: the plant floor, the executive table, and the customer's inbox.",
   paras: [
     "I started in operations. At Toyota and at Amazon I worked beside front-line associates, where a change only counts if the person doing the job can use it. At Kuvai I report to the CTO and CEO and help decide what we build. On my own product I answer paying customers myself.",
-    'I solve real-life problems, and I bring the same habit to AI every time.',
+    "I believe in Toyota's business principles, and I carry them into every problem I solve, AI included.",
   ],
   method: [
     { verb: 'Ask', text: 'I gather ideas by asking people.', more: 'He asks first. His product has an ideas board where customers vote.' },
