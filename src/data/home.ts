@@ -8,13 +8,13 @@ export const opening = {
     "AI engineer who has worked at every level: the plant floor, the executive table, and the customer's inbox.",
   paras: [
     "I started in operations. At Toyota and at Amazon I worked beside front-line associates, where a change only counts if the person doing the job can use it. At Kuvai I report to the CTO and CEO and help decide what we build. On my own product I answer paying customers myself.",
-    'I learned both at Amazon: start with the customer and work backwards, and never say "that is not my job". From Toyota I keep Toyota Business Practices, the eight steps Toyota uses to solve a problem, and continuous improvement, even now that code is so easy to remake. I carry them into every problem I solve, AI included. This is how I run the eight steps:',
+    'I learned both at Amazon: start with the customer and work backwards, and never say "that is not my job". From Toyota I keep Toyota Business Practices, the eight steps Toyota uses to solve a problem, and continuous improvement, even now that code is so easy to remake. I carry them into every problem I solve, AI included. Here are the eight steps as I ran them at Toyota in 2018, on paint equipment being converted for the 2019 RAV4:',
   ],
   method: [
-    { steps: 'Steps 1 – 2', verb: 'Clarify', text: 'Clarify the problem and break it down. I ask the people who have it.', more: 'He asks first. His product has an ideas board where customers vote.' },
-    { steps: 'Steps 3 – 4', verb: 'Find the cause', text: 'Set a target, then find the root cause in the data.', more: 'One product of his tracks 133 events. That is how he found buyers pay to get past a limit, not for the 3D show.' },
-    { steps: 'Steps 5 – 6', verb: 'Fix it', text: 'Develop the countermeasure and see it through. I build it myself.', more: 'He rewrote the pitch around those limits. August brought in $3,917.' },
-    { steps: 'Steps 7 – 8', verb: 'Standardize', text: 'Check the result and the process, then make what worked the standard.', more: 'What works becomes a written rule. See Standard work, further down.' },
+    { steps: 'Steps 1 – 2', verb: 'Clarify', text: 'All 14 attachment designs for the paint line failed their prototype trial, across 35 pieces of equipment. Nine were badly off.', more: 'Fourteen designs, thirty-five machines. Every prototype failed its trial.' },
+    { steps: 'Steps 3 – 4', verb: 'Find the cause', text: 'Target: correct the drawings before any more installs. Root cause: the design process had no standard, so nobody had measured the real equipment.', more: 'Toyota calls it genchi genbutsu: go and see. He went and measured.' },
+    { steps: 'Steps 5 – 6', verb: 'Fix it', text: 'I wrote a field-check checklist, revised the drawings, and designed mounting plates that adjust in both directions.', more: 'Slots both ways, so a part can be adjusted on the spot.' },
+    { steps: 'Steps 7 – 8', verb: 'Standardize', text: 'Average install time fell from 6 hours to 2. I proposed the checklist as the standard for the design process.', more: 'Six hours down to two. Four new designs added, eighteen in all.' },
   ],
 }
 

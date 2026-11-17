@@ -355,7 +355,7 @@ main > section.hero {
 /* how I work, in four moves */
 .method {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 8px;
   max-width: 640px;
   margin-top: 22px;
@@ -401,7 +401,7 @@ main > section.hero {
 
 @media (max-width: 620px) {
   .method {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 

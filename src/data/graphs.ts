@@ -258,7 +258,7 @@ export const stationSay = [
 ]
 
 export const stationExplain = [
-  'At Toyota the parts he designed made it possible to manufacture every RAV4 built in Canada. He worked with Toyota engineers across North America.',
+  'At Toyota the parts he designed made it possible to manufacture every RAV4 built in Canada. He worked with Toyota engineers across North America. He ran Toyota\'s eight steps on failed paint-line prototypes and cut install time from 6 hours to 2.',
   'At Amazon he ran Canada\'s top same-day station. He also wrote a script that cut a manager\'s report from 2 hours to 5 minutes. Area managers all over Canada used it.',
   'He joined Kuvai pre-seed, before its first investor, and reports to the CTO and the CEO. He started on GPT-3.5, convinced the CTO to switch from Streamlit to JavaScript, and built the team\'s AI development pipeline.',
   'Fantasy League Lottery is his own product. He wrote the core by hand, and he answers every customer himself.',
@@ -269,7 +269,7 @@ export const stationExplain = [
 export const wingman: Record<string, { sel: string; say: string }[]> = {
   top: [
     { sel: '.hero__claim', say: 'Customer obsession and ownership. That is how he looks at his work. He learned both at Amazon.' },
-    { sel: '.method', say: 'Toyota\'s eight steps, two to a tile. He runs them in order. I checked.' },
+    { sel: '.method', say: 'Toyota\'s eight steps, on a real problem from 2018. Install time went from six hours to two.' },
   ],
   work: [{ sel: '#kuvai', say: 'Line 01 is his job. The other four he does end to end, alone. Start with Kuvai.' }],
   kuvai: [
