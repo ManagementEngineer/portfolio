@@ -9,6 +9,7 @@ import {
   madeNote,
   opening,
   person,
+  stack,
   work,
 } from '../data/site'
 import Figure from '../components/Figure'
@@ -74,6 +75,16 @@ export default function Home() {
                     {p}
                   </p>
                 ))}
+                {w.built && (
+                  <dl className="built">
+                    {w.built.map((b) => (
+                      <div key={b.label}>
+                        <dt>{b.label}</dt>
+                        <dd>{b.text}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
                 {w.fig && <Figure fig={w.fig} />}
                 <p className="work__links">
                   {w.caseHref && <Link to={w.caseHref}>{w.caseLabel} →</Link>}
@@ -130,7 +141,7 @@ export default function Home() {
       </section>
 
       <section>
-        <SectionHead id="how" title="How I work with AI" />
+        <SectionHead id="how" title="How I run coding agents" />
         <div className="prose">
           {howIWork.intro.map((p) => (
             <p key={p}>{p}</p>
@@ -155,6 +166,18 @@ export default function Home() {
         <p className="more">
           <Link to="/work/fixed-was-false">{cases[2].title} →</Link>
         </p>
+      </section>
+
+      <section>
+        <SectionHead id="stack" title="Stack" />
+        <dl className="built built--stack">
+          {stack.map((b) => (
+            <div key={b.label}>
+              <dt>{b.label}</dt>
+              <dd>{b.text}</dd>
+            </div>
+          ))}
+        </dl>
       </section>
 
       <section>

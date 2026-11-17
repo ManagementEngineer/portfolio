@@ -1280,3 +1280,45 @@ main > section.thesis {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* ---------- v4: what I built lists ---------- */
+
+.built {
+  margin-top: 16px;
+  border-top: 1px solid var(--rule-soft);
+}
+
+.built > div {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 2px 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--rule-soft);
+}
+
+.built dt {
+  font: 400 13px/24px var(--mono);
+  letter-spacing: 0.02em;
+  color: var(--graphite);
+}
+
+.built dd {
+  font-size: 15px;
+  line-height: 24px;
+}
+
+.built--stack {
+  max-width: 860px;
+  margin-top: 0;
+}
+
+.built--stack dd {
+  font-size: 16px;
+  line-height: 26px;
+}
+
+@media (max-width: 860px) {
+  .built > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

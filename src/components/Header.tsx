@@ -37,13 +37,14 @@ export default function Header() {
             {person.name}
           </Link>
           <span className="head__meta">
-            Product and engineering, AI products · {person.location}
+            AI engineer · {person.location}
           </span>
         </div>
         <nav className="head__nav" aria-label="Sections">
           <Link to="/#work">Work</Link>
           <Link to="/#decisions">Decisions</Link>
-          <Link to="/#how">How I work</Link>
+          <Link to="/#how">Agents</Link>
+          <Link to="/#stack">Stack</Link>
           <Link to="/#history">Experience</Link>
           <a href={person.resume}>Resume (PDF)</a>
           <button type="button" className="head__theme" onClick={flip}>
