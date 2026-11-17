@@ -235,7 +235,7 @@ export const tour = [
 
 /* What Popoy says when you tap him, by section. */
 export const explain: Record<string, string> = {
-  top: 'This is Ramuel\'s site. He is a developer with a product hat, and the customer always comes first. I inspect his work. Scroll down, then tap me again.',
+  top: 'This is Ramuel\'s site. He is a developer with a product hat. He builds it, ships it, and answers the customers himself. I inspect his work. Scroll down, then tap me again.',
   range: 'Four places he has worked, from the plant floor to his own customers. Scroll, and I will call out each one.',
   work: 'Five things he runs. Kuvai is his job. The other four he does end to end, by himself: idea, design, code, pricing, launch and support.',
   kuvai: 'His day job. He joined pre-seed, started on GPT-3.5, moved the CTO off Streamlit, and led the Mac and iPhone apps through App Store approval. His team pipeline runs Playwright tests, and pull requests carry screenshots, and videos when needed, as proof.',
