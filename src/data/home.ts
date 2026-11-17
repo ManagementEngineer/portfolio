@@ -121,7 +121,7 @@ export const projects: Project[] = [
     ],
     figs: [
       { value: '14%', what: 'paid, 537 of 3,835 registered accounts', window: '27 Feb – 4 Sep 2026', source: 'own reports' },
-      { value: '$7,724', what: 'gross revenue, first paid season', window: '27 Feb – 15 Oct 2026', source: 'own reports' },
+      { value: 'CA$11,000', what: 'earned from the product', window: 'to Nov 2026', source: 'own records' },
     ],
     system: {
       title: 'Fantasy League Lottery',
