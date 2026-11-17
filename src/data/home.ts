@@ -117,7 +117,7 @@ export const projects: Project[] = [
     years: '2024 – present',
     paras: [
       'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
-      "I joined pre-seed, before the company had its first investor. I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA.",
+      "I joined pre-seed, before the company had its first investor. I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA. Automated Playwright tests run along the way, and each pull request carries screenshots, and videos when needed, as proof the change works.",
       'I also led the macOS and iOS builds, from the first build through App Store submission to approval.',
       'I started on GPT-3.5, when context management, prompt engineering and RAG were problems you felt every day and solved by hand. I was one of the first users of the AI SDK, and I convinced our CTO to move the product from Streamlit in Python to JavaScript.',
       'I have worked on agent setup, scheduled tasks, web monitoring, document extraction, masking of personal information before a model call, billing and credits, and the pipeline that ships it.',
@@ -528,7 +528,7 @@ export const capabilities: { asked: string; where: string; more?: string; link?:
   {
     asked: 'AI coding tools, used well',
     more: 'Seventeen agents on one product. A hook blocks bad commits.',
-    where: 'Subagents, hooks, skills and MCP servers every day, and an AI development pipeline for a whole team. See',
+    where: 'Subagents, hooks, skills and MCP servers every day, and an AI development pipeline for a whole team, where pull requests carry Playwright screenshots and videos as proof. See',
     link: { label: 'how I keep agents honest', href: '#agents' },
   },
 ]
