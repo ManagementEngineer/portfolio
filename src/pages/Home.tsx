@@ -185,6 +185,19 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
             </p>
           ))}
         </div>
+        {p.timeline && (
+          <div className="timeline">
+            <h4>What I did there, in order</h4>
+            <ol>
+              {p.timeline.map((e) => (
+                <li key={e.when + e.text}>
+                  <span>{e.when}</span>
+                  <p>{e.text}</p>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         {p.figs.length > 0 && (
           <div className="project__figs">
             {p.figs.map((f) => (

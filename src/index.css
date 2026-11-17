@@ -717,6 +717,59 @@ main > section.hero {
   margin-top: 10px;
 }
 
+/* a dated list of work, for the line that has no diagram */
+.timeline {
+  grid-column: 1 / -1;
+  margin-top: 8px;
+  padding: 18px 20px 8px;
+  background: var(--steel);
+  color: #f1f1ec;
+}
+
+.timeline h4 {
+  margin-bottom: 10px;
+  font: 800 28px/1 var(--display);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.timeline ol {
+  columns: 2;
+  column-gap: 36px;
+}
+
+.timeline li {
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid #3a4048;
+  break-inside: avoid;
+}
+
+.timeline li span {
+  font: 600 11.5px/1.7 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--yellow);
+}
+
+.timeline li p {
+  font-size: 14.5px;
+  line-height: 1.45;
+}
+
+@media (max-width: 860px) {
+  .timeline ol {
+    columns: 1;
+  }
+
+  .timeline li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}
+
 .project__figs {
   display: flex;
   flex-direction: column;

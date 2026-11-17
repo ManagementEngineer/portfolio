@@ -273,6 +273,7 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
   work: [{ sel: '#kuvai', say: 'Start with Kuvai. He joined before the first investor.' }],
   kuvai: [
     { sel: '#kuvai', say: 'Pre-seed. He bet on it before anyone had put money in.' },
+    { sel: '#kuvai .timeline', say: 'Two years of his work, in order. Read three of these and you will get it.' },
     { sel: '#kuvai .stack', say: 'He started on GPT-3.5 and moved the CTO off Streamlit. Ask him how.' },
   ],
   fll: [
