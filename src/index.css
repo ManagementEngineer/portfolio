@@ -340,6 +340,59 @@ main > section.hero {
   color: #e9e9e4;
 }
 
+/* how I work, in four moves */
+.method {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  max-width: 640px;
+  margin-top: 22px;
+}
+
+.method li {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 12px 12px;
+  background: var(--panel);
+  border: 2px solid var(--ink);
+  border-top-width: 8px;
+  font-size: 13.5px;
+  line-height: 1.35;
+}
+
+.method li:nth-child(1) {
+  border-top-color: var(--blue);
+}
+
+.method li:nth-child(2) {
+  border-top-color: var(--green);
+}
+
+.method li:nth-child(3) {
+  border-top-color: var(--orange);
+}
+
+.method li:nth-child(4) {
+  border-top-color: var(--yellow);
+}
+
+.method__n {
+  font: 600 11px var(--mono);
+  color: var(--soft);
+}
+
+.method strong {
+  margin: 2px 0;
+  font: 800 22px/1 var(--display);
+  text-transform: uppercase;
+}
+
+@media (max-width: 620px) {
+  .method {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 /* ---------- Ticker: a hazard-edged belt of parts ---------- */
 
 .ticker + section {
@@ -497,9 +550,7 @@ main > section.hero {
   padding-bottom: 5px;
   background: var(--yellow);
   border: 2px solid var(--ink);
-  font: 600 10px/1 var(--mono);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
+  font: 800 20px/1 var(--display);
 }
 
 .belt__box::before {
@@ -866,6 +917,47 @@ main > section.hero {
 
 .closing {
   padding-bottom: 170px !important;
+}
+
+/* ---------- Popoy, loose on the page ---------- */
+
+.cat {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  opacity: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cat canvas {
+  display: block;
+  image-rendering: pixelated;
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.cat__zzz {
+  position: absolute;
+  right: -6px;
+  top: 4px;
+  font: 600 12px var(--mono);
+  color: var(--soft);
+  opacity: 0;
+  transition: opacity 400ms;
+  animation: float 2.4s ease-in-out infinite;
+}
+
+@keyframes float {
+  50% {
+    transform: translate(4px, -8px);
+  }
+}
+
+/* once he has left the board, the board's own Popoy is gone */
+.popoy-loose .hl__cat {
+  display: none;
 }
 
 /* ---------- Cell 00: the hero inspection scene ---------- */
@@ -1972,6 +2064,7 @@ main > section.hero {
   }
 
   .hero__text > p:not(.plate),
+  .hero__text > .method,
   .hero__text > .contact {
     order: 3;
     margin-top: 0 !important;

@@ -156,6 +156,8 @@ export default function HeroLine() {
 
   useEffect(() => {
     say(t < END ? f.line : null)
+    // when the inspection is over he leaves the board and goes loose on the page
+    if (t >= END && !reduced.current) window.dispatchEvent(new Event('popoy:release'))
   }, [f.line, t])
 
   useEffect(() => () => say(null), [])

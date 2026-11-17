@@ -12,7 +12,6 @@ export default function Guide({ stops }: { stops: Stop[] }) {
   const narration = useSyncExternalStore(subscribe, currentLine)
   const [at, setAt] = useState(0)
   const [walking, setWalking] = useState(false)
-  const [back, setBack] = useState(false)
   const [quiet, setQuiet] = useState(() => {
     try {
       return localStorage.getItem('popoy') === 'quiet'
@@ -45,7 +44,6 @@ export default function Guide({ stops }: { stops: Stop[] }) {
       ref.current?.style.setProperty('--x', String(p))
 
       if (Math.abs(y - last.current) > 2) {
-        setBack(y < last.current)
         setWalking(true)
         window.clearTimeout(idle.current)
         idle.current = window.setTimeout(() => setWalking(false), 200)
@@ -69,6 +67,7 @@ export default function Guide({ stops }: { stops: Stop[] }) {
   const toggle = () => {
     const next = !quiet
     setQuiet(next)
+    window.dispatchEvent(new CustomEvent('popoy:quiet', { detail: next }))
     try {
       localStorage.setItem('popoy', next ? 'quiet' : 'on')
     } catch {
@@ -91,11 +90,6 @@ export default function Guide({ stops }: { stops: Stop[] }) {
 
   return (
     <div className={walking ? 'guide is-walking' : 'guide'} ref={ref}>
-      {!stop.hideCat && (
-        <div className="guide__cat" aria-hidden="true">
-          <Popoy pose={walking ? 'walk' : 'side'} px={3} flip={walking && back} />
-        </div>
-      )}
       <div className="guide__rail">
         <span className="guide__plate">Popoy</span>
         <p className="guide__line" aria-live="polite">

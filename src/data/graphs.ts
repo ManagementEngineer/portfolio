@@ -220,7 +220,7 @@ export const flowSay: Record<string, string[]> = {
 /* Popoy's tour: one line per stop, in page order. */
 export const tour = [
   { id: 'top', say: 'Scroll. I will walk the line with you.', next: 'To the stations', hideCat: true },
-  { id: 'range', say: 'Four stations. I ride, you scroll.', next: 'To the lines', hideCat: true },
+  { id: 'range', say: 'Four stations. The tote rides, you scroll.', next: 'To the lines' },
   { id: 'work', say: 'Five lines. Each one is numbered. Start at 01.', next: 'Line 01' },
   { id: 'kuvai', say: 'Line 01, Kuvai. No diagram here. The words cover it.', next: 'Line 02' },
   { id: 'fll', say: 'Line 02. Over 43,900 lotteries run. Watch one draw.', next: 'Line 03' },

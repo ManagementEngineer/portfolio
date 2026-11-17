@@ -15,6 +15,7 @@ import { agentTeams, flowSay, tour, type GKind, type Graph as GraphData } from '
 import { person } from '../data/site'
 import Arrow from '../components/Arrow'
 import Belt from '../components/Belt'
+import Cat from '../components/Cat'
 import CountUp from '../components/CountUp'
 import Guide from '../components/Guide'
 import HeroLine from '../components/HeroLine'
@@ -307,6 +308,7 @@ export default function Home() {
   return (
     <main id="main">
       <Guide stops={tour} />
+      <Cat />
       <section className="hero wrap" id="top">
         <div className="hero__text">
           <p className="plate">
@@ -320,6 +322,15 @@ export default function Home() {
           {opening.paras.map((t) => (
             <p key={t}>{t}</p>
           ))}
+          <ol className="method">
+            {opening.method.map((m, i) => (
+              <li key={m.verb}>
+                <span className="method__n">{i + 1}</span>
+                <strong>{m.verb}</strong>
+                <span>{m.text}</span>
+              </li>
+            ))}
+          </ol>
           <Contact />
         </div>
         <div className="hero__graph">
@@ -338,8 +349,7 @@ export default function Home() {
       <section className="wrap">
         <SectionHead id="range" title="Every station I've worked" />
         <p className="lede-line">
-          Scroll, and Popoy rides the line in his tote. Each station is a place I worked and the people I worked with
-          there.
+          Scroll, and the tote rides the line. Each station is a place I worked and the people I worked with there.
         </p>
         <Belt label="Career line">
           {range.map((r, i) => (

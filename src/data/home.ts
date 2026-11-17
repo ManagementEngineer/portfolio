@@ -7,7 +7,13 @@ export const opening = {
     "AI engineer who has worked at every level: the plant floor, the executive table, and the customer's inbox.",
   paras: [
     "I started in operations. At Toyota and at Amazon I worked beside front-line associates, where a change only counts if the person doing the job can use it. At Kuvai I report to the CTO and CEO and help decide what we build. On my own product I answer paying customers myself.",
-    'I bring the same habit to AI. Find out what the person in front of me needs, build it, and check that it holds up.',
+    'I solve real-life problems, and I bring the same habit to AI every time.',
+  ],
+  method: [
+    { verb: 'Ask', text: 'I gather ideas by asking people.' },
+    { verb: 'Measure', text: 'I validate ideas by looking at data.' },
+    { verb: 'Find the gap', text: 'I find the gaps.' },
+    { verb: 'Fix it', text: 'I find the solution and build it.' },
   ],
 }
 
