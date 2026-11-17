@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { PAL, rowsFor } from '../popoy/sprites'
-import { explain, stationExplain, tour } from '../data/graphs'
+import { explain, stationExplain, stationSay, tour, wingman } from '../data/graphs'
 import { say } from '../guide'
 
 /* Popoy, the star of the page, loose on it.
@@ -14,7 +14,7 @@ import { say } from '../guide'
 const W = 33
 const H = 26
 const PERCHES =
-  '.hero__graph, .method, .h2, .station, .project, .board, .project__figs .sticker, .rules li, .code, .caps li:first-child, .xp li:first-child, .closing h2'
+  '.hero__graph, .method, .h2, .project, .board, .project__figs .sticker, .rules li, .code, .caps li:first-child, .xp li:first-child, .closing h2'
 
 type State =
   | 'sit'
@@ -119,7 +119,25 @@ export default function Cat() {
     let scrolledAt = 0
     let lastT = performance.now()
     let raf = 0
-    const said = new Set<Element>()
+    const said = new Set<string>()
+    let pitch: { el: Element; text: string } | null = null // what he is on his way to point at
+    let spotEl: Element | null = null
+    let station = -1
+    let rideAt = 0
+    let lastP = 0
+    let pitchAt = 0
+
+    const speak = (text: string, ms = 5200) => {
+      setBubble({ text, next: null, below: cv.getBoundingClientRect().top < 250 })
+      window.setTimeout(() => setBubble((b) => (b && b.text === text ? null : b)), ms)
+    }
+    const spotlight = (target: Element | null) => {
+      spotEl?.classList.remove('popoy-spot')
+      spotEl = target
+      target?.classList.add('popoy-spot')
+      if (target) window.setTimeout(() => target.classList.remove('popoy-spot'), 5200)
+    }
+    const beltTrack = () => document.querySelector('.belt__track')
 
     const set = (s: State) => {
       state = s
@@ -143,19 +161,9 @@ export default function Cat() {
       return r.top > 110 && r.top < window.innerHeight - 110 && r.width > 100
     }
 
-    const activeStation = () => {
-      const st = document.querySelector('.station.is-at')
-      return st && visible(st) ? st : null
-    }
-
     const pickPerch = (): Element | null => {
-      const st = activeStation()
-      if (st && st !== perch) return st
-      // a number he has something to say about comes first, once
-      const quip = Array.from(document.querySelectorAll<HTMLElement>('[data-popoy]')).find(
-        (q) => q !== perch && visible(q) && !said.has(q),
-      )
-      if (quip) return quip
+      const belt = beltTrack()
+      if (belt && belt !== perch && visible(belt)) return belt
       const mid = window.innerHeight * 0.45
       return (
         Array.from(document.querySelectorAll(PERCHES))
@@ -238,12 +246,58 @@ export default function Cat() {
         }
         const eyes = near ? (px < x - 60 ? 'l' : px > x + 60 ? 'r' : 'open') : glance
         key = `front:${shut ? 'shut' : eyes}:${tail >= 2 ? 'flick' : 'sit'}`
-        const st = activeStation()
-        if (hovering) set('pet')
-        else if (st && st !== perch && since > 500 && !bubbleOpen.current) {
-          // the tote has moved on: follow it to the next station
-          next = st
-          set('look')
+        const belt = beltTrack()
+        let took = false
+        if (perch === belt && belt) {
+          // on the conveyor he walks with the scroll and calls out each station
+          const p = Number((belt.parentElement as HTMLElement).style.getPropertyValue('--p')) || 0
+          if (Math.abs(p - lastP) > 0.0015) {
+            dir = p > lastP ? 1 : -1
+            walked += Math.abs(p - lastP) * (belt.getBoundingClientRect().width - 100)
+            lastP = p
+            rideAt = now
+          }
+          along = p
+          settle()
+          if (now - rideAt < 220) {
+            const f = ['a', 'p', 'c', 'p'][Math.floor(walked / 9) % 4]
+            lift = f === 'p' ? 1 : 0
+            key = `side:${f}:${t}:${shut ? 'shut' : 'open'}`
+          }
+          const at = Math.min(stationSay.length - 1, Math.floor(Math.min(0.999, p) * stationSay.length))
+          if (p > 0 && at !== station && now - rideAt > 260) {
+            station = at
+            speak(stationSay[at], 4600)
+            spotlight(document.querySelectorAll('.station')[at] ?? null)
+            set('talk')
+            took = true
+          }
+        }
+        // his pitch for this part of the page: go and point at the next thing worth reading
+        if (!took && perch !== belt && !bubbleOpen.current && now - scrolledAt > 900 && now - pitchAt > 2600) {
+          const id = currentStop()
+          const line = (wingman[id] ?? []).find((w) => !said.has(id + w.sel))
+          const target = line ? document.querySelector(line.sel) : null
+          if (line && target && visible(target)) {
+            said.add(id + line.sel)
+            pitch = { el: target, text: line.say }
+            pitchAt = now
+            if (perch === target) {
+              speak(line.say)
+              spotlight(target)
+              pitch = null
+              set('talk')
+            } else {
+              next = target
+              set('look')
+            }
+            took = true
+          }
+        }
+        if (took) {
+          /* a pitch or a station call has taken over */
+        } else if (hovering) {
+          set('pet')
         } else if (perch && !visible(perch) && now - scrolledAt > 140) {
           next = pickPerch()
           if (next) set('look')
@@ -320,12 +374,10 @@ export default function Cat() {
         squash = since < 90 ? 3 : 1
         if (since > 200) {
           idle = 0
-          const quip = (perch as HTMLElement | null)?.dataset.popoy
-          if (quip && perch && !said.has(perch)) {
-            // he has a remark about what he just landed on
-            said.add(perch)
-            setBubble({ text: quip, next: null, below: cv.getBoundingClientRect().top < 250 })
-            window.setTimeout(() => setBubble((b) => (b && b.text === quip ? null : b)), 4200)
+          if (pitch && perch === pitch.el) {
+            speak(pitch.text)
+            spotlight(pitch.el)
+            pitch = null
             set('talk')
           } else set('sit')
         }
@@ -460,7 +512,7 @@ export default function Cat() {
       const id = currentStop()
       const i = tour.findIndex((s) => s.id === id)
       const after = tour[i + 1]
-      const st = Array.from(document.querySelectorAll('.station')).findIndex((n) => n === perch)
+      const st = perch === beltTrack() ? station : -1
       const text = id === 'range' && st >= 0 ? stationExplain[st] : (explain[id] ?? tour[i].say)
       const below = cv.getBoundingClientRect().top < 250
       setBubble({ text, next: after ? after.id : null, below })

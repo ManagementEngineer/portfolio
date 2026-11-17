@@ -220,7 +220,7 @@ export const flowSay: Record<string, string[]> = {
 /* Popoy's tour: one line per stop, in page order. */
 export const tour = [
   { id: 'top', say: 'Scroll. I will walk the line with you.', next: 'To the stations', hideCat: true },
-  { id: 'range', say: 'Four stations. The tote rides, you scroll.', next: 'To the lines' },
+  { id: 'range', say: 'Four stations. I walk, you scroll.', next: 'To the lines' },
   { id: 'work', say: 'Five lines. Each one is numbered. Start at 01.', next: 'Line 01' },
   { id: 'kuvai', say: 'Line 01, Kuvai. No diagram here. The words cover it.', next: 'Line 02' },
   { id: 'fll', say: 'Line 02. Over 43,900 lotteries run. Watch one draw.', next: 'Line 03' },
@@ -251,15 +251,46 @@ export const explain: Record<string, string> = {
 
 /* What Popoy says as the tote reaches each career station, and when tapped there. */
 export const stationSay = [
-  'Toyota. He built parts that fit every RAV4 on the road in Canada.',
-  'Amazon. His script cut a manager\'s report from 2 hours to 5 minutes.',
-  'Kuvai. He talked the CTO out of Streamlit and into JavaScript.',
-  'His own product. He answers every support email himself.',
+  'Toyota. His parts are in every RAV4 you see on the road in Canada.',
+  'Amazon. Two hours of reporting, down to five minutes. Managers across Canada used it.',
+  'Kuvai. He joined before the first investor. He talked the CTO out of Streamlit.',
+  'His own product. Real customers pay for it, and he answers every one himself.',
 ]
 
 export const stationExplain = [
   'At Toyota he built parts that accommodate every RAV4 you see on the road in Canada, and in parts of the US.',
   'At Amazon he ran Canada\'s top same-day station. He also wrote a script that cut a manager\'s report from 2 hours to 5 minutes. Area managers all over Canada used it.',
-  'At Kuvai he reports to the CTO and the CEO. He started on GPT-3.5, convinced the CTO to switch from Streamlit to JavaScript, and built the team\'s AI development pipeline.',
+  'He joined Kuvai pre-seed, before its first investor, and reports to the CTO and the CEO. He started on GPT-3.5, convinced the CTO to switch from Streamlit to JavaScript, and built the team\'s AI development pipeline.',
   'Fantasy League Lottery is his own product. He wrote the core by hand, and he answers every customer himself.',
 ]
+
+/* Popoy the wingman: in each part of the page he goes to the thing most worth
+   reading, points it out, and says why it matters. Each line plays once. */
+export const wingman: Record<string, { sel: string; say: string }[]> = {
+  top: [
+    { sel: '.method', say: 'Ask, measure, find the gap, fix it. He does all four. Most people stop at two.' },
+  ],
+  work: [{ sel: '#kuvai', say: 'Start with Kuvai. He joined before the first investor.' }],
+  kuvai: [
+    { sel: '#kuvai', say: 'Pre-seed. He bet on it before anyone had put money in.' },
+    { sel: '#kuvai .stack', say: 'He started on GPT-3.5 and moved the CTO off Streamlit. Ask him how.' },
+  ],
+  fll: [
+    { sel: '#fll .project__figs .sticker:nth-child(2)', say: "CA$11,000. That's a lot of kibbles." },
+    { sel: '#fll .board', say: 'Press "Walk me through it". He wrote this core by hand, before AI.' },
+    { sel: '#fll .board--team', say: 'Seventeen agents work this line. He runs them. I inspect them.' },
+  ],
+  immortal: [
+    { sel: '#immortal', say: 'Spec to live in two days. 2,398 players showed up in four.' },
+    { sel: '#immortal .board', say: 'A fake result gets refused here. Press play and watch.' },
+  ],
+  askpinoy: [{ sel: '#askpinoy .board', say: 'Nothing is listed until the owner says yes. The database enforces it.' }],
+  rings: [{ sel: '#rings .board', say: 'Anything that costs money here is guarded twice. He thinks like an owner.' }],
+  agents: [
+    { sel: '.rules li:first-child', say: 'Every rule here came from something that broke. He writes the lesson down.' },
+    { sel: '.code', say: 'This rule is enforced by code. Exit 2 blocks the commit.' },
+  ],
+  capabilities: [{ sel: '.caps li:first-child', say: 'This is what AI teams ask for. He has done every row.' }],
+  experience: [{ sel: '.xp li:first-child', say: 'Plant floor to AI engineer. That range is hard to hire.' }],
+  end: [{ sel: '.closing h2', say: 'You read this far. Email him before someone else does.' }],
+}

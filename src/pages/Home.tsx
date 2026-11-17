@@ -56,7 +56,7 @@ export function Contact() {
 
 function Sticker({ fig }: { fig: Fig }) {
   return (
-    <figure className="sticker" data-popoy={fig.popoy}>
+    <figure className="sticker">
       <p className="sticker__value">
         <CountUp value={fig.value} />
       </p>
@@ -360,7 +360,8 @@ export default function Home() {
       <section className="wrap">
         <SectionHead id="range" title="Every station I've worked" />
         <p className="lede-line">
-          Scroll, and the tote rides the line. Each station is a place I worked and the people I worked with there.
+          Scroll, and Popoy walks the line. Each station lights up as he reaches it, and he will tell you what I did
+          there.
         </p>
         <Belt label="Career line">
           {range.map((r, i) => (

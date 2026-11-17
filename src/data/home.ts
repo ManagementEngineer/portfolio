@@ -56,7 +56,7 @@ export const range: RangeRow[] = [
     role: 'AI engineer',
     years: '2024 – present',
     who: 'The CTO and the CEO',
-    text: "I report to both. I convinced the CTO to move the product from Streamlit to JavaScript, helped decide the rest of the stack, and built the engineering team's AI development pipeline, from Jira ticket to a deploy on QA.",
+    text: "I joined pre-seed, before the company had its first investor, and I report to both. I convinced the CTO to move the product from Streamlit to JavaScript and built the engineering team's AI development pipeline, from Jira ticket to a deploy on QA.",
   },
   {
     place: 'Fantasy League Lottery',
@@ -109,7 +109,7 @@ export const projects: Project[] = [
     years: '2024 – present',
     paras: [
       'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
-      "I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA.",
+      "I joined pre-seed, before the company had its first investor. I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA.",
       'I started on GPT-3.5, when context management, prompt engineering and RAG were problems you felt every day and solved by hand. I was one of the first users of the AI SDK, and I convinced our CTO to move the product from Streamlit in Python to JavaScript.',
       'I have worked on agent setup, scheduled tasks, web monitoring, document extraction, masking of personal information before a model call, billing and credits, and the pipeline that ships it.',
     ],

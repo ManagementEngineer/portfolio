@@ -37,9 +37,6 @@ export default function Belt({ children, label }: { children: ReactNode; label: 
     <div className="belt" ref={ref} aria-label={label}>
       <ol className="belt__stations">{children}</ol>
       <div className="belt__track">
-        <span className="belt__tote">
-          <span className="belt__box">RB</span>
-        </span>
       </div>
     </div>
   )
