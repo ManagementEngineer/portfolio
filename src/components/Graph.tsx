@@ -6,7 +6,7 @@ import {
   Handle,
   Position,
   ReactFlow,
-  getBezierPath,
+  getSmoothStepPath,
   type EdgeProps,
   type NodeProps,
 } from '@xyflow/react'
@@ -52,16 +52,31 @@ function ChipNode({ id, data }: NodeProps) {
 
 function SparkEdge({ id, sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition, data, source, target }: EdgeProps) {
   const active = useContext(Active)
-  const [path, labelX, labelY] = getBezierPath({ sourceX, sourceY, targetX, targetY, sourcePosition, targetPosition })
+  const [path, labelX, labelY] = getSmoothStepPath({
+    sourceX,
+    sourceY,
+    targetX,
+    targetY,
+    sourcePosition,
+    targetPosition,
+    borderRadius: 14,
+  })
   const d = data as { label?: string; dashed?: boolean; i: number } | undefined
   const dim = active.size > 0 && !(active.has(source) && active.has(target))
   const dur = 2.4 + ((d?.i ?? 0) % 3) * 0.5
   return (
     <g className={dim ? 'gedge is-dim' : 'gedge'}>
+      <path d={path} className="gedge__belt" />
       <BaseEdge id={id} path={path} className={d?.dashed ? 'gedge__line gedge__line--dashed' : 'gedge__line'} />
-      <circle className="gedge__dot" r={4.5}>
-        <animateMotion dur={`${dur}s`} repeatCount="indefinite" path={path} begin={`${((d?.i ?? 0) % 5) * 0.35}s`} />
-      </circle>
+      <rect className="gedge__dot" x={-5} y={-5} width={10} height={10} rx={2}>
+        <animateMotion
+          dur={`${dur}s`}
+          repeatCount="indefinite"
+          path={path}
+          rotate="auto"
+          begin={`${((d?.i ?? 0) % 5) * 0.35}s`}
+        />
+      </rect>
       {d?.label && (
         <EdgeLabelRenderer>
           <span
@@ -145,7 +160,7 @@ export default function Graph({
           zoomOnDoubleClick={false}
           preventScrolling={false}
         >
-          <Background gap={22} size={1.6} />
+          <Background gap={28} size={1.4} />
         </ReactFlow>
       </div>
     </Active.Provider>

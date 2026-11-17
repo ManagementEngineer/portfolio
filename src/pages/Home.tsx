@@ -14,6 +14,7 @@ import {
 import { agentTeams, heroLoop, type GKind, type Graph as GraphData } from '../data/graphs'
 import { person } from '../data/site'
 import Arrow from '../components/Arrow'
+import Belt from '../components/Belt'
 import Graph from '../components/Graph'
 import { Link } from '../router'
 
@@ -102,7 +103,7 @@ function systemGraph(p: Project): GraphData | undefined {
   }
 }
 
-function ProjectBlock({ p }: { p: Project }) {
+function ProjectBlock({ p, n }: { p: Project; n: number }) {
   const [step, setStep] = useState<number | null>(null)
   const active = useMemo(() => new Set(step !== null && p.flow ? p.flow.steps[step].nodes : []), [step, p.flow])
   const sys = useMemo(() => systemGraph(p), [p])
@@ -112,8 +113,10 @@ function ProjectBlock({ p }: { p: Project }) {
     <article className={`project project--${p.id}`} id={p.id}>
       <header className="project__head">
         <div>
-          <p className="tag">
-            {p.role} · {p.years}
+          <p className="plate">
+            <span>Line {String(n).padStart(2, '0')}</span>
+            <span>{p.role}</span>
+            <span>{p.years}</span>
           </p>
           <h3>{p.name}</h3>
           {p.paras.map((t) => (
@@ -134,7 +137,7 @@ function ProjectBlock({ p }: { p: Project }) {
       {sys && p.system && (
         <section className="board">
           <div className="board__top">
-            <h4>How it works</h4>
+            <h4>The system</h4>
             <p>Drag the boxes around. Tap a step below to light up the parts it touches. On a phone, swipe sideways.</p>
           </div>
           <div className="board__scroll">
@@ -170,7 +173,7 @@ function ProjectBlock({ p }: { p: Project }) {
       {team && (
         <section className="board board--team">
           <div className="board__top">
-            <h4>The agent team behind it</h4>
+            <h4>The agent line that builds it</h4>
             <p className="board__count">{team.title}</p>
           </div>
           <p className="board__blurb">{team.blurb}</p>
@@ -227,9 +230,13 @@ export default function Home() {
     <main id="main">
       <section className="hero wrap">
         <div className="hero__text">
-          <p className="tag tag--ink">{opening.keys.join(' · ')}</p>
+          <p className="plate">
+            <span>{opening.keys[0]}</span>
+            <span>{opening.keys[1]}</span>
+            <span>{opening.keys[2]}</span>
+          </p>
           <h1>
-            I build AI products with <em>teams of agents</em>, for people at every level.
+            From the plant floor to <em>agent lines</em>.
           </h1>
           {opening.paras.map((t) => (
             <p key={t}>{t}</p>
@@ -237,7 +244,9 @@ export default function Home() {
           <Contact />
         </div>
         <div className="hero__graph">
-          <p className="hero__graphtitle">How I work, on a loop</p>
+          <p className="hero__graphtitle">
+            <span className="andon" /> Cell 00 · how I work, on a loop
+          </p>
           <Graph graph={heroLoop} label="A loop: a real need, an agent team, checks, shipped, real users" />
         </div>
       </section>
@@ -251,31 +260,38 @@ export default function Home() {
       </div>
 
       <section className="wrap">
-        <SectionHead id="range" title="I've worked at every level" />
-        <ul className="range">
+        <SectionHead id="range" title="Every station I've worked" />
+        <p className="lede-line">
+          Scroll, and the tote rides the line. Each station is a place I worked and the people I worked with there.
+        </p>
+        <Belt label="Career line">
           {range.map((r, i) => (
-            <li key={r.place} className={`card card--${i}`}>
-              <p className="tag">
-                {r.place} · {r.years}
+            <li key={r.place} className="station" data-station>
+              <p className="station__no">
+                <span className="andon" />
+                Station {String(i + 1).padStart(2, '0')}
+              </p>
+              <p className="station__place">
+                {r.place} <span>{r.years}</span>
               </p>
               <h3>{r.who}</h3>
-              <p className="card__role">{r.role}</p>
-              <p>{r.text}</p>
+              <p className="station__role">{r.role}</p>
+              <p className="station__text">{r.text}</p>
               {r.fig && <Sticker fig={r.fig} />}
             </li>
           ))}
-        </ul>
+        </Belt>
       </section>
 
       <section className="wrap">
-        <SectionHead id="work" title="What I've built" />
-        {projects.map((p) => (
-          <ProjectBlock key={p.id} p={p} />
+        <SectionHead id="work" title="The lines I run" />
+        {projects.map((p, i) => (
+          <ProjectBlock key={p.id} p={p} n={i + 1} />
         ))}
       </section>
 
       <section className="wrap">
-        <SectionHead id="agents" title="How I keep agents honest" />
+        <SectionHead id="agents" title="Standard work: how I keep agents honest" />
         <div className="agents">
           <div>
             {agents.intro.map((t) => (
@@ -316,7 +332,7 @@ export default function Home() {
       </section>
 
       <section className="wrap">
-        <SectionHead id="capabilities" title="What AI teams ask for, and where I've done it" />
+        <SectionHead id="capabilities" title="Skills matrix: what AI teams ask for" />
         <ul className="caps">
           {capabilities.map((c) => (
             <li key={c.asked}>
@@ -330,7 +346,7 @@ export default function Home() {
       </section>
 
       <section className="wrap">
-        <SectionHead id="experience" title="Experience" />
+        <SectionHead id="experience" title="Shift log" />
         <ul className="xp">
           {experience.map((x) => (
             <li key={x.role + x.org}>

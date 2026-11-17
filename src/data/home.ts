@@ -105,7 +105,7 @@ export const projects: Project[] = [
     figs: [],
     stack: [
       { key: 'build', text: 'TypeScript, Next.js, React, Python, MongoDB' },
-      { key: 'AI', text: 'A model layer across OpenAI, Anthropic and Google; Microsoft Presidio for personal information' },
+      { key: 'AI', text: 'OpenAI, Anthropic, Google, one model layer across all three, Microsoft Presidio' },
       { key: 'ship', text: 'Docker, AWS, GitHub Actions' },
     ],
     links: [{ label: 'kuvai.com', href: 'https://kuvai.com' }],
