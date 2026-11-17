@@ -153,11 +153,17 @@ export const projects: Project[] = [
     role: 'Founder, sole operator',
     years: '2022 – present',
     paras: [
-      'Every fantasy league has to decide who drafts first, and it usually ends in an argument. A commissioner sets the odds, the server seals the draw, and the whole league watches the reveal together. More than 43,900 lotteries have been run on it.',
+      'Every fantasy league has to decide who drafts first, and it usually ends in an argument. A commissioner sets the odds, the server seals the draw, and the whole league watches the reveal together. More than 43,900 lotteries have been run on it. At a standard 12 teams a league, that is over half a million draft spots decided.',
       'I wrote the core of it by hand, before AI coding tools existed. Leagues kept using it for years with nobody touching it. In 2026 I added a paid tier and brought in an agent team to help me build on top of that core. I still run all of it: product, engineering, pricing and support.',
     ],
     figs: [
       { value: '14%', what: 'paid, 537 of 3,835 registered accounts', window: '27 Feb – 4 Sep 2026', source: 'own reports' },
+      {
+        value: '526,800',
+        what: 'draft spots decided: 43,900 lotteries at a standard 12 teams each',
+        window: 'to Nov 2026',
+        source: 'site count × 12',
+      },
       {
         value: 'CA$11,000',
         what: 'earned from the product',

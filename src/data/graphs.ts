@@ -223,7 +223,7 @@ export const tour = [
   { id: 'range', say: 'Four stations. I walk, you scroll.', next: 'To the lines' },
   { id: 'work', say: 'Five lines. Each one is numbered. Start at 01.', next: 'Line 01' },
   { id: 'kuvai', say: 'Line 01, Kuvai. No diagram here. The words cover it.', next: 'Line 02' },
-  { id: 'fll', say: 'Line 02. Over 43,900 lotteries run. Watch one draw.', next: 'Line 03' },
+  { id: 'fll', say: 'Line 02. 43,900 lotteries. Half a million draft spots. Watch one draw.', next: 'Line 03' },
   { id: 'immortal', say: 'Line 03. Live two days after he wrote the spec.', next: 'Line 04' },
   { id: 'askpinoy', say: 'Line 04. It opens when 60 businesses are listed.', next: 'Line 05' },
   { id: 'rings', say: 'Line 05. Whatever costs money here is guarded twice.', next: 'Standard work' },
@@ -278,7 +278,8 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
     { sel: '#kuvai .stack', say: 'He started on GPT-3.5 and moved the CTO off Streamlit. Ask him how.' },
   ],
   fll: [
-    { sel: '#fll .project__figs .sticker:nth-child(2)', say: "CA$11,000. That's a lot of kibbles." },
+    { sel: '#fll .project__figs .sticker:nth-child(2)', say: '43,900 lotteries, 12 teams each. Half a million draft spots decided on his product.' },
+    { sel: '#fll .project__figs .sticker:nth-child(3)', say: "CA$11,000. That's a lot of kibbles." },
     { sel: '#fll .board', say: 'Press "Walk me through it". He wrote this core by hand, before AI.' },
     { sel: '#fll .board--team', say: 'Seventeen agents work this line. He runs them. I inspect them.' },
   ],
