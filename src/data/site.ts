@@ -56,16 +56,6 @@ const KV = 'Kuvai'
 
 export const log: Entry[] = [
   {
-    id: 'fll-first-build',
-    date: '2022-05-10',
-    lane: 'shipped',
-    product: FLL,
-    headline: 'Started a draft-lottery tool for fantasy leagues.',
-    detail:
-      'Sixty-five commits over six weeks, then nothing for three and a half years. The tool stayed online and free. About 33,600 lotteries were run on it before I touched it again.',
-    source: 'git history; roadmap',
-  },
-  {
     id: 'kuvai-v1',
     date: '2024-07',
     lane: 'shipped',
@@ -100,9 +90,9 @@ export const log: Entry[] = [
     date: '2026-02-27',
     lane: 'shipped',
     product: FLL,
-    headline: 'Rebuilt the lottery in four days and added a paid tier.',
+    headline: 'Moved the hand-built lottery to a new framework in four days and added a paid tier.',
     detail:
-      'February 24 to 27, with Claude Code. New framework, accounts, rate limits, tests, funnel events and the first paid limit. Stripe rejected the account that week, so PayPal checkout went live the same day. Stripe approved on re-review in April.',
+      'February 24 to 27, with Claude Code, on top of the core I had written by hand years earlier. New framework, accounts, rate limits, tests, funnel events and the first paid limit. Stripe rejected the account that week, so PayPal checkout went live the same day. Stripe approved on re-review in April.',
     source: 'git history; roadmap',
     featured: true,
   },

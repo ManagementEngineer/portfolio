@@ -41,7 +41,7 @@ export const agentTeams: Record<string, AgentTeam> = {
   fll: {
     title: '17 role agents, 3 commands',
     blurb:
-      'Each role has scoped tools and a model matched to the job: the strongest model for the deciders, lighter ones for narrow checks. After any feature ships, an audit agent walks 21 surfaces of the product looking for anything it broke.',
+      'The core was hand-written before any of this existed. The agents joined in 2026. Each role has scoped tools and a model matched to the job: the strongest model for the deciders, lighter ones for narrow checks. After any feature ships, an audit agent walks 21 surfaces of the product looking for anything it broke.',
     graph: {
       height: 430,
       nodes: [

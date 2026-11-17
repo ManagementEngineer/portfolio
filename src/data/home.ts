@@ -117,7 +117,7 @@ export const projects: Project[] = [
     years: '2022 –',
     paras: [
       'Every fantasy league has to decide who drafts first, and it usually ends in an argument. A commissioner sets the odds, the server seals the draw, and the whole league watches the reveal together. More than 43,900 lotteries have been run on it.',
-      'I run all of it: product, engineering, pricing and support. In 2026 I rebuilt it and added a paid tier.',
+      'I wrote the core of it by hand, before AI coding tools existed. Leagues kept using it for years with nobody touching it. In 2026 I added a paid tier and brought in an agent team to help me build on top of that core. I still run all of it: product, engineering, pricing and support.',
     ],
     figs: [
       { value: '14%', what: 'paid, 537 of 3,835 registered accounts', window: '27 Feb – 4 Sep 2026', source: 'own reports' },
