@@ -367,9 +367,9 @@ export default function Home() {
             <p key={t}>{t}</p>
           ))}
           <ol className="method">
-            {opening.method.map((m, i) => (
+            {opening.method.map((m) => (
               <li key={m.verb} data-popoy={m.more}>
-                <span className="method__n">{i + 1}</span>
+                <span className="method__n">{m.steps}</span>
                 <strong>{m.verb}</strong>
                 <span>{m.text}</span>
               </li>

@@ -8,13 +8,13 @@ export const opening = {
     "AI engineer who has worked at every level: the plant floor, the executive table, and the customer's inbox.",
   paras: [
     "I started in operations. At Toyota and at Amazon I worked beside front-line associates, where a change only counts if the person doing the job can use it. At Kuvai I report to the CTO and CEO and help decide what we build. On my own product I answer paying customers myself.",
-    "I believe in Toyota's business principles, and I carry them into every problem I solve, AI included.",
+    'I believe in Toyota Business Practices, the eight steps Toyota uses to solve a problem. I carry them into every problem I solve, AI included. This is how I run them:',
   ],
   method: [
-    { verb: 'Ask', text: 'I gather ideas by asking people.', more: 'He asks first. His product has an ideas board where customers vote.' },
-    { verb: 'Measure', text: 'I validate ideas by looking at data.', more: 'He measures. One product of his tracks 133 different events.' },
-    { verb: 'Find the gap', text: 'I find the gaps.', more: 'He found that buyers pay to get past a limit, not for the 3D show.' },
-    { verb: 'Fix it', text: 'I find the solution and build it.', more: 'He rewrote the pitch around those limits. August brought in $3,917.' },
+    { steps: 'Steps 1 – 2', verb: 'Clarify', text: 'Clarify the problem and break it down. I ask the people who have it.', more: 'He asks first. His product has an ideas board where customers vote.' },
+    { steps: 'Steps 3 – 4', verb: 'Find the cause', text: 'Set a target, then find the root cause in the data.', more: 'One product of his tracks 133 events. That is how he found buyers pay to get past a limit, not for the 3D show.' },
+    { steps: 'Steps 5 – 6', verb: 'Fix it', text: 'Develop the countermeasure and see it through. I build it myself.', more: 'He rewrote the pitch around those limits. August brought in $3,917.' },
+    { steps: 'Steps 7 – 8', verb: 'Standardize', text: 'Check the result and the process, then make what worked the standard.', more: 'What works becomes a written rule. See Standard work, further down.' },
   ],
 }
 
