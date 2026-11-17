@@ -1,5 +1,9 @@
 import {
   alsoBuilding,
+  architecture,
+  hookExample,
+  pipeline,
+  type FlowStep,
   cases,
   decisions,
   figuresNote,
@@ -22,6 +26,23 @@ export function SectionHead({ id, title, count }: { id?: string; title: string; 
       <span className="shead__rule" aria-hidden="true" />
       {count && <span className="shead__count">{count}</span>}
     </div>
+  )
+}
+
+export function Flow({ flow }: { flow: { title: string; steps: FlowStep[]; caption: string } }) {
+  return (
+    <figure className="flow">
+      <figcaption className="flow__title">{flow.title}</figcaption>
+      <ol>
+        {flow.steps.map((st) => (
+          <li key={st.label}>
+            <span className="flow__label">{st.label}</span>
+            <span className="flow__note">{st.note}</span>
+          </li>
+        ))}
+      </ol>
+      <p className="flow__caption">{flow.caption}</p>
+    </figure>
   )
 }
 
@@ -49,15 +70,7 @@ export default function Home() {
           <Contact />
         </div>
 
-        <aside className="proofs" aria-label="Three things I have done">
-          {opening.proofs.map((p) => (
-            <div key={p.value} className="proof">
-              <span className="proof__value">{p.value}</span>
-              <span className="figure__dim" aria-hidden="true" />
-              <span className="proof__label">{p.label}</span>
-            </div>
-          ))}
-        </aside>
+        <Flow flow={pipeline} />
       </section>
 
       <section>
@@ -91,9 +104,12 @@ export default function Home() {
                   <a href={w.url}>{w.urlLabel} →</a>
                 </p>
               </div>
-              <a className="work__shot" href={w.url} tabIndex={-1} aria-hidden="true">
-                <img src={w.shot} alt={w.shotAlt} width={960} height={435} loading="lazy" />
-              </a>
+              <div className="work__side">
+                {w.id === 'kuvai' && <Flow flow={architecture} />}
+                <a className="work__shot" href={w.url} tabIndex={-1} aria-hidden="true">
+                  <img src={w.shot} alt={w.shotAlt} width={960} height={435} loading="lazy" />
+                </a>
+              </div>
             </li>
           ))}
         </ul>
@@ -109,7 +125,7 @@ export default function Home() {
       </section>
 
       <section>
-        <SectionHead id="decisions" title="Four decisions I'd point to" />
+        <SectionHead id="decisions" title="Two decisions I'd point to" />
         <ul className="decisions">
           {decisions.map((d) => (
             <li key={d.title}>
@@ -134,6 +150,9 @@ export default function Home() {
             </li>
           ))}
         </ul>
+        <p className="more">
+          <Link to="/work/what-sells">How I found what customers actually pay for →</Link>
+        </p>
         <p className="more">
           I keep a dated log of every real product decision, including the ones I reversed.{' '}
           <Link to="/log">Open the log, {log.length} entries →</Link>
@@ -163,6 +182,16 @@ export default function Home() {
             ))}
           </tbody>
         </table>
+        <figure className="code">
+          <figcaption>
+            One rule that is enforced, not just written down: from the settings of one of my projects. Secrets cannot
+            be read, production pushes need my approval, and a commit is blocked until the type check and content check
+            pass.
+          </figcaption>
+          <pre>
+            <code>{hookExample}</code>
+          </pre>
+        </figure>
         <p className="more">
           <Link to="/work/fixed-was-false">{cases[2].title} →</Link>
         </p>

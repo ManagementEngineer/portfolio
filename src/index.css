@@ -3,12 +3,12 @@
    Drawn lines are 2px in --pen or --correction: he wrote them on it. */
 
 :root {
-  --pad: #e4ecdc;
-  --sheet: #f4f8ef;
+  --pad: #f4f7f0;
+  --sheet: #fcfdfa;
   --rule: #5e7f63;
   --ink: #14213a;
   --graphite: #44536a;
-  --pen: #1a3fb0;
+  --pen: #1d5b3c;
   --correction: #a8231b;
   --rule-soft: color-mix(in srgb, var(--rule) 45%, transparent);
 
@@ -28,7 +28,7 @@
     --rule: #6f9482;
     --ink: #e4ecdc;
     --graphite: #a6b8ab;
-    --pen: #a9c0ff;
+    --pen: #9ad9b4;
     --correction: #ff9486;
     color-scheme: dark;
   }
@@ -40,7 +40,7 @@
   --rule: #6f9482;
   --ink: #e4ecdc;
   --graphite: #a6b8ab;
-  --pen: #a9c0ff;
+  --pen: #9ad9b4;
   --correction: #ff9486;
   color-scheme: dark;
 }
@@ -1319,6 +1319,129 @@ main > section.thesis {
 
 @media (max-width: 860px) {
   .built > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- v5: flows and code ---------- */
+
+.flow {
+  margin: 12px 0 0;
+  padding: 20px 24px 16px;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+}
+
+.flow__title {
+  margin-bottom: 14px;
+  font: 500 18px/26px var(--display);
+}
+
+.flow ol {
+  counter-reset: step;
+}
+
+.flow li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 132px minmax(0, 1fr);
+  gap: 2px 12px;
+  padding: 0 0 16px 30px;
+  counter-increment: step;
+}
+
+.flow li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 20px;
+  height: 20px;
+  border: 1.5px solid var(--pen);
+  border-radius: 50%;
+  background: var(--sheet);
+  font: 500 11px/17px var(--mono);
+  text-align: center;
+  color: var(--pen);
+}
+
+.flow li::after {
+  content: '';
+  position: absolute;
+  left: 9px;
+  top: 24px;
+  bottom: -2px;
+  border-left: 2px solid var(--pen);
+}
+
+.flow li:last-child {
+  padding-bottom: 4px;
+}
+
+.flow li:last-child::after {
+  display: none;
+}
+
+.flow__label {
+  font: 500 14px/24px var(--mono);
+}
+
+.flow__note {
+  font-size: 15px;
+  line-height: 23px;
+  color: var(--graphite);
+}
+
+.flow__caption {
+  margin-top: 10px;
+  font: 400 12px/18px var(--mono);
+  color: var(--graphite);
+}
+
+.work__side {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.work__side .flow {
+  margin-top: 8px;
+}
+
+.work__side .flow li {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.code {
+  max-width: 860px;
+  margin: 0 0 24px;
+}
+
+.code figcaption {
+  max-width: 68ch;
+  margin-bottom: 12px;
+  font-size: 15px;
+  line-height: 24px;
+  color: var(--graphite);
+}
+
+.code pre {
+  margin: 0;
+  padding: 16px 20px;
+  overflow-x: auto;
+  background: var(--sheet);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  font: 400 13px/21px var(--mono);
+}
+
+.open__letter .open__ask {
+  color: var(--graphite);
+}
+
+@media (max-width: 860px) {
+  .flow li {
     grid-template-columns: minmax(0, 1fr);
   }
 }

@@ -15,26 +15,53 @@ export const opening = {
   headline: 'AI engineer. I build agent products end to end and make them hold up with real users.',
   ask: 'Founding engineer at Kuvai. Based in Toronto.',
   letter: [
-    "I'm Ramuel, founding engineer at Kuvai, where businesses build their own team of AI teammates. I helped decide the tech stack and build the product, and I wear several hats, from engineering to product. The platform runs agents that hold a role, run tasks on a schedule, monitor the web and extract data from documents, on a model layer that works across OpenAI, Anthropic and Google.",
-    "What I care about most is making model output something a business can rely on. At Kuvai that meant masking personal information before any document reaches a model. On my own products it meant learning that a model saying \"done\" is a claim, and building checks that confirm the outcome.",
-    "I also know when AI is the wrong answer. I run Fantasy League Lottery, which grew from 238 registered accounts to 3,835 in its first paid season. I shipped ten LLM tools on it, measured them, and cut them six weeks later when nobody used them.",
-    "Before software I studied management engineering at Waterloo and ran Amazon's top same-day delivery station in Canada. That's where the habit of measuring everything comes from.",
-  ],
-  proofs: [
-    {
-      value: 'Founding engineer',
-      label: 'At Kuvai, an AI-teammates platform. I helped decide the tech stack and build the product, across engineering and product.',
-    },
-    {
-      value: '3 providers',
-      label: 'One model layer across OpenAI, Anthropic and Google, with a Python engine behind a message queue and results streamed to the browser.',
-    },
-    {
-      value: '238 to 3,835',
-      label: 'Registered accounts on my own product in its first paid season, Feb to Sep 2026. 14% of them paid.',
-    },
+    "I'm Ramuel. At Kuvai, where businesses build their own team of AI teammates, I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline, which takes a Jira ticket all the way to a deploy on our QA environment.",
+    "I care about making model output something people can rely on, and about noticing when AI is the wrong tool. On my own product, which grew from 238 to 3,835 registered accounts in its first paid season, I shipped ten LLM tools, measured them, and cut them when nobody used them.",
   ],
 }
+
+export type FlowStep = { label: string; note: string }
+
+export const pipeline: { title: string; steps: FlowStep[]; caption: string } = {
+  title: 'The AI development pipeline I built at Kuvai',
+  steps: [
+    { label: 'Jira ticket', note: 'The pipeline picks up a ticket.' },
+    { label: 'Architect', note: 'Plans the change before any code is written.' },
+    { label: 'Security', note: 'Reviews the plan.' },
+    { label: 'Implementer', note: 'Writes the code and tests in its own git worktree.' },
+    { label: 'Reviewer', note: 'Checks the diff against the plan.' },
+    { label: 'QA', note: 'The build is deployed to the QA environment.' },
+  ],
+  caption: 'Simplified. Several tickets can run in parallel, each in its own worktree.',
+}
+
+export const architecture: { title: string; steps: FlowStep[]; caption: string } = {
+  title: 'How a request moves through the platform',
+  steps: [
+    { label: 'Web app', note: 'Next.js and TypeScript. Auth, credits and rate limits are checked here.' },
+    { label: 'Message queue', note: 'Decouples the web app from the AI engine.' },
+    { label: 'Python AI engine', note: 'Runs the agents, scheduled tasks and document extraction.' },
+    { label: 'PII masking', note: 'Personal information is masked before a document reaches a model.' },
+    { label: 'Model layer', note: 'OpenAI, Anthropic or Google behind one interface.' },
+    { label: 'WebSocket bridge', note: 'Streams results back to the browser.' },
+  ],
+  caption: 'Simplified.',
+}
+
+export const hookExample = `"permissions": {
+  "deny": ["Read(./.env)", "Read(./.env.*)", "Read(./secrets/**)"],
+  "ask":  ["Bash(supabase db push *)", "Bash(vercel --prod *)"]
+},
+"hooks": {
+  "PreToolUse": [{
+    "matcher": "Bash",
+    "hooks": [{
+      "type": "command",
+      "if": "Bash(git commit *)",
+      "command": "... (npm run -s typecheck && npm run -s check:content) 1>&2 || exit 2 ..."
+    }]
+  }]
+}`
 
 /* ---------- Work ---------- */
 
@@ -82,9 +109,10 @@ export const work: Work[] = [
     urlLabel: 'kuvai.com',
     paras: [
       'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
-      "I'm the founding engineer. I helped decide the tech stack and build the product, and I wear several hats, from engineering to product: working out what the next version has to do, then building it. These are the parts of the platform I've worked on.",
+      "My work there spans engineering and product. These are the parts of the platform I've worked on.",
     ],
     built: [
+      { label: 'AI dev pipeline', text: 'An end-to-end pipeline for the engineering team, from picking up a Jira ticket to deploying to QA. Work moves through architect, security, implementer and reviewer phases, with each ticket in its own git worktree so several can run in parallel.' },
       { label: 'Agents', text: 'Teammates with a role, instructions, duties, conversation history and usage metering.' },
       { label: 'Orchestration', text: 'A web app decoupled from a Python AI engine by a message queue, with a WebSocket bridge that streams results back to the browser.' },
       { label: 'Model layer', text: 'Provider-agnostic, across OpenAI, Anthropic and Google, so no feature depends on one vendor.' },
@@ -111,7 +139,7 @@ export const work: Work[] = [
       { label: 'LLM features', text: 'Answers grounded in a league\'s own rule book, dispute rulings and schedule recommendations on the Claude API, metered by a transactional credit ledger with rate limits and daily caps.' },
       { label: 'Fairness proof', text: 'A SHA-256 commit-and-reveal on every draw: the hash is published before the reveal and the inputs after.' },
       { label: 'Deterministic reveals', text: '3D shows rebuilt from a seed on each device, so a whole league sees the same thing without a stored script.' },
-      { label: 'Payments and quality', text: 'Stripe and PayPal with idempotent webhooks, about 418 tests, and CI.' },
+      { label: 'Payments and quality', text: 'Stripe and PayPal with idempotent webhooks, more than 400 tests, and CI.' },
     ],
     fig: {
       value: '14% paid',
@@ -179,21 +207,6 @@ export const decisions = [
     did: 'I retired the plan, deleted the biggest tool, and put the time back into the core product before peak season.',
     result: 'I now set the usage bar and the date before I build the second version of anything.',
     href: '/work/ai-credits',
-  },
-  {
-    title: 'I priced what people were already reaching for.',
-    saw: 'Big leagues and commissioners with custom draft rules kept running into the limits of the free version.',
-    did: 'I put leagues of 13 or more teams, and those features, behind the paid tier.',
-    result:
-      'Sign-up to paid went from 5.6% to 12.9% in the two weeks after. It is a small sample with no control group, but it held: 14% of accounts had paid by September.',
-    href: '/work/what-sells',
-  },
-  {
-    title: 'I stopped selling my favourite feature.',
-    saw: '64 people watched a preview of the 3D reveal shows. None of them started a checkout. My paywall data said people bought to get past a limit that was blocking them that night.',
-    did: 'I rewrote the peak-season pitch around those limits and kept the 3D shows as the thing leagues share.',
-    result: 'August brought in $3,917 from 336 payments, and 31% of checkout starts completed.',
-    href: '/work/what-sells',
   },
 ]
 
@@ -627,7 +640,7 @@ export const log: Entry[] = [
 export const howIWork = {
   intro: [
     "I build with Claude Code every day and I treat it as a system to engineer, not a chat window. Each product has role subagents with scoped tools, and I route models by job: a stronger model for decisions and review, a cheaper one for narrow checks. Hooks block a commit until the type check and content check pass. Custom skills and slash commands run the repeatable work, and MCP servers give the agents read-only access to the database, deploys and error tracking.",
-    "Models fail in a particular way: confident, plausible and unchecked. So I treat every \"done\" from a model as a claim until something I can observe confirms it. These are the rules my agents run under. Each one came from a real incident.",
+    "When a model says a task is done, that is a claim and not yet a result. Every rule below exists to check an outcome, and each one came from a real incident.",
   ],
   rules: [
     {
@@ -667,7 +680,7 @@ export const history = [
     years: '2024 to now',
     role: 'Founding Engineer, AI & Product',
     org: 'Kuvai, Toronto',
-    note: 'Helped decide the tech stack and build an AI-teammates platform, across engineering and product.',
+    note: 'AI-teammates platform. Built the team\'s AI development pipeline, from Jira ticket to QA deploy.',
   },
   {
     years: '2022 to now',
@@ -697,7 +710,7 @@ export const history = [
     years: '2014 to 2019',
     role: 'BASc, Management Engineering',
     org: 'University of Waterloo',
-    note: "Industrial engineering by another name. It's why I look for the bottleneck first.",
+    note: '',
   },
 ]
 
