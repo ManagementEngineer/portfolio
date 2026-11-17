@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import {
   agents,
   capabilities,
@@ -11,12 +11,16 @@ import {
   type Fig,
   type Project,
 } from '../data/home'
-import { agentTeams, heroLoop, type GKind, type Graph as GraphData } from '../data/graphs'
+import { agentTeams, flowSay, tour, type GKind, type Graph as GraphData } from '../data/graphs'
 import { person } from '../data/site'
 import Arrow from '../components/Arrow'
 import Belt from '../components/Belt'
+import CountUp from '../components/CountUp'
+import Guide from '../components/Guide'
+import HeroLine from '../components/HeroLine'
 import Graph from '../components/Graph'
 import Popoy from '../components/Popoy'
+import { say } from '../guide'
 import { Link } from '../router'
 
 export function SectionHead({ id, title, count }: { id?: string; title: string; count?: string }) {
@@ -52,7 +56,9 @@ export function Contact() {
 function Sticker({ fig }: { fig: Fig }) {
   return (
     <figure className="sticker">
-      <p className="sticker__value">{fig.value}</p>
+      <p className="sticker__value">
+        <CountUp value={fig.value} />
+      </p>
       <figcaption>
         <span>{fig.what}</span>
         <span className="sticker__key">
@@ -104,11 +110,53 @@ function systemGraph(p: Project): GraphData | undefined {
   }
 }
 
+/* Plays a list of steps one after another, speaking each through Popoy. */
+function useWalkthrough(lines: string[], onStep: (i: number | null) => void) {
+  const [playing, setPlaying] = useState(false)
+  const timer = useRef<number | undefined>(undefined)
+
+  useEffect(() => () => window.clearTimeout(timer.current), [])
+
+  const stop = () => {
+    window.clearTimeout(timer.current)
+    setPlaying(false)
+    onStep(null)
+    say(null)
+  }
+
+  const play = () => {
+    if (playing) return stop()
+    setPlaying(true)
+    const run = (i: number) => {
+      if (i >= lines.length) return stop()
+      onStep(i)
+      say(lines[i])
+      const words = lines[i].split(' ').length
+      timer.current = window.setTimeout(() => run(i + 1), Math.min(3400, Math.max(2000, 1200 + 220 * words)))
+    }
+    run(0)
+  }
+
+  return { playing, play }
+}
+
 function ProjectBlock({ p, n }: { p: Project; n: number }) {
   const [step, setStep] = useState<number | null>(null)
+  const [teamStep, setTeamStep] = useState<number | null>(null)
   const active = useMemo(() => new Set(step !== null && p.flow ? p.flow.steps[step].nodes : []), [step, p.flow])
   const sys = useMemo(() => systemGraph(p), [p])
   const team = agentTeams[p.id]
+  const teamActive = useMemo(
+    () => new Set(teamStep !== null && team?.story ? team.story[teamStep].nodes : []),
+    [teamStep, team],
+  )
+  const flowLines = useMemo(
+    () => (p.flow ? p.flow.steps.map((s, i) => flowSay[p.id]?.[i] ?? `${s.label}. ${s.note}`) : []),
+    [p.flow, p.id],
+  )
+  const teamLines = useMemo(() => (team?.story ? team.story.map((s) => s.say) : []), [team])
+  const flowTour = useWalkthrough(flowLines, setStep)
+  const teamTour = useWalkthrough(teamLines, setTeamStep)
 
   return (
     <article className={`project project--${p.id}`} id={p.id}>
@@ -139,7 +187,11 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
         <section className="board">
           <div className="board__top">
             <h4>The system</h4>
-            <p>Drag the boxes around. Tap a step below to light up the parts it touches. On a phone, swipe sideways.</p>
+            {p.flow && (
+              <button type="button" className="play" onClick={flowTour.play} aria-pressed={flowTour.playing}>
+                {flowTour.playing ? 'Stop' : 'Walk me through it'}
+              </button>
+            )}
           </div>
           <div className="board__scroll">
             <Graph graph={sys} active={active} label={`${p.system.title} system diagram`} />
@@ -155,8 +207,8 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
                       className={`step step--${s.kind}${step === i ? ' is-on' : ''}`}
                       aria-pressed={step === i}
                       onClick={() => setStep(step === i ? null : i)}
-                      onMouseEnter={() => setStep(i)}
-                      onMouseLeave={() => setStep(null)}
+                      onMouseEnter={() => !flowTour.playing && setStep(i)}
+                      onMouseLeave={() => !flowTour.playing && setStep(null)}
                     >
                       <span className="step__n">{i + 1}</span>
                       <span className="step__label">{s.label}</span>
@@ -176,11 +228,36 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
           <div className="board__top">
             <h4>The agent line that builds it</h4>
             <p className="board__count">{team.title}</p>
+            {team.story && (
+              <button type="button" className="play" onClick={teamTour.play} aria-pressed={teamTour.playing}>
+                {teamTour.playing ? 'Stop' : 'Walk me through it'}
+              </button>
+            )}
           </div>
           <p className="board__blurb">{team.blurb}</p>
           <div className="board__scroll">
-            <Graph graph={team.graph} label={`${p.name} agent team diagram`} />
+            <Graph graph={team.graph} active={teamActive} label={`${p.name} agent team diagram`} />
           </div>
+          {team.story && (
+            <ol className="steps steps--team">
+              {team.story.map((st, i) => (
+                <li key={st.label}>
+                  <button
+                    type="button"
+                    className={`step${teamStep === i ? ' is-on' : ''}`}
+                    aria-pressed={teamStep === i}
+                    onClick={() => setTeamStep(teamStep === i ? null : i)}
+                    onMouseEnter={() => !teamTour.playing && setTeamStep(i)}
+                    onMouseLeave={() => !teamTour.playing && setTeamStep(null)}
+                  >
+                    <span className="step__n">{i + 1}</span>
+                    <span className="step__label">{st.label}</span>
+                    <span className="step__note">{st.say}</span>
+                  </button>
+                </li>
+              ))}
+            </ol>
+          )}
           <ul className="legend">
             <li className="legend__me">me</li>
             <li className="legend__team">agents</li>
@@ -229,7 +306,8 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
 export default function Home() {
   return (
     <main id="main">
-      <section className="hero wrap">
+      <Guide stops={tour} />
+      <section className="hero wrap" id="top">
         <div className="hero__text">
           <p className="plate">
             <span>{opening.keys[0]}</span>
@@ -245,11 +323,7 @@ export default function Home() {
           <Contact />
         </div>
         <div className="hero__graph">
-          <Popoy pose="sit" px={4} className="popoy--perch" />
-          <p className="hero__graphtitle">
-            <span className="andon" /> Cell 00 · how I work, on a loop
-          </p>
-          <Graph graph={heroLoop} label="A loop: a real need, an agent team, checks, shipped, real users" />
+          <HeroLine />
         </div>
       </section>
 
@@ -364,7 +438,7 @@ export default function Home() {
         </ul>
       </section>
 
-      <footer className="closing wrap">
+      <footer className="closing wrap" id="end">
         <div className="closing__row">
           <div>
             <h2>{closing}</h2>
@@ -375,7 +449,7 @@ export default function Home() {
             <figcaption>
               <strong>Popoy</strong>
               <span>British Shorthair, golden shaded</span>
-              <span>Shift supervisor. Rides the line.</span>
+              <span>Final inspection. Can refuse.</span>
             </figcaption>
           </figure>
         </div>

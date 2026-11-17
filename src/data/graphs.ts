@@ -35,7 +35,9 @@ export const heroLoop: Graph = {
   ],
 }
 
-export type AgentTeam = { title: string; blurb: string; graph: Graph }
+export type StoryStep = { label: string; nodes: string[]; say: string }
+
+export type AgentTeam = { title: string; blurb: string; graph: Graph; story?: StoryStep[] }
 
 export const agentTeams: Record<string, AgentTeam> = {
   fll: {
@@ -63,6 +65,14 @@ export const agentTeams: Record<string, AgentTeam> = {
         { from: 'ship', to: 'prod', label: 'deploy' },
       ],
     },
+    story: [
+      { label: "Ask", nodes: ["me", "decide", "grow"], say: "He asks. Decide and Grow answer." },
+      { label: "Route", nodes: ["decide", "check"], say: "Deciders get the strongest model. Narrow checks get lighter ones." },
+      { label: "Plan", nodes: ["decide", "grow", "build"], say: "Decide sends the plan. Grow sends copy and SEO." },
+      { label: "Audit", nodes: ["build", "check"], say: "/audit: an agent walks 21 surfaces for anything broken." },
+      { label: "Ship", nodes: ["check", "ship"], say: "/ship builds and tests, then commits." },
+      { label: "Land", nodes: ["ship", "prod"], say: "Out to production, where the paying customers are." },
+    ],
   },
   immortal: {
     title: '6 venture agents, 1 reviewer, 7 skills',
@@ -90,6 +100,14 @@ export const agentTeams: Record<string, AgentTeam> = {
         { from: 'hook', to: 'live', label: 'passes' },
       ],
     },
+    story: [
+      { label: "Trigger", nodes: ["me", "standup"], say: "Only he can run /standup." },
+      { label: "Memos", nodes: ["standup", "memos"], say: "Five memos in parallel. Every one needs a number." },
+      { label: "Decide", nodes: ["memos", "ceo"], say: "Cross-feedback, then ceo decides and cites the rulebook." },
+      { label: "Bet", nodes: ["ceo", "score"], say: "The bet goes on a scorecard. Prediction logged first." },
+      { label: "Review", nodes: ["me", "review"], say: "Second track. spec-reviewer reads the diff against the spec." },
+      { label: "Gate", nodes: ["review", "hook", "live"], say: "The hook blocks a bad commit. Then he deploys, not them." },
+    ],
   },
   askpinoy: {
     title: '8 roles and a lead, under a written protocol',
@@ -117,6 +135,14 @@ export const agentTeams: Record<string, AgentTeam> = {
         { from: 'qa', to: 'promote', label: 'gate passes' },
       ],
     },
+    story: [
+      { label: "Start", nodes: ["me", "lead"], say: "He starts a round. The lead runs /team-round." },
+      { label: "Round one", nodes: ["lead", "roles"], say: "Round one: eight reviews. No role reads another's." },
+      { label: "Threads", nodes: ["roles", "threads"], say: "They talk only through thread files. One file each." },
+      { label: "Veto", nodes: ["roles", "comp", "cto"], say: "Compliance can veto. It must name the law." },
+      { label: "Block", nodes: ["threads", "qa"], say: "QA can block the gate. Fix rounds until it passes." },
+      { label: "Promote", nodes: ["qa", "promote"], say: "Production moves only when he types the phrase." },
+    ],
   },
   rings: {
     title: '10 roles, one writer',
@@ -143,5 +169,66 @@ export const agentTeams: Record<string, AgentTeam> = {
         { from: 'merch', to: 'store', label: 'store check first' },
       ],
     },
+    story: [
+      { label: "Brief", nodes: ["me", "ideas", "analyst"], say: "He briefs six idea roles. The analyst is read-only." },
+      { label: "Review", nodes: ["ideas", "director"], say: "Drafts go to design-director for review." },
+      { label: "Numbers", nodes: ["analyst", "ops", "merch"], say: "Numbers go to league-ops. It handles supplier and fulfilment." },
+      { label: "One writer", nodes: ["director", "merch"], say: "Ten roles may suggest. Only merchandiser may write." },
+      { label: "Store check", nodes: ["merch", "store"], say: "It confirms the store first. The connection once pointed wrong." },
+      { label: "Publish", nodes: ["store"], say: "Publishing is his click." },
+    ],
   },
 }
+
+/* What Popoy says at each step of a project's system walkthrough. */
+export const flowSay: Record<string, string[]> = {
+  fll: [
+    'The commissioner sets the teams and the odds.',
+    'The server draws. The browser never decides the order.',
+    'Inputs and result get hashed, SHA-256, and stored.',
+    'Now we wait. The order stays hidden until reveal time.',
+    'The league watches a show. It lands on the stored order.',
+    'Anyone can recompute the hash from the published inputs.',
+  ],
+  immortal: [
+    'One seed deals every spin.',
+    'The player picks five from what the seed dealt.',
+    'The browser plays the tournament. Integer maths only.',
+    'Browser sends seed and picks. Never a result.',
+    'Server replays the draft. A pick never dealt? Refused.',
+    'Server plays its own run and stores that one.',
+  ],
+  askpinoy: [
+    'A visitor suggests a business. Bot check runs first.',
+    'The database limits by IP hash. Row goes in pending.',
+    'Pending rows stay off the site. Row-level security.',
+    'He phones the business. The owner confirms the details.',
+    'Unconfirmed? The database trigger refuses to publish it.',
+    'Confirmed. Cache cleared, the public page appears.',
+  ],
+  rings: [
+    'A shopper uploads a photo.',
+    'Origin and per-IP limit get checked before any paid call.',
+    'The image model returns a preview. Lettering draws in the browser.',
+    'The artwork rides with the cart through Shopify checkout.',
+    'Dry run. The script prints the order and sends nothing.',
+    'Art is regenerated at print size, lettering composited.',
+    'Print order created on hold. He releases it by hand.',
+  ],
+}
+
+/* Popoy's tour: one line per stop, in page order. */
+export const tour = [
+  { id: 'top', say: 'Scroll. I will walk the line with you.', next: 'To the stations', hideCat: true },
+  { id: 'range', say: 'Four stations. I ride, you scroll.', next: 'To the lines', hideCat: true },
+  { id: 'work', say: 'Five lines. Each one is numbered. Start at 01.', next: 'Line 01' },
+  { id: 'kuvai', say: 'Line 01, Kuvai. No diagram here. The words cover it.', next: 'Line 02' },
+  { id: 'fll', say: 'Line 02. Over 43,900 lotteries run. Watch one draw.', next: 'Line 03' },
+  { id: 'immortal', say: 'Line 03. Live two days after he wrote the spec.', next: 'Line 04' },
+  { id: 'askpinoy', say: 'Line 04. It opens when 60 businesses are listed.', next: 'Line 05' },
+  { id: 'rings', say: 'Line 05. Whatever costs money here is guarded twice.', next: 'Standard work' },
+  { id: 'agents', say: 'Four rules. Each one came from a real incident.', next: 'Skills matrix' },
+  { id: 'capabilities', say: 'Seven things AI teams ask for. Each points at the work.', next: 'Shift log' },
+  { id: 'experience', say: 'The shift log. Jobs first, then school.', next: 'End of the line' },
+  { id: 'end', say: 'End of the line. You passed inspection. He is happy to talk.', hideCat: true },
+]

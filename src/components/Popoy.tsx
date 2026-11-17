@@ -62,9 +62,46 @@ const BODY_FLICK = [
   ...BODY.slice(5),
 ]
 
+const SIDE_TOP = [
+  '...............oo...oo......',
+  '..............ogko.okgo.....',
+  'oo............oggooogggo....',
+  'odo...........oggddddggo....',
+  '.odo..........ogepggepgo....',
+  '..odooooooooooogeeggeego....',
+  '..oddddddddddddgllnnllgo....',
+  '..ogdgdgdgdgggglwwoowwlo....',
+  '..oggggggggggggglwwwwlo.....',
+]
+
+const SIDE_LEGS = [
+  [
+    '..ogggggggggggggooooooo.....',
+    '..oggllllllllllggo..........',
+    '..oggoollllloogggo..........',
+    '..ogo..oggo..ogo.ogo........',
+    '..ooo..oooo..ooo.ooo........',
+  ],
+  [
+    '..ogggggggggggggooooooo.....',
+    '..oggllllllllllggo..........',
+    '..ogggoolllooggggo..........',
+    '...ogo.ogo.ogo..ogo.........',
+    '...ooo.ooo.ooo..ooo.........',
+  ],
+]
+
+const SIDE_STRIKE = [
+  '..ogggggggggggggoooooooooo..',
+  '..oggllllllllllgggggggggllo.',
+  '..oggoolllllooggooooooooooo.',
+  '..ogo..oggo..ogo............',
+  '..ooo..oooo..ooo............',
+]
+
 const pad = (rows: string[]) => rows.map((r) => r + '...')
 
-function Pixels({ rows, px }: { rows: string[]; px: number }) {
+export function Pixels({ rows, px }: { rows: string[]; px: number }) {
   const w = rows[0].length
   return (
     <svg
@@ -81,7 +118,29 @@ function Pixels({ rows, px }: { rows: string[]; px: number }) {
   )
 }
 
-export default function Popoy({ pose, px = 4, className }: { pose: 'head' | 'sit'; px?: number; className?: string }) {
+export type Pose = 'head' | 'sit' | 'walk' | 'side' | 'strike'
+
+/* The pixel rows for a pose. `frame` picks the walk or tail frame. */
+export function popoyRows(pose: Pose, frame = false, blink = false): string[] {
+  const head = blink ? BLINK : HEAD
+  if (pose === 'head') return head
+  if (pose === 'walk') return [...SIDE_TOP, ...SIDE_LEGS[frame ? 1 : 0]]
+  if (pose === 'side') return [...SIDE_TOP, ...SIDE_LEGS[0]]
+  if (pose === 'strike') return [...SIDE_TOP, ...SIDE_STRIKE]
+  return [...pad(head), ...(frame ? BODY_FLICK : BODY)]
+}
+
+export default function Popoy({
+  pose,
+  px = 4,
+  className,
+  flip = false,
+}: {
+  pose: Pose
+  px?: number
+  className?: string
+  flip?: boolean
+}) {
   const [blink, setBlink] = useState(false)
   const [flick, setFlick] = useState(false)
 
@@ -92,19 +151,21 @@ export default function Popoy({ pose, px = 4, className }: { pose: 'head' | 'sit
       setBlink(true)
       open = window.setTimeout(() => setBlink(false), 170)
     }, 2900)
-    const tail = window.setInterval(() => setFlick((f) => !f), 640)
+    const tail = window.setInterval(() => setFlick((f) => !f), pose === 'walk' ? 150 : 640)
     return () => {
       window.clearInterval(blinker)
       window.clearInterval(tail)
       window.clearTimeout(open)
     }
-  }, [])
+  }, [pose])
 
-  const head = blink ? BLINK : HEAD
-  const rows = pose === 'head' ? head : [...pad(head), ...(flick ? BODY_FLICK : BODY)]
+  const rows = popoyRows(pose, flick, blink)
 
   return (
-    <span className={className ? `popoy ${className}` : 'popoy'} role="img" aria-label="Popoy, a golden British Shorthair cat, in pixel art">
+    <span
+      className={className ? `popoy ${className}` : 'popoy'}
+      style={flip ? { transform: 'scaleX(-1)' } : undefined}
+      role="img" aria-label="Popoy, a golden British Shorthair cat, in pixel art">
       <Pixels rows={rows} px={px} />
     </span>
   )
