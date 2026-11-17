@@ -238,7 +238,7 @@ export const explain: Record<string, string> = {
   top: 'This is Ramuel\'s site. He is a developer with a product hat, and the customer always comes first. I inspect his work. Scroll down, then tap me again.',
   range: 'Four places he has worked, from the plant floor to his own customers. Scroll, and I will call out each one.',
   work: 'Five things he runs. Kuvai is his job. The other four he does end to end, by himself: idea, design, code, pricing, launch and support.',
-  kuvai: 'His day job. He joined pre-seed, started on GPT-3.5, moved the CTO off Streamlit, and led the Mac and iPhone apps through App Store approval.',
+  kuvai: 'His day job. He joined pre-seed, started on GPT-3.5, moved the CTO off Streamlit, and led the Mac and iPhone apps through App Store approval. His team pipeline runs Playwright tests, and pull requests carry screenshots, and videos when needed, as proof.',
   fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. That is a lot of kibbles. Press "Walk me through it" to watch one draw.',
   immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
   askpinoy: 'A directory of Filipino-owned businesses. Nothing is listed until the owner confirms it.',
@@ -273,6 +273,7 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
   work: [{ sel: '#kuvai', say: 'Line 01 is his job. The other four he does end to end, alone. Start with Kuvai.' }],
   kuvai: [
     { sel: '#kuvai', say: 'Pre-seed. He bet on it before anyone had put money in.' },
+    { sel: '#kuvai .project__p ~ .project__p', say: 'His pipeline brings proof. Playwright runs the tests, and pull requests carry screenshots and videos.' },
     { sel: '#kuvai .project__image', say: 'He led the Mac and iPhone apps too. Built, submitted, approved.' },
     { sel: '#kuvai .timeline', say: 'Two years of his work, in order. Read three of these and you will get it.' },
     { sel: '#kuvai .stack', say: 'He started on GPT-3.5 and moved the CTO off Streamlit. Ask him how.' },
