@@ -11,6 +11,9 @@ export const PAL: Record<string, string> = {
   p: '#14171a',
   n: '#e8959b',
   k: '#e8a08a',
+  m: '#9a9aa6', // mouse fur
+  s: '#d9d9e0', // mouse belly
+  y: '#f2c230', // cheese
 }
 
 const SIDE_W = 33
@@ -173,11 +176,56 @@ function front(head: string, body: 'sit' | 'flick' | 'loaf', drop = 0): string[]
 
 export type FrameKey = string
 
+// The mouse, 12 by 8, facing right.
+const MOUSE: Record<string, string[]> = {
+  a: [
+    '............',
+    '......oo....',
+    '.....onno...',
+    '..oooooommo.',
+    '.ommmmmmmomo',
+    'nommmmmmmmmn',
+    'nnossssssso.',
+    '.o.o....o.o.',
+  ],
+  b: [
+    '............',
+    '......oo....',
+    '.....onno...',
+    '..oooooommo.',
+    'nommmmmmmomo',
+    'nommmmmmmmmn',
+    '..ossssssso.',
+    '...oo..oo...',
+  ],
+  sit: [
+    '.....oo.oo..',
+    '....onnonno.',
+    '....ommmmmo.',
+    '....ommomon.',
+    '....ommmmo..',
+    '...omsssmo..',
+    'n..omsssmo..',
+    '.nnoooooo...',
+  ],
+  cheese: [
+    '.....oo.oo..',
+    '....onnonno.',
+    '....ommmmmo.',
+    '....ommomon.',
+    '....ommmmoyy',
+    '...omsssmmyy',
+    'n..omsssmo..',
+    '.nnoooooo...',
+  ],
+}
+
 /* Every frame the engine can ask for, by name. */
 export function rowsFor(key: FrameKey): string[] {
   const [kind, a, b, c] = key.split(':')
   if (kind === 'side') return side(a, Number(b), c || 'open')
   if (kind === 'front') return front(a, b as 'sit' | 'flick' | 'loaf')
   if (kind === 'groom') return front('shut', 'sit', Number(a))
+  if (kind === 'mouse') return MOUSE[a]
   return side('a', 0)
 }

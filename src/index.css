@@ -1036,6 +1036,15 @@ main > section.hero {
   cursor: grabbing;
 }
 
+.cat canvas.mouse {
+  position: absolute;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  cursor: pointer;
+  transition: opacity 120ms;
+}
+
 .cat__zzz {
   position: absolute;
   right: -6px;

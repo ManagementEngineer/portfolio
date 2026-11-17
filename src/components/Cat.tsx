@@ -33,6 +33,7 @@ type State =
   | 'wiggle'
   | 'hop'
   | 'held'
+  | 'gag'
 
 const cache = new Map<string, HTMLCanvasElement>()
 function sprite(key: string): HTMLCanvasElement {
@@ -68,6 +69,7 @@ export default function Cat() {
   const wrap = useRef<HTMLDivElement>(null)
   const canvas = useRef<HTMLCanvasElement>(null)
   const zzz = useRef<HTMLSpanElement>(null)
+  const mouse = useRef<HTMLCanvasElement>(null)
   const [bubble, setBubble] = useState<{ text: string; next: string | null; below: boolean; shift: number } | null>(null)
   const bubbleOpen = useRef(false)
   const [px, setPx] = useState(4)
@@ -219,6 +221,281 @@ export default function Cat() {
       window.setTimeout(() => h.remove(), 1100)
     }
 
+    // ---- the mouse: now and then one hops onto his ledge and he gives chase ----
+    const ms = mouse.current!
+    const mctx = ms.getContext('2d')!
+    const phone = window.innerWidth < 700
+    const forced = new URLSearchParams(window.location.search).has('mouse')
+    type Gag = {
+      t: number
+      ending: 'A' | 'B' | 'C'
+      far: number // the end of the ledge the mouse comes from, document x
+      toCat: number // direction from that end toward Popoy
+      stop: number // where the mouse sits up
+      mx: number
+      mdir: number
+      alpha: number
+      mark: number // when the current beat of the ending began
+      beat: number
+      speed: number
+      startScroll: number
+    }
+    let gag: Gag | null = null
+    let gagCount = 0
+    let gagDue = forced ? 2500 : 25000
+    let liveFor = 0
+    let mouseAt = { mx: 0, lift: 0 }
+
+    const drawMouse = (g: Gag, key: string, lift = 0) => {
+      const sp = sprite(key)
+      mctx.clearRect(0, 0, 12, 8)
+      mctx.save()
+      if (g.mdir < 0) {
+        mctx.translate(12, 0)
+        mctx.scale(-1, 1)
+      }
+      mctx.drawImage(sp, 0, 0)
+      mctx.restore()
+      ms.style.opacity = String(g.alpha)
+      mouseAt = { mx: g.mx, lift }
+    }
+
+    const endGag = (then: State = 'sit') => {
+      gag = null
+      ms.style.opacity = '0'
+      if (perch) {
+        const r = rectOf(perch)
+        along = Math.min(1, Math.max(0, (x - r.left - 50) / Math.max(1, r.right - r.left - 100)))
+      }
+      speed = 0
+      idle = 0
+      set(then)
+    }
+
+    const startGag = () => {
+      if (!perch) return
+      const r = rectOf(perch)
+      const leftRoom = x - r.left
+      const rightRoom = r.right - x
+      const far = leftRoom > rightRoom ? r.left + 18 : r.right - 18
+      const toCat = Math.sign(x - far)
+      const gap = Math.abs(x - far)
+      let last = ''
+      try {
+        last = localStorage.getItem('popoy-mouse') ?? ''
+      } catch {
+        /* storage unavailable */
+      }
+      const pool = (['A', 'B', 'C'] as const).filter((e) => e !== last)
+      const ending = last === '' ? 'A' : pool[Math.floor(Math.random() * pool.length)]
+      try {
+        localStorage.setItem('popoy-mouse', ending)
+      } catch {
+        /* storage unavailable */
+      }
+      gag = {
+        t: 0,
+        ending,
+        far,
+        toCat,
+        stop: far + toCat * Math.min(240, gap * 0.4),
+        mx: far,
+        mdir: toCat,
+        alpha: 0,
+        mark: 0,
+        beat: 0,
+        speed: 0,
+        startScroll: window.scrollY,
+      }
+      gagCount += 1
+      gagDue = liveFor + 90000
+      set('gag')
+    }
+
+    const line = (text: string) => {
+      say(text)
+      window.setTimeout(() => say(null), 4200)
+      if (!phone) speak(text, 4200)
+    }
+
+    /* One step of the chase. Returns what Popoy should look like this frame. */
+    const stepGag = (g: Gag, dt: number, tailFrame: number) => {
+      g.t += dt
+      const away = -g.toCat
+      const runFrame = Math.floor(g.t / 70) % 2 ? 'mouse:a' : 'mouse:b'
+      const catRun = (goal: number) => {
+        const left = Math.abs(goal - x)
+        const top = phone ? 0.36 : 0.46
+        speed += ((left < 40 ? 0.08 : top) - speed) * Math.min(1, dt / 150)
+        const step = Math.min(left, speed * dt)
+        dir = goal >= x ? 1 : -1
+        x += dir * step
+        walked += step
+        const f = ['a', 'p', 'c', 'p'][Math.floor(walked / 14) % 4]
+        return { key: `side:${f}:2`, lift: f === 'p' ? 1 : 0, squash: 0, there: left < 3 }
+      }
+      const sitLook = { key: `front:${g.mx < x ? 'l' : 'r'}:sit`, lift: 0, squash: 0 }
+      const sitIdle = { key: `front:open:${tailFrame >= 2 ? 'flick' : 'sit'}`, lift: 0, squash: 0 }
+
+      if (Math.abs(window.scrollY - g.startScroll) > 80 || !perch || !visible(perch)) {
+        endGag()
+        return sitIdle
+      }
+
+      // --- the setup, the same every time ---
+      if (g.t < 250) {
+        g.alpha = g.t / 250
+        drawMouse(g, 'mouse:a', Math.round(Math.sin((g.t / 250) * Math.PI) * 10))
+        return sitIdle
+      }
+      if (g.t < 900) {
+        const tt = g.t - 250
+        const running = tt % 360 < 220
+        const runTime = Math.floor(tt / 360) * 220 + Math.min(220, tt % 360)
+        g.alpha = 1
+        g.mx = g.far + g.toCat * Math.min(Math.abs(g.stop - g.far), 0.26 * runTime)
+        drawMouse(g, running ? runFrame : 'mouse:b')
+        return sitIdle
+      }
+      if (g.t < 1600) {
+        g.mx = g.stop
+        drawMouse(g, 'mouse:sit')
+        return g.t > 1100 ? sitLook : sitIdle // they lock eyes
+      }
+      if (g.t < 1720) {
+        g.mdir = away
+        drawMouse(g, 'mouse:b')
+        return sitLook
+      }
+
+      const mouseRun = (to: number, pxPerMs: number) => {
+        const left = Math.abs(to - g.mx)
+        const step = Math.min(left, pxPerMs * dt)
+        g.mx += Math.sign(to - g.mx) * step
+        return left < 2
+      }
+      const fast = phone ? 0.42 : 0.52
+
+      // --- the mouse was tapped: it bolts, and he pretends that was the plan ---
+      if (g.ending === 'C' && g.beat === 9) {
+        g.mdir = away
+        if (mouseRun(g.far + away * 60, 0.7)) g.alpha = Math.max(0, g.alpha - dt / 150)
+        drawMouse(g, runFrame)
+        if (g.alpha <= 0) endGag()
+        return sitLook
+      }
+
+      if (g.ending === 'A') {
+        // Inspection: the mouse stops, turns, and offers cheese. He inspects it.
+        const hold = g.stop + (g.far - g.stop) * 0.6
+        if (g.beat === 0) {
+          const there = mouseRun(hold, fast)
+          drawMouse(g, there ? 'mouse:cheese' : runFrame)
+          if (there) {
+            g.mdir = g.toCat
+            g.beat = 1
+          }
+          return g.t > 1750 ? catRun(hold + g.toCat * 56) : sitLook
+        }
+        if (g.beat === 1) {
+          drawMouse(g, 'mouse:cheese')
+          const c = catRun(g.mx + g.toCat * 56)
+          if (c.there) {
+            g.beat = 2
+            g.mark = g.t
+          }
+          return c
+        }
+        if (g.beat === 2) {
+          drawMouse(g, 'mouse:cheese')
+          if (g.t - g.mark > 700) {
+            line('Cheese passes. The mouse is not my department.')
+            g.beat = 3
+            g.mark = g.t
+          }
+          return { key: 'side:a:1', lift: 0, squash: 0 }
+        }
+        if (g.t - g.mark > 900) {
+          g.mdir = away
+          if (mouseRun(g.far + away * 50, 0.14)) g.alpha = Math.max(0, g.alpha - dt / 200)
+          drawMouse(g, Math.floor(g.t / 140) % 2 ? 'mouse:a' : 'mouse:b')
+          if (g.alpha <= 0) endGag()
+        } else drawMouse(g, 'mouse:cheese')
+        return { key: `front:open:${tailFrame >= 2 ? 'flick' : 'sit'}`, lift: 0, squash: 0 }
+      }
+
+      if (g.ending === 'B') {
+        // The mouse wins: it waits near the edge, he winds up, it steps off, he pounces on nothing.
+        const wait = g.far + g.toCat * 40
+        if (g.beat === 0) {
+          const there = mouseRun(wait, fast)
+          drawMouse(g, there ? 'mouse:sit' : runFrame)
+          const c = g.t > 1750 ? catRun(wait + g.toCat * 90) : { ...sitLook, there: false }
+          if (there && c.there) {
+            g.beat = 1
+            g.mark = g.t
+          }
+          return c
+        }
+        if (g.beat === 1) {
+          const w = g.t - g.mark
+          if (w > 450) {
+            if (mouseRun(g.far + away * 60, fast)) g.alpha = Math.max(0, g.alpha - dt / 120)
+            drawMouse(g, runFrame)
+          } else drawMouse(g, 'mouse:sit')
+          if (w > 700) {
+            g.beat = 2
+            g.mark = g.t
+          }
+          return { key: `side:${Math.floor(w / 80) % 2 ? 'a' : 'c'}:2`, lift: 0, squash: 3 }
+        }
+        if (g.beat === 2) {
+          g.alpha = 0
+          drawMouse(g, 'mouse:b')
+          const u = Math.min(1, (g.t - g.mark) / 300)
+          x += away * 0.15 * dt * (u < 1 ? 1 : 0)
+          if (u >= 1) {
+            g.beat = 3
+            g.mark = g.t
+          }
+          return { key: 'side:air:0', lift: Math.round(72 * u * (1 - u)), squash: 0 }
+        }
+        const w = g.t - g.mark
+        if (w > 500 && g.beat === 3) {
+          line('Missed. Do not tell him.')
+          g.beat = 4
+        }
+        if (w > 1400) endGag()
+        return { key: `front:${w < 250 ? 'l' : w < 500 ? 'r' : 'open'}:sit`, lift: 0, squash: w < 90 ? 3 : 0 }
+      }
+
+      // Out of scope: the mouse leaves the line. He stops at the edge. Not his problem.
+      if (g.beat === 0) {
+        if (mouseRun(g.far + away * 60, fast)) g.alpha = Math.max(0, g.alpha - dt / 150)
+        drawMouse(g, runFrame)
+        const c = g.t > 1750 ? catRun(g.far + g.toCat * 30) : { ...sitLook, there: false }
+        if (c.there && g.alpha <= 0) {
+          g.beat = 1
+          g.mark = g.t
+        }
+        return c
+      }
+      if (g.t - g.mark > 400 && g.beat === 1) {
+        line('It left the line. Not my problem now.')
+        g.beat = 2
+      }
+      if (g.t - g.mark > 1300) endGag('groom')
+      return { key: `front:${away < 0 ? 'l' : 'r'}:sit`, lift: 0, squash: 0 }
+    }
+
+    const tapMouse = () => {
+      if (!gag) return
+      gag.ending = 'C'
+      gag.beat = 9
+      line('I had it handled.')
+    }
+    ms.addEventListener('click', tapMouse)
+
     // ---- one frame ----
     const frame = (now: number) => {
       raf = requestAnimationFrame(frame)
@@ -227,6 +504,7 @@ export default function Cat() {
       if (!live || hidden) return
       since += dt
       idle += dt
+      liveFor += dt
 
       // secondary motion never stops
       tailClock += dt
@@ -285,6 +563,27 @@ export default function Cat() {
             took = true
           }
         }
+        // now and then, a mouse
+        if (
+          !took &&
+          perch &&
+          perch !== belt &&
+          gagCount < 2 &&
+          liveFor > gagDue &&
+          since > (forced ? 800 : 4000) &&
+          !bubbleOpen.current &&
+          !hovering &&
+          (!pointer || now - pointer.at > 2000) &&
+          now - scrolledAt > 2000 &&
+          visible(perch) &&
+          (gagCount === 0 || forced || Math.random() < 0.5)
+        ) {
+          const r = rectOf(perch)
+          if (r.right - r.left >= (phone ? 220 : 320) && Math.max(x - r.left, r.right - x) >= 180) {
+            startGag()
+            took = true
+          } else gagDue = liveFor + 6000
+        } else if (gagCount > 0 && liveFor > gagDue && !took) gagDue = liveFor + 20000
         if (!belt && !took && !bubbleOpen.current && now - scrolledAt > 350) {
           const stations = Array.from(document.querySelectorAll('.station'))
           const at = stations.findIndex((n) => n.classList.contains('is-at'))
@@ -457,6 +756,14 @@ export default function Cat() {
         key = 'front:shut:loaf'
         lift = Math.floor(since / 900) % 2
         if (hovering) set('pet')
+      } else if (state === 'gag') {
+        if (!gag) set('sit')
+        else {
+          const o = stepGag(gag, dt, tail)
+          key = o.key
+          lift = o.lift
+          squash = o.squash
+        }
       } else if (state === 'held') {
         // picked up: he dangles and kicks until you let go
         key = `side:${Math.floor(since / 130) % 2 ? 'air' : 'c'}:${t}`
@@ -483,7 +790,15 @@ export default function Cat() {
       const sh = s.height - squash
       ctx.drawImage(s, 0, 0, s.width, s.height, ox, H - sh - lift, s.width, sh)
       ctx.restore()
-      el.style.transform = `translate(${Math.round(x / PX) * PX - (W * PX) / 2}px, ${Math.round(y / PX) * PX - H * PX + PX}px)`
+      const tx = Math.round(x / PX) * PX - (W * PX) / 2
+      const ty = Math.round(y / PX) * PX - H * PX + PX
+      el.style.transform = `translate(${tx}px, ${ty}px)`
+      // the mouse lives inside his wrapper, so place it relative to him
+      if (gag) {
+        ms.style.transform = `translate(${Math.round(mouseAt.mx / PX) * PX - 6 * PX - tx}px, ${
+          Math.round(y / PX) * PX - 8 * PX + PX - mouseAt.lift - ty
+        }px)`
+      }
     }
 
     // he leaves the hero scene when it ends, or when you scroll past it
@@ -504,6 +819,7 @@ export default function Cat() {
 
     // the inspection is being replayed: he goes back to the board
     const hold = () => {
+      if (gag) endGag()
       live = false
       el.style.opacity = '0'
       perch = null
@@ -545,6 +861,7 @@ export default function Cat() {
       if (!grab) return
       if (!grab.moved && Math.hypot(e.clientX - grab.x, e.clientY - grab.y) > 7) {
         grab.moved = true
+        if (gag) endGag()
         perch = null
         jump = null
         setBubble(null)
@@ -580,6 +897,7 @@ export default function Cat() {
     // a tap: he explains the part of the page you are on
     const onTap = () => {
       if (!live) return
+      if (gag) endGag()
       const id = currentStop()
       const i = tour.findIndex((s) => s.id === id)
       const after = tour[i + 1]
@@ -591,6 +909,7 @@ export default function Cat() {
       set('talk')
     }
     const onVisibility = () => {
+      if (document.hidden && gag) endGag()
       lastT = performance.now()
     }
 
@@ -626,6 +945,7 @@ export default function Cat() {
       window.removeEventListener('popoy:hold', hold)
       window.removeEventListener('popoy:quiet', onQuiet)
       document.removeEventListener('visibilitychange', onVisibility)
+      ms.removeEventListener('click', tapMouse)
       cv.removeEventListener('click', onKeyClick)
       cv.removeEventListener('pointerdown', onDown)
       cv.removeEventListener('pointermove', onDrag)
@@ -661,6 +981,7 @@ export default function Cat() {
           </div>
         </div>
       )}
+      <canvas ref={mouse} className="mouse" width={12} height={8} style={{ width: 12 * px, height: 8 * px }} aria-hidden="true" />
       <canvas
         ref={canvas}
         width={W}
