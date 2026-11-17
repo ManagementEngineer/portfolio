@@ -425,7 +425,7 @@ export default function Home() {
       <section className="wrap">
         <SectionHead id="work" title="The lines I run" />
         <p className="lede-line">
-          Line 01 is my job. Lines 02 to 05 are my own, and on those I do everything end to end: the idea, the design,
+          Line 01 is my job, and it is a team effort: I believe a great team makes great products. Lines 02 to 05 are my own, and on those I do everything end to end: the idea, the design,
           the code, the pricing, the launch and the support.
         </p>
         {projects.map((p, i) => (

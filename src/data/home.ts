@@ -118,6 +118,7 @@ export const projects: Project[] = [
     paras: [
       'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
       "I joined pre-seed, before the company had its first investor. I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA. Automated Playwright tests run along the way, and each pull request carries screenshots, and videos when needed, as proof the change works.",
+      'Kuvai is a team effort, and I believe a great team makes great products. You build better things when you use each member\'s strength.',
       'I also led the macOS and iOS builds, from the first build through App Store submission to approval.',
       'I started on GPT-3.5, when context management, prompt engineering and RAG were problems you felt every day and solved by hand. I was one of the first users of the AI SDK, and I convinced our CTO to move the product from Streamlit in Python to JavaScript.',
       'I have worked on agent setup, scheduled tasks, web monitoring, document extraction, masking of personal information before a model call, billing and credits, and the pipeline that ships it.',

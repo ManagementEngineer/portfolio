@@ -237,7 +237,7 @@ export const tour = [
 export const explain: Record<string, string> = {
   top: 'This is Ramuel\'s site. He is a developer with a product hat. Customer obsession and ownership: that is how he looks at his work. I inspect his work. Scroll down, then tap me again.',
   range: 'Four places he has worked, from the plant floor to his own customers. Scroll, and I will call out each one.',
-  work: 'Five things he runs. Kuvai is his job. The other four he does end to end, by himself: idea, design, code, pricing, launch and support.',
+  work: 'Five things he runs. Kuvai is his job, built with a team. He believes a great team makes great products. The other four he does end to end, by himself: idea, design, code, pricing, launch and support.',
   kuvai: 'His day job. He joined pre-seed, started on GPT-3.5, moved the CTO off Streamlit, and led the Mac and iPhone apps through App Store approval. His team pipeline runs Playwright tests, and pull requests carry screenshots, and videos when needed, as proof.',
   fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. Press "Walk me through it" to watch one draw.',
   immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
@@ -275,6 +275,7 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
   kuvai: [
     { sel: '#kuvai', say: 'Pre-seed. He bet on it before anyone had put money in.' },
     { sel: '#kuvai .project__p ~ .project__p', say: 'His pipeline brings proof. Playwright runs the tests, and pull requests carry screenshots and videos.' },
+    { sel: '#kuvai .project__p ~ .project__p ~ .project__p', say: 'Kuvai is a team effort. He believes a great team makes great products, and that each member\'s strength should be put to use.' },
     { sel: '#kuvai .project__image', say: 'He led the Mac and iPhone apps too. Built, submitted, approved.' },
     { sel: '#kuvai .timeline', say: 'Two years of his work, in order. Read three of these and you will get it.' },
     { sel: '#kuvai .stack', say: 'He started on GPT-3.5 and moved the CTO off Streamlit. Ask him how.' },
