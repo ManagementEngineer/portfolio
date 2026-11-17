@@ -224,7 +224,7 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
             )}
           </div>
           <div className="board__scroll">
-            <Graph graph={sys} active={active} label={`${p.system.title} system diagram`} />
+            <Graph graph={sys} active={active} label={`${p.system.title} system diagram`} narrowLayout="grid" />
           </div>
           {p.flow && (
             <>
@@ -266,7 +266,12 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
           </div>
           <p className="board__blurb">{team.blurb}</p>
           <div className="board__scroll">
-            <Graph graph={team.graph} active={teamActive} label={`${p.name} agent team diagram`} />
+            <Graph
+              graph={team.graph}
+              active={teamActive}
+              label={`${p.name} agent team diagram`}
+              narrowLayout="column"
+            />
           </div>
           {team.story && (
             <ol className="steps steps--team">
