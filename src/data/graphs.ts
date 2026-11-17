@@ -238,7 +238,7 @@ export const explain: Record<string, string> = {
   top: 'This is Ramuel\'s site. He is a developer with a product hat, and the customer always comes first. I inspect his work. Scroll down, then tap me again.',
   range: 'Four places he has worked, from the plant floor to his own customers. The tote rides as you scroll.',
   work: 'Five things he runs. Each one shows the system and the agent team behind it.',
-  kuvai: 'His day job. He started on GPT-3.5, was one of the first users of the AI SDK, and convinced the CTO to move from Streamlit to JavaScript.',
+  kuvai: 'His day job. He joined pre-seed, started on GPT-3.5, moved the CTO off Streamlit, and led the Mac and iPhone apps through App Store approval.',
   fll: 'His own product. He wrote the core by hand, and it has earned CA$11,000. That is a lot of kibbles. Press "Walk me through it" to watch one draw.',
   immortal: 'A free esports game. Browser and server run the same simulation, so nobody can fake a result.',
   askpinoy: 'A directory of Filipino-owned businesses. Nothing is listed until the owner confirms it.',
@@ -251,14 +251,14 @@ export const explain: Record<string, string> = {
 
 /* What Popoy says as the tote reaches each career station, and when tapped there. */
 export const stationSay = [
-  'Toyota. His parts are in every RAV4 you see on the road in Canada.',
+  'Toyota. The parts he designed let every RAV4 in Canada get built.',
   'Amazon. Two hours of reporting, down to five minutes. Managers across Canada used it.',
   'Kuvai. He joined before the first investor. He talked the CTO out of Streamlit.',
   'His own product. Real customers pay for it, and he answers every one himself.',
 ]
 
 export const stationExplain = [
-  'At Toyota he built parts that accommodate every RAV4 you see on the road in Canada, and in parts of the US.',
+  'At Toyota the parts he designed made it possible to manufacture every RAV4 built in Canada. He worked with Toyota engineers across North America.',
   'At Amazon he ran Canada\'s top same-day station. He also wrote a script that cut a manager\'s report from 2 hours to 5 minutes. Area managers all over Canada used it.',
   'He joined Kuvai pre-seed, before its first investor, and reports to the CTO and the CEO. He started on GPT-3.5, convinced the CTO to switch from Streamlit to JavaScript, and built the team\'s AI development pipeline.',
   'Fantasy League Lottery is his own product. He wrote the core by hand, and he answers every customer himself.',
@@ -273,6 +273,7 @@ export const wingman: Record<string, { sel: string; say: string }[]> = {
   work: [{ sel: '#kuvai', say: 'Start with Kuvai. He joined before the first investor.' }],
   kuvai: [
     { sel: '#kuvai', say: 'Pre-seed. He bet on it before anyone had put money in.' },
+    { sel: '#kuvai .project__image', say: 'He led the Mac and iPhone apps too. Built, submitted, approved.' },
     { sel: '#kuvai .timeline', say: 'Two years of his work, in order. Read three of these and you will get it.' },
     { sel: '#kuvai .stack', say: 'He started on GPT-3.5 and moved the CTO off Streamlit. Ask him how.' },
   ],

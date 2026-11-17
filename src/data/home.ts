@@ -39,8 +39,8 @@ export const range: RangeRow[] = [
     place: 'Toyota',
     role: 'Production engineer, internship',
     years: '2018',
-    who: 'Front-line team members',
-    text: 'I built parts that accommodate every RAV4 you see on the road in Canada, and in parts of the US, working on the floor with the people building them.',
+    who: 'Engineers and front-line team members',
+    text: 'The parts I designed made it possible to manufacture every RAV4 built in Canada. I worked with Toyota engineers across North America, and on the floor with the people building the cars.',
   },
   {
     place: 'Amazon',
@@ -95,6 +95,7 @@ export type Project = {
   years: string
   paras: string[]
   timeline?: { when: string; text: string }[]
+  image?: { src: string; alt: string; caption: string }
   figs: Fig[]
   system?: System
   flow?: Flow
@@ -111,9 +112,15 @@ export const projects: Project[] = [
     paras: [
       'Kuvai lets a business build a team of AI teammates, such as an assistant, a bookkeeper or a research analyst. You give each one a role, instructions and your documents, and it chats, runs tasks on a schedule, watches the web and pulls data out of files. It runs on web, Mac and iPhone.',
       "I joined pre-seed, before the company had its first investor. I report to the CTO and CEO, and my work runs from engineering to product. I helped decide the tech stack and build the product. I also built the engineering team's AI development pipeline end to end: it starts by picking up a Jira ticket and ends with a deploy on QA.",
+      'I also led the macOS and iOS builds, from the first build through App Store submission to approval.',
       'I started on GPT-3.5, when context management, prompt engineering and RAG were problems you felt every day and solved by hand. I was one of the first users of the AI SDK, and I convinced our CTO to move the product from Streamlit in Python to JavaScript.',
       'I have worked on agent setup, scheduled tasks, web monitoring, document extraction, masking of personal information before a model call, billing and credits, and the pipeline that ships it.',
     ],
+    image: {
+      src: '/kuvai-team.jpg',
+      alt: 'Five AI teammates around the Kuvai logo: Mia the personal assistant, Maya the bookkeeper, Jordan the sales coordinator, Priya the research analyst and Sam the customer success manager, with Priya handing a finding to Jordan.',
+      caption: 'What a customer sees: a team of AI teammates, each connected to their tools, handing work to each other. Image from kuvai.com.',
+    },
     timeline: [
       { when: 'Jul 2024', text: 'Started the JavaScript version of the product on the AI SDK: login, streaming chat, email drafting and a task scheduler, deployed within its first week.' },
       { when: 'Jul 2024', text: 'Added Anthropic, Google, Mistral and Cohere beside OpenAI, with the model switchable from configuration.' },
@@ -136,7 +143,7 @@ export const projects: Project[] = [
     stack: [
       { key: 'build', text: 'TypeScript, Next.js, React, Python, MongoDB' },
       { key: 'AI', text: 'AI SDK, OpenAI, Anthropic, Google, one model layer across all three, RAG, Microsoft Presidio' },
-      { key: 'ship', text: 'Docker, AWS, GitHub Actions' },
+      { key: 'ship', text: 'Docker, AWS, GitHub Actions, macOS and iOS apps, App Store review' },
     ],
     links: [{ label: 'kuvai.com', href: 'https://kuvai.com' }],
   },
@@ -495,7 +502,7 @@ export const experience: { years: string; role: string; org: string; note?: stri
     years: '2016 – 2018',
     role: 'Engineering internships',
     org: 'Toyota Motor Manufacturing Canada, TTC, York Region, Loblaw, Clearbridge Mobile',
-    note: 'At Toyota, built parts that accommodate every RAV4 on the road in Canada and parts of the US. Also subway reliability, fleet analysis, supply chain and mobile QA.',
+    note: 'At Toyota, designed parts that made it possible to manufacture every RAV4 built in Canada, working with Toyota engineers across North America. Also subway reliability, fleet analysis, supply chain and mobile QA.',
   },
   { years: '2023', role: 'Postgraduate certificate, Applied A.I. Solutions Development', org: 'George Brown College' },
   { years: '2014 – 2019', role: 'BASc, Management Engineering', org: 'University of Waterloo' },

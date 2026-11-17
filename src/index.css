@@ -717,6 +717,29 @@ main > section.hero {
   margin-top: 10px;
 }
 
+.project__image {
+  width: 400px;
+  max-width: 100%;
+  background: #fff;
+  border: 2px solid var(--ink);
+  border-bottom-width: 8px;
+}
+
+.project__image img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.project__image figcaption {
+  padding: 10px 14px 12px;
+  border-top: 2px solid var(--ink);
+  background: var(--panel);
+  font-size: 13.5px;
+  line-height: 1.4;
+  color: var(--soft);
+}
+
 /* a dated list of work, for the line that has no diagram */
 .timeline {
   grid-column: 1 / -1;

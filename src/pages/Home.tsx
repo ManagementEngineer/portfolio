@@ -185,6 +185,12 @@ function ProjectBlock({ p, n }: { p: Project; n: number }) {
             </p>
           ))}
         </div>
+        {p.image && (
+          <figure className="project__image">
+            <img src={p.image.src} alt={p.image.alt} width={900} height={691} loading="lazy" />
+            <figcaption>{p.image.caption}</figcaption>
+          </figure>
+        )}
         {p.timeline && (
           <div className="timeline">
             <h4>What I did there, in order</h4>
