@@ -422,6 +422,15 @@ export default function Cat() {
       }
     }
 
+    // the inspection is being replayed: he goes back to the board
+    const hold = () => {
+      live = false
+      el.style.opacity = '0'
+      perch = null
+      setBubble(null)
+      document.documentElement.classList.remove('popoy-loose')
+    }
+
     const onScroll = () => {
       scrolledAt = performance.now()
       wake()
@@ -466,6 +475,7 @@ export default function Cat() {
     window.addEventListener('scroll', onScroll, { passive: true })
     window.addEventListener('pointermove', onMove, { passive: true })
     window.addEventListener('popoy:release', release)
+    window.addEventListener('popoy:hold', hold)
     window.addEventListener('popoy:quiet', onQuiet)
     document.addEventListener('visibilitychange', onVisibility)
     cv.addEventListener('click', onTap)
@@ -484,6 +494,7 @@ export default function Cat() {
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('popoy:release', release)
+      window.removeEventListener('popoy:hold', hold)
       window.removeEventListener('popoy:quiet', onQuiet)
       document.removeEventListener('visibilitychange', onVisibility)
       cv.removeEventListener('click', onTap)

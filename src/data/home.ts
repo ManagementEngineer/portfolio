@@ -3,6 +3,7 @@
 
 export const opening = {
   keys: ['AI engineer', 'Kuvai', 'Toronto'],
+  claim: 'A developer with a product hat. Obsessed with the product, and the customer always comes first.',
   statement:
     "AI engineer who has worked at every level: the plant floor, the executive table, and the customer's inbox.",
   paras: [

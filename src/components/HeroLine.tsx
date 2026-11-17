@@ -85,8 +85,9 @@ function frameAt(t: number): Frame {
     else if (t < 5500) p = lerp(AGENTS, GATE, clamp((t - 5000) / 500))
     else if (t < 6200) p = GATE
     else if (t < 7000) p = lerp(GATE, SHIPPED, clamp((t - 6200) / 800))
-    else p = lerp(SHIPPED, USERS, clamp((t - 7200) / 800))
-    b = { ...p, r: 0, o: 1, tag: 'TESTED', ok: t >= 5700, show: true }
+    else p = lerp(SHIPPED, { x: USERS.x, y: USERS.y + 44 }, clamp((t - 7200) / 800))
+    const gone = clamp((t - 8100) / 500)
+    b = { ...p, r: 0, o: 1 - gone, tag: 'TESTED', ok: t >= 5700, show: gone < 1 }
   }
   if (t >= 5500 && t < 6200) {
     pose = t < 5950 ? 'strike' : 'side'
@@ -144,26 +145,39 @@ export default function HeroLine() {
     let frame = 0
     const start = performance.now()
     const tick = (now: number) => {
-      const elapsed = now - start
-      setT(Math.min(END, elapsed))
-      if (elapsed < END) frame = requestAnimationFrame(tick)
+      setT(now - start)
+      frame = requestAnimationFrame(tick)
     }
     frame = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(frame)
   }, [run])
 
-  const f = frameAt(t)
+  const f = frameAt(Math.min(t, END))
+  const done = t >= END
+
+  // after the inspection, plain totes keep circulating so the line never sits still
+  const ambient = done
+    ? [0, 0.5].map((offset) => {
+        const u = ((t - END) / 9000 + offset) % 1
+        const seg = Math.min(4, Math.floor(u * 5))
+        return lerp(loop[seg], loop[seg + 1], u * 5 - seg)
+      })
+    : []
 
   useEffect(() => {
-    say(t < END ? f.line : null)
+    say(done ? null : f.line)
     // when the inspection is over he leaves the board and goes loose on the page
-    if (t >= END && !reduced.current) window.dispatchEvent(new Event('popoy:release'))
-  }, [f.line, t])
+    if (done && !reduced.current) window.dispatchEvent(new Event('popoy:release'))
+  }, [f.line, done])
 
   useEffect(() => () => say(null), [])
 
   const replay = () => {
-    if (!reduced.current) setRun((r) => r + 1)
+    if (reduced.current) return
+    // call him back to the board for another inspection
+    window.dispatchEvent(new Event('popoy:hold'))
+    setT(0)
+    setRun((r) => r + 1)
   }
 
   return (
@@ -199,6 +213,9 @@ export default function HeroLine() {
             </text>
           </g>
         ))}
+        {ambient.map((p, i) => (
+          <rect key={i} className="hl__tote hl__tote--small" x={p.x - 9} y={p.y - 7} width={18} height={14} />
+        ))}
         <ToteBox t={f.a} />
         <ToteBox t={f.b} />
         <g
@@ -212,8 +229,13 @@ export default function HeroLine() {
           <Sprite pose={f.pose} x={CHECKS.x - 62} y={CHECKS.y - 26 - 42} px={3} />
         </g>
       </svg>
-      <p className="hl__line" aria-hidden="true">
-        {t < END ? f.line : 'Final inspection. Tap Popoy to run it again.'}
+      <p className="hl__line">
+        <span aria-hidden="true">{done ? 'Inspection passed. Popoy is loose on the page now.' : f.line}</span>
+        {done && (
+          <button type="button" className="hl__again" onClick={replay}>
+            Run it again
+          </button>
+        )}
       </p>
     </div>
   )

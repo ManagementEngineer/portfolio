@@ -315,6 +315,14 @@ main > section.hero {
   max-width: 56ch;
 }
 
+.hero__text > .hero__claim {
+  max-width: 24em;
+  margin: -6px 0 18px;
+  padding-left: 14px;
+  border-left: 8px solid var(--yellow);
+  font: 700 clamp(20px, 2.1vw, 27px) / 1.25 var(--sans);
+}
+
 .hero__text > p + p {
   margin-top: 12px;
 }
@@ -1163,6 +1171,31 @@ main > section.hero {
   padding: 12px 6px 4px;
   font: 600 17px/1.3 var(--sans);
   color: #f1f1ec;
+}
+
+.hl__tote--small {
+  fill: var(--yellow);
+}
+
+.hl__line {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.hl__again {
+  padding: 7px 10px;
+  background: var(--yellow);
+  color: var(--ink);
+  font: 600 11.5px/1 var(--mono);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.hl__again:hover {
+  background: #fff;
 }
 
 .steps--team {
@@ -2155,6 +2188,11 @@ main > section.hero {
   .hero__text > h1 {
     order: 1;
     margin-bottom: 0;
+  }
+
+  .hero__text > .hero__claim {
+    order: 1 !important;
+    margin: 0 !important;
   }
 
   .hero__graph {

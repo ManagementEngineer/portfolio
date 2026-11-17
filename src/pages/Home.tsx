@@ -329,6 +329,7 @@ export default function Home() {
           <h1>
             From the plant floor to <em>agent lines</em>.
           </h1>
+          <p className="hero__claim">{opening.claim}</p>
           {opening.paras.map((t) => (
             <p key={t}>{t}</p>
           ))}
