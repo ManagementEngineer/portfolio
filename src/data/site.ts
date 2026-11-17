@@ -13,7 +13,7 @@ export const person = {
 
 export const opening = {
   headline: 'AI engineer. I build agent products end to end and make them hold up with real users.',
-  ask: 'Looking for an AI engineer or applied AI role. Based in Toronto.',
+  ask: 'Founding engineer at Kuvai. Based in Toronto.',
   letter: [
     "I'm Ramuel, founding engineer at Kuvai, where businesses build their own team of AI teammates. I helped decide the tech stack and build the product, and I wear several hats, from engineering to product. The platform runs agents that hold a role, run tasks on a schedule, monitor the web and extract data from documents, on a model layer that works across OpenAI, Anthropic and Google.",
     "What I care about most is making model output something a business can rely on. At Kuvai that meant masking personal information before any document reaches a model. On my own products it meant learning that a model saying \"done\" is a claim, and building checks that confirm the outcome.",

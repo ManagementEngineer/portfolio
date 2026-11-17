@@ -197,7 +197,7 @@ export default function Home() {
       </section>
 
       <footer className="foot">
-        <p className="foot__ask">{opening.ask}</p>
+        <p className="foot__ask">Happy to talk about agents, AI products, or anything on this page.</p>
         <Contact />
         <p className="fine">{madeNote}</p>
       </footer>
