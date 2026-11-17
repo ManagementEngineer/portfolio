@@ -503,14 +503,14 @@ export default function Home() {
           <figure className="supervisor">
             <img
               src="/popoy.jpg"
-              alt="Popoy, a golden British Shorthair with big green eyes, looking up at the camera"
+              alt="Popoy, a golden cat with big green eyes, looking up at the camera"
               width={640}
               height={691}
               loading="lazy"
             />
             <figcaption>
               <strong>Popoy</strong>
-              <span>The real one. British Shorthair, golden shaded.</span>
+              <span>The real one.</span>
               <span>Final inspection. Can refuse.</span>
             </figcaption>
           </figure>
