@@ -91,7 +91,6 @@ export default function Cat() {
     const cv = canvas.current
     if (!el || !cv) return
     const ctx = cv.getContext('2d')!
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     const PX = px
 
     // ---- world state, in document coordinates (feet, bottom centre) ----

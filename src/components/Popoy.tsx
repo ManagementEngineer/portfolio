@@ -145,7 +145,6 @@ export default function Popoy({
   const [flick, setFlick] = useState(false)
 
   useEffect(() => {
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let open: number | undefined
     const blinker = window.setInterval(() => {
       setBlink(true)

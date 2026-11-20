@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { popoyRows, type Pose } from './Popoy'
 import { say } from '../guide'
 
@@ -128,18 +128,12 @@ function ToteBox({ t }: { t: Tote }) {
 export default function HeroLine() {
   const [t, setT] = useState(0)
   const [run, setRun] = useState(0)
-  const reduced = useRef(false)
 
   useEffect(() => {
-    reduced.current = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     // ?t=4100 freezes the scene at that millisecond, for checking a frame
     const frozen = new URLSearchParams(window.location.search).get('t')
     if (frozen !== null) {
       setT(Number(frozen))
-      return
-    }
-    if (reduced.current) {
-      setT(END)
       return
     }
     let frame = 0
@@ -167,13 +161,12 @@ export default function HeroLine() {
   useEffect(() => {
     say(done ? null : f.line)
     // when the inspection is over he leaves the board and goes loose on the page
-    if (done && !reduced.current) window.dispatchEvent(new Event('popoy:release'))
+    if (done) window.dispatchEvent(new Event('popoy:release'))
   }, [f.line, done])
 
   useEffect(() => () => say(null), [])
 
   const replay = () => {
-    if (reduced.current) return
     // call him back to the board for another inspection
     window.dispatchEvent(new Event('popoy:hold'))
     setT(0)

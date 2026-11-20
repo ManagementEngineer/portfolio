@@ -11,7 +11,6 @@ export default function CountUp({ value }: { value: string }) {
   useEffect(() => {
     const el = ref.current
     if (!el || !match || Number.isNaN(target)) return
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
     let frame = 0
     const io = new IntersectionObserver(
       (hits) => {
